@@ -1005,7 +1005,7 @@
         "parser-unit",
         "xml-abuse-fixtures"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1037,9 +1037,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T03.02-parser.md"
+        ],
+        "checks": [
+          {
+            "name": "parser-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.02-parser.md"
+          },
+          {
+            "name": "xml-abuse-fixtures",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.02-parser.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T03.02-parser.md"
+        }
       },
       "gate_required": true
     },

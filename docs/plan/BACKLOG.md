@@ -227,7 +227,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T03.02 — Parse RSS and Atom safely
 
-**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** high · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** high · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T02.03
 **Reserved paths:** `src/wrap_brief/ingest/parsers.py`, `tests/ingest/`, `pyproject.toml`, `uv.lock`, `src/wrap_brief/ingest/__init__.py`, `tests/test_foundation.py`, `tools/check_wheel.py`, `README.md`, `docs/specs/feed-parser.md`, `docs/evidence/T03.02-parser.md`, `docs/index.md`
@@ -243,6 +243,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T03.02.1** Implement small RSS/Atom adapters — `done`. Done when: Supported feed formats return the shared candidate record shape.
 - [x] **T03.02.2** Enforce safe XML and field bounds — `done`. Done when: Hostile entities, nesting and oversized text fail safely.
 - [x] **T03.02.3** Test format and encoding edge cases — `done`. Done when: Fixture suite passes offline with predictable item quarantine.
+
+**Completion evidence:** [docs/evidence/T03.02-parser.md](../../docs/evidence/T03.02-parser.md)
 
 ### T03.03 — Normalize and validate public metadata
 
