@@ -248,10 +248,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T03.03 — Normalize and validate public metadata
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T03.02
-**Reserved paths:** `src/wrap_brief/ingest/normalize.py`, `tests/ingest/`
+**Reserved paths:** `src/wrap_brief/ingest/normalize.py`, `tests/ingest/`, `src/wrap_brief/models.py`, `tools/check_wheel.py`, `README.md`, `docs/specs/normalization.md`, `docs/evidence/T03.03-normalization.md`, `docs/index.md`
 
 **Deliverable:** Plain-text safe URLs/titles, explicit UTC, provenance, and item quarantine.
 
@@ -261,9 +261,9 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** normalization-unit, url-time-provenance.
 
 **Subtasks:**
-- [ ] **T03.03.1** Normalize text, URLs and source references — `not_started`. Done when: Public fields meet length/scheme/provenance constraints.
-- [ ] **T03.03.2** Normalize UTC and unknown/future dates — `not_started`. Done when: Dates and labels retain honest semantics under injected clocks.
-- [ ] **T03.03.3** Test escaping/quarantine paths — `not_started`. Done when: Invalid entries are bounded and reported without losing valid entries.
+- [x] **T03.03.1** Normalize text, URLs and source references — `done`. Done when: Public fields meet length/scheme/provenance constraints.
+- [x] **T03.03.2** Normalize UTC and unknown/future dates — `done`. Done when: Dates and labels retain honest semantics under injected clocks.
+- [x] **T03.03.3** Test escaping/quarantine paths — `done`. Done when: Invalid entries are bounded and reported without losing valid entries.
 
 ### T03.04 — Add incremental polling, health and gap detection
 

@@ -30,9 +30,7 @@ def _check(condition: object, field: str, reason: str) -> None:
         raise ContractError(f"{field}: {reason}")
 
 
-def _text(value: object, field: str, limit: int = 500) -> str:
-    _check(isinstance(value, str), field, "text required")
-    _check(0 < len(value) <= limit and value == value.strip(), field, "invalid text length/spacing")
+def _safe_unicode(value: str, field: str) -> None:
     _check(
         not any(
             unicodedata.category(c) in {"Cc", "Cs", "Zl", "Zp"}
@@ -43,6 +41,12 @@ def _text(value: object, field: str, limit: int = 500) -> str:
         field,
         "control character or invalid Unicode",
     )
+
+
+def _text(value: object, field: str, limit: int = 500) -> str:
+    _check(isinstance(value, str), field, "text required")
+    _check(0 < len(value) <= limit and value == value.strip(), field, "invalid text length/spacing")
+    _safe_unicode(value, field)
     return value
 
 
