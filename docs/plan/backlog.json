@@ -626,7 +626,7 @@
         "model-unit",
         "schema-compatibility"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -658,9 +658,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T02.01-contracts.md"
+        ],
+        "checks": [
+          {
+            "name": "model-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T02.01-contracts.md"
+          },
+          {
+            "name": "schema-compatibility",
+            "result": "pass",
+            "evidence": "docs/evidence/T02.01-contracts.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T02.01-contracts.md"
+        }
       },
       "gate_required": true
     },

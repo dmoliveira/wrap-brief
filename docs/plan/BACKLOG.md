@@ -117,7 +117,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T02.01 — Implement versioned source/item/cluster contracts
 
-**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T01.02, T02.04
 **Reserved paths:** `src/wrap_brief/models.py`, `src/wrap_brief/config.py`, `config/`, `tests/models/`, `docs/specs/contracts.md`, `docs/evidence/T02.01-contracts.md`, `docs/index.md`, `README.md`, `tools/check_wheel.py`
@@ -134,6 +134,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T02.01.1** Define minimal record and registry fields — `done`. Done when: Data contracts match the architecture without full text/private fields.
 - [x] **T02.01.2** Implement validation and serialization — `done`. Done when: Invalid IDs, URLs, dates and references fail with bounded errors.
 - [x] **T02.01.3** Add schema/version fixtures — `done`. Done when: Producers and consumers share tested stable fixtures.
+
+**Completion evidence:** [docs/evidence/T02.01-contracts.md](../../docs/evidence/T02.01-contracts.md)
 
 ### T02.02 — Approve the first 3–5 sources
 
