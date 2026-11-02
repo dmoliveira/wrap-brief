@@ -945,7 +945,7 @@
         "http-adversarial",
         "timeout-retry-budget"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -977,9 +977,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T03.01-feed-http.md"
+        ],
+        "checks": [
+          {
+            "name": "http-adversarial",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.01-feed-http.md"
+          },
+          {
+            "name": "timeout-retry-budget",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.01-feed-http.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T03.01-feed-http.md"
+        }
       },
       "gate_required": true
     },
