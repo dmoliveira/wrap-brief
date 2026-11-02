@@ -8,6 +8,8 @@ Independent, unofficial, public-source news aggregation. Not affiliated with, en
 
 This repository contains the **delivery plan and offline pipeline components through local snapshots and conservative story grouping**, not a working news site. No live feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
 
+A [responsive offline shell preview](web/README.md) is also available: open `web/index.html` directly in a browser. This establishes the page layout and accessibility foundations only; it does not render news yet.
+
 - [Progress and next ready work](docs/plan/STATUS.md)
 - [Complete epic/task/subtask backlog](docs/plan/BACKLOG.md)
 - [Milestones, parallel lanes, and release gates](docs/plan/new/roadmap.md)

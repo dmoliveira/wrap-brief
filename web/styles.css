@@ -1,0 +1,73 @@
+:root {
+  color-scheme: light;
+  --paper: #f7f5ef;
+  --surface: #ffffff;
+  --ink: #192b29;
+  --muted: #52635e;
+  --accent: #00675a;
+  --tint: #e6eeea;
+  --rule: #bcc9c2;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4.5rem;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --measure: 68ch;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 100%;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-size: 1.0625rem; }
+h1, h2, p, dl, dd { margin: 0; }
+h1, h2 { line-height: 1.15; text-wrap: balance; }
+h1 { font-size: clamp(2.25rem, 1.35rem + 3.5vw, 3.75rem); letter-spacing: -0.045em; }
+h1 span { display: block; }
+h2 { font-size: clamp(1.375rem, 1.1rem + 1vw, 1.875rem); letter-spacing: -0.025em; }
+p, h1, h2, a, dt, dd { overflow-wrap: anywhere; }
+p { max-width: var(--measure); }
+a { color: var(--accent); text-underline-offset: 0.2em; text-decoration-thickness: 0.08em; }
+a:hover { text-decoration-thickness: 0.15em; }
+a:focus-visible, [tabindex="-1"]:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+a { display: inline-flex; align-items: center; gap: var(--space-1); min-height: 44px; min-width: 44px; padding-block: var(--space-1); }
+
+.page { max-width: 66rem; margin-inline: auto; padding-inline: var(--gutter); }
+.site-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); padding-block: var(--space-3); border-bottom: 1px solid var(--rule); }
+.brand { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.055em; }
+.brand span { color: var(--accent); }
+nav { display: flex; flex-wrap: wrap; column-gap: var(--space-3); }
+nav a { font-size: 0.9375rem; }
+.intro { padding-block: var(--space-6) var(--space-5); }
+.eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--space-2); }
+.lede { max-width: 42ch; font-size: 1.125rem; color: var(--muted); margin-top: var(--space-3); }
+.preview-panel { display: grid; gap: var(--space-4); padding: var(--gutter); background: var(--surface); border: 1px solid var(--rule); border-radius: 0.75rem; }
+.preview-panel > *, .site-footer > * { min-width: 0; }
+.preview-label { display: inline-block; background: var(--tint); color: var(--accent); border-radius: 0.25rem; padding: 0.25rem 0.625rem; font-size: 0.8125rem; font-weight: 650; margin-bottom: var(--space-3); }
+.preview-copy h2 { max-width: 24ch; }
+.preview-copy > p:not(.preview-label) { margin-top: var(--space-2); color: var(--muted); }
+.preview-copy > a { margin-top: var(--space-2); }
+.preview-facts { display: grid; align-content: start; gap: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--rule); }
+dt { font-size: 0.8125rem; color: var(--muted); }
+dd { font-size: 0.9375rem; font-weight: 650; }
+.about { padding-block: var(--space-5) var(--space-6); }
+.about > p:last-child { margin-top: var(--space-2); color: var(--muted); }
+.site-footer { display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: var(--space-3); border-top: 1px solid var(--rule); padding-block: var(--space-3) var(--space-4); color: var(--muted); font-size: 0.8125rem; }
+.site-footer > div { flex: 1 1 32rem; }
+.working-name { margin-top: var(--space-1); }
+.skip-link { position: absolute; top: var(--space-2); left: var(--gutter); z-index: 1; transform: translateY(-200%); background: var(--surface); padding-inline: var(--space-2); border: 2px solid var(--accent); }
+.skip-link:focus { transform: none; }
+
+@media (min-width: 48rem) {
+  .preview-panel { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .preview-facts { padding-top: 0; padding-left: var(--space-4); border-top: 0; border-left: 1px solid var(--rule); }
+}
+
+@media (forced-colors: active) {
+  a:focus-visible, [tabindex="-1"]:focus-visible { outline-color: Highlight; }
+  .preview-label { border: 1px solid CanvasText; }
+}
