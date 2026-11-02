@@ -1068,7 +1068,13 @@
       "owner": "Data maintainer",
       "paths": [
         "src/wrap_brief/ingest/normalize.py",
-        "tests/ingest/"
+        "tests/ingest/",
+        "src/wrap_brief/models.py",
+        "tools/check_wheel.py",
+        "README.md",
+        "docs/specs/normalization.md",
+        "docs/evidence/T03.03-normalization.md",
+        "docs/index.md"
       ],
       "depends_on": [
         "T03.02"
@@ -1084,35 +1090,57 @@
         "normalization-unit",
         "url-time-provenance"
       ],
-      "status": "not_started",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T03.03.1",
           "title": "Normalize text, URLs and source references",
           "done_when": "Public fields meet length/scheme/provenance constraints.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.03-normalization.md"
+          ]
         },
         {
           "id": "T03.03.2",
           "title": "Normalize UTC and unknown/future dates",
           "done_when": "Dates and labels retain honest semantics under injected clocks.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.03-normalization.md"
+          ]
         },
         {
           "id": "T03.03.3",
           "title": "Test escaping/quarantine paths",
           "done_when": "Invalid entries are bounded and reported without losing valid entries.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.03-normalization.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T03.03-normalization.md"
+        ],
+        "checks": [
+          {
+            "name": "normalization-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.03-normalization.md"
+          },
+          {
+            "name": "url-time-provenance",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.03-normalization.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T03.03-normalization.md"
+        }
       },
       "gate_required": true
     },

@@ -22,6 +22,7 @@
 - [Implemented version-1 domain/config contracts](specs/contracts.md)
 - [Shared synthetic fixture contract](../tests/fixtures/README.md)
 - [Offline RSS/Atom parser and security budgets](specs/feed-parser.md)
+- [Metadata normalization and quarantine boundary](specs/normalization.md)
 - [Source approval, ingestion, state, and grouping](specs/data-pipeline.md)
 - [Pilot source-feasibility evidence and current blocker](sources/FEASIBILITY.md)
 - [Minimal reader experience and design](specs/reader-experience.md)

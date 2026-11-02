@@ -6,7 +6,7 @@ Independent, unofficial, public-source news aggregation. Not affiliated with, en
 
 ## Current state
 
-This repository contains the **delivery plan, progress tooling, core contracts, synthetic fixture library, and offline RSS/Atom parser**, not a working news site. No live feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
+This repository contains the **delivery plan, core contracts, synthetic fixtures, offline RSS/Atom parser and metadata normalization**, not a working news site. No live feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
 
 - [Progress and next ready work](docs/plan/STATUS.md)
 - [Complete epic/task/subtask backlog](docs/plan/BACKLOG.md)
@@ -16,6 +16,7 @@ This repository contains the **delivery plan, progress tooling, core contracts, 
 - [Implemented data/config API](docs/specs/contracts.md)
 - [Shared synthetic pipeline/reader fixtures](tests/fixtures/README.md)
 - [Implemented safe feed-parser boundary](docs/specs/feed-parser.md)
+- [Implemented normalization/quarantine boundary](docs/specs/normalization.md)
 - [Offline-prototype and private-state decision](docs/decisions/0001-fixtures-and-private-state.md)
 - [All documentation](docs/index.md)
 
@@ -51,7 +52,7 @@ uv run --locked python -c 'from pathlib import Path; from wrap_brief.config impo
 
 `Source`, `Item`, and `Cluster` are immutable version-1 records with strict validation and JSON round trips. Unknown publication dates stay unknown. [Contract fixtures](tests/models/fixtures/v1.json) are hand-authored synthetic examples, never real news or publisher approval.
 
-`wrap_brief.ingest.parsers.parse_feed` accepts bytes only and returns bounded provisional metadata. It never fetches a feed. Raw dates/URLs still require the later normalization stage; parser output must not be persisted or rendered directly.
+`wrap_brief.ingest.parsers.parse_feed` accepts bytes only and returns bounded provisional metadata. `wrap_brief.ingest.normalize.normalize_entry` validates a row using an explicit observation clock and supplied pure identity callback, returning a typed Item or a fixed quarantine code. Neither fetches anything or grants publisher permission. Parser output must not bypass normalization into persistence or rendering.
 
 ## Inspect and maintain the plan
 
