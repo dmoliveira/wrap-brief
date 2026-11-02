@@ -354,7 +354,7 @@
         "repository-rule-sandbox",
         "reporting-review"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -379,14 +379,32 @@
           "id": "T01.01.3",
           "title": "Exercise branch/fork behavior",
           "done_when": "Test PR and blocked direct-write evidence is recorded.",
-          "status": "in_progress",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.01-repository-rules.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T01.01-repository-rules.md"
+        ],
+        "checks": [
+          {
+            "name": "repository-rule-sandbox",
+            "result": "pass",
+            "evidence": "docs/evidence/T01.01-repository-rules.md"
+          },
+          {
+            "name": "reporting-review",
+            "result": "pass",
+            "evidence": "docs/evidence/T01.01-repository-rules.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T01.01-repository-rules.md"
+        }
       },
       "gate_required": true
     },
