@@ -1879,7 +1879,7 @@
         "renderer-golden-html",
         "no-js-source-navigation"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1911,9 +1911,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T06.02-digest-renderer.md"
+        ],
+        "checks": [
+          {
+            "name": "renderer-golden-html",
+            "result": "pass",
+            "evidence": "docs/evidence/T06.02-digest-renderer.md"
+          },
+          {
+            "name": "no-js-source-navigation",
+            "result": "pass",
+            "evidence": "docs/evidence/T06.02-digest-renderer.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T06.02-digest-renderer.md"
+        }
       },
       "gate_required": true
     },

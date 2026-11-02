@@ -9,7 +9,7 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 | Scope | Enabled | Completed tasks |
 | --- | --- | --- |
 | planning | yes | 1/1 (100%) · 0 canceled |
-| mvp | yes | 10/33 (30%) · 0 canceled |
+| mvp | yes | 11/33 (33%) · 0 canceled |
 | growth | no | 0/4 (0%) · 0 canceled |
 | revenue | no | 0/5 (0%) · 0 canceled |
 | future | no | 0/5 (0%) · 0 canceled |
@@ -35,7 +35,7 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 | E03 | Bounded feed collection and normalization | 2/4 (50%) · 0 canceled | 6/12 |
 | E04 | Durable state and pipeline recovery | 1/4 (25%) · 0 canceled | 3/12 |
 | E05 | Identity, story grouping, and editorial trust | 2/4 (50%) · 0 canceled | 6/12 |
-| E06 | Minimalist static reader experience | 1/4 (25%) · 0 canceled | 6/12 |
+| E06 | Minimalist static reader experience | 2/4 (50%) · 0 canceled | 6/12 |
 | E07 | CI, scheduled automation, publishing, and monitoring | 0/5 (0%) · 0 canceled | 0/15 |
 | E08 | Security, UX, and live pilot release | 0/4 (0%) · 0 canceled | 0/12 |
 | E09 | Original value and audience validation | 0/4 (0%) · 0 canceled | 0/12 |
@@ -45,7 +45,6 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 ## Active and blocked
 
 - **T02.02** — Approve the first 3–5 sources · blocked · Zero approved live sources. Resolve permitted public fields, attribution, polling, retention/deletion, public rendering/artifacts and commercial restrictions before enabling any source; see docs/sources/FEASIBILITY.md and issue #4.
-- **T06.02** — Render grouped digest with accessible alternate sources · review
 
 ## Dependency-ready work
 
@@ -56,6 +55,7 @@ Choose at most two disjoint lanes; readiness is not permission to overlap shared
 - **T03.01** — Implement bounded safe feed HTTP client (Data maintainer)
 - **T05.03** — Benchmark grouping and add reviewed split/merge overrides (Editorial maintainer)
 - **T05.04** — Add provenance, corrections and takedown controls (Editorial maintainer)
+- **T06.04** — Prove core accessibility and performance budgets (Web maintainer)
 
 ## Disabled-scope rules
 
