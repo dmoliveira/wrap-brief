@@ -1772,7 +1772,11 @@
       "paths": [
         "web/",
         "src/wrap_brief/render/",
-        "tests/render/"
+        "tests/render/",
+        "docs/specs/reader-experience.md",
+        "docs/evidence/T06.01-reader-shell.md",
+        "README.md",
+        "docs/index.md"
       ],
       "depends_on": [
         "T02.03"
@@ -1788,29 +1792,35 @@
         "design-token-contrast",
         "shell-mobile-keyboard"
       ],
-      "status": "not_started",
+      "status": "review",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T06.01.1",
           "title": "Translate UX spec into a small token set",
           "done_when": "Typography, spacing and accent colors pass contrast targets.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T06.01-reader-shell.md"
+          ]
         },
         {
           "id": "T06.01.2",
           "title": "Build semantic responsive shell",
           "done_when": "Header/content/footer reflow cleanly from mobile to desktop.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T06.01-reader-shell.md"
+          ]
         },
         {
           "id": "T06.01.3",
           "title": "Validate long text and focus states",
           "done_when": "No clipped links/labels or invisible keyboard focus.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T06.01-reader-shell.md"
+          ]
         }
       ],
       "completion": {

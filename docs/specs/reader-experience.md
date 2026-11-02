@@ -69,3 +69,9 @@ One quiet support callout after reader value, with footer navigation pointing to
 Ads require a separate commercial/privacy/provider decision. Label `Advertisement`, reserve dimensions to prevent layout shift, keep placements outside story cards, provide no-ad fallback, and retest performance/keyboard/outbound tasks. Sponsored/affiliate material is visibly separated and disclosed before interaction. No paid placement in lead-source ranking.
 
 Before release: test with at least five representative reader sessions (including mobile and keyboard users when feasible), asking them to find the latest check, distinguish rumor status, compare sources, and leave for publisher coverage. Record failures and repairs, not a blanket “looks good.”
+
+## Implemented shell boundary (T06.01)
+
+The repository-local [shell preview](../../web/README.md) implements only the original visual tokens and semantic page frame. Open `web/index.html` directly; `web/styles.css` is the single canonical stylesheet. The preview is explicitly offline, uses no scripts/remote assets and invents no story or check time. It is not the fixture digest, a policy page or a live site. Grouped content arrives in T06.02; the full reader's browser/assistive-technology/performance gate remains T06.04.
+
+The chosen direction is warm paper `#f7f5ef`, white panels, ink `#192b29`, muted text `#52635e` and teal `#00675a`, with system type, 16–32px fluid gutters and a 68ch text measure. The light `#bcc9c2` separators are decorative only. Tests measure actual text/surface and focus/adjacent-surface pairs rather than requiring unrelated palette tokens to contrast. These tokens and the no-artwork constraints are the handoff specification; image generation is neither needed nor enabled.

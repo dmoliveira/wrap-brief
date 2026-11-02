@@ -460,10 +460,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T06.01 — Create responsive visual tokens and semantic shell
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Web maintainer
 **Dependencies:** T02.03
-**Reserved paths:** `web/`, `src/wrap_brief/render/`, `tests/render/`
+**Reserved paths:** `web/`, `src/wrap_brief/render/`, `tests/render/`, `docs/specs/reader-experience.md`, `docs/evidence/T06.01-reader-shell.md`, `README.md`, `docs/index.md`
 
 **Deliverable:** Original minimalist mobile-first shell, typography, spacing and contrast-tested colors.
 
@@ -473,9 +473,9 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** design-token-contrast, shell-mobile-keyboard.
 
 **Subtasks:**
-- [ ] **T06.01.1** Translate UX spec into a small token set — `not_started`. Done when: Typography, spacing and accent colors pass contrast targets.
-- [ ] **T06.01.2** Build semantic responsive shell — `not_started`. Done when: Header/content/footer reflow cleanly from mobile to desktop.
-- [ ] **T06.01.3** Validate long text and focus states — `not_started`. Done when: No clipped links/labels or invisible keyboard focus.
+- [x] **T06.01.1** Translate UX spec into a small token set — `done`. Done when: Typography, spacing and accent colors pass contrast targets.
+- [x] **T06.01.2** Build semantic responsive shell — `done`. Done when: Header/content/footer reflow cleanly from mobile to desktop.
+- [x] **T06.01.3** Validate long text and focus states — `done`. Done when: No clipped links/labels or invisible keyboard focus.
 
 ### T06.02 — Render grouped digest with accessible alternate sources
 
