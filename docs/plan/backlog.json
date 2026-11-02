@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": {
     "name": "Wrap Brief",
-    "updated": "2026-11-02",
+    "updated": "2026-11-03",
     "enabled_scopes": [
       "planning",
       "mvp"
@@ -1566,7 +1566,15 @@
       "owner": "Editorial maintainer",
       "paths": [
         "src/wrap_brief/grouping/",
-        "tests/grouping/"
+        "tests/grouping/",
+        "docs/specs/story-grouping.md",
+        "docs/evidence/T05.02-story-grouping.md",
+        "docs/index.md",
+        "README.md",
+        "tools/check_wheel.py",
+        "Makefile",
+        ".github/workflows/plan.yml",
+        "docs/validation-policy.md"
       ],
       "depends_on": [
         "T05.01",
@@ -1583,35 +1591,57 @@
         "grouping-unit",
         "lead-ranking-rules"
       ],
-      "status": "not_started",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T05.02.1",
           "title": "Implement bounded similarity candidate stage",
           "done_when": "Entities/event types/time window constrain title similarity.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.02-story-grouping.md"
+          ]
         },
         {
           "id": "T05.02.2",
           "title": "Implement stable groups and transparent lead choice",
           "done_when": "Primary/original/substantive coverage rules have deterministic tie-breakers.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.02-story-grouping.md"
+          ]
         },
         {
           "id": "T05.02.3",
           "title": "Test ambiguous and conflicting coverage",
           "done_when": "Uncertain matches split; rumors/corrections retain explicit labels.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.02-story-grouping.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T05.02-story-grouping.md"
+        ],
+        "checks": [
+          {
+            "name": "grouping-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.02-story-grouping.md"
+          },
+          {
+            "name": "lead-ranking-rules",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.02-story-grouping.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T05.02-story-grouping.md"
+        }
       },
       "gate_required": true
     },

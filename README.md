@@ -6,7 +6,7 @@ Independent, unofficial, public-source news aggregation. Not affiliated with, en
 
 ## Current state
 
-This repository contains the **delivery plan and offline pipeline components through identity and complete local snapshots**, not a working news site. No live feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
+This repository contains the **delivery plan and offline pipeline components through local snapshots and conservative story grouping**, not a working news site. No live feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
 
 - [Progress and next ready work](docs/plan/STATUS.md)
 - [Complete epic/task/subtask backlog](docs/plan/BACKLOG.md)
@@ -19,6 +19,7 @@ This repository contains the **delivery plan and offline pipeline components thr
 - [Implemented normalization/quarantine boundary](docs/specs/normalization.md)
 - [Implemented exact identity policy](docs/specs/identity.md)
 - [Implemented local snapshot boundary](docs/specs/local-state.md)
+- [Implemented story grouping and lead rules](docs/specs/story-grouping.md)
 - [Offline-prototype and private-state decision](docs/decisions/0001-fixtures-and-private-state.md)
 - [All documentation](docs/index.md)
 
@@ -59,6 +60,8 @@ uv run --locked python -c 'from pathlib import Path; from wrap_brief.config impo
 `wrap_brief.grouping.identity.stable_item_id` supplies that callback: source-scoped URL-v1 IDs ignore unreliable GUIDs and remove only reviewed tracking keys from identity input. It does not mutate the displayed URL, combine story coverage, or make outbound links tracking-free.
 
 `wrap_brief.state.snapshot.Snapshot` validates complete records and exports deterministic logical JSON. `wrap_brief.state.local.LocalState` is a private, untracked SQLite **development** adapter with versioned atomic commits, not durable live runner storage. Database files, sidecars and real-data exports must never enter Git or public site artifacts.
+
+`wrap_brief.grouping.stories.group_items` keeps all validated Items as separate source records, forms conservative event clusters and selects a lead using explicit trusted editorial evidence. It preserves automatic group IDs when prior clusters are supplied and never ranks by commercial value. No real-world grouping-accuracy claim is made before the separate benchmark gate.
 
 ## Inspect and maintain the plan
 
