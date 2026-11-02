@@ -1090,7 +1090,7 @@
         "normalization-unit",
         "url-time-provenance"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1122,9 +1122,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T03.03-normalization.md"
+        ],
+        "checks": [
+          {
+            "name": "normalization-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.03-normalization.md"
+          },
+          {
+            "name": "url-time-provenance",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.03-normalization.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T03.03-normalization.md"
+        }
       },
       "gate_required": true
     },
