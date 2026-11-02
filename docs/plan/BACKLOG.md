@@ -521,7 +521,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T06.04 — Prove core accessibility and performance budgets
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** blocked · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Web maintainer
 **Dependencies:** T06.02
 **Reserved paths:** `tests/browser/`, `tests/render/`, `web/`, `docs/evidence/`
@@ -534,9 +534,11 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** browser-a11y-no-js, performance-budget.
 
 **Subtasks:**
-- [ ] **T06.04.1** Add repeatable browser/static checks — `not_started`. Done when: Core read/expand/outbound tasks are tested without JS and by keyboard.
-- [ ] **T06.04.2** Measure size and mobile rendering — `not_started`. Done when: Compressed payload, LCP/CLS and test environment are recorded.
+- [ ] **T06.04.1** Add repeatable browser/static checks — `in_progress`. Done when: Core read/expand/outbound tasks are tested without JS and by keyboard.
+- [ ] **T06.04.2** Measure size and mobile rendering — `in_progress`. Done when: Compressed payload, LCP/CLS and test environment are recorded.
 - [ ] **T06.04.3** Fix UX/a11y regressions — `not_started`. Done when: No release-blocking overflow, contrast, focus or source-navigation failure remains.
+
+**Block/cancel reason:** Real screen-reader session outstanding: VoiceOver is installed but not running; no-prompt readiness probe returned application-not-running. Authorized real-AT testing is required; automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.
 
 ## E07 — CI, scheduled automation, publishing, and monitoring
 
