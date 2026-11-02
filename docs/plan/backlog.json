@@ -2020,21 +2020,21 @@
         "browser-a11y-no-js",
         "performance-budget"
       ],
-      "status": "not_started",
-      "block_reason": "",
+      "status": "blocked",
+      "block_reason": "Real screen-reader session outstanding: VoiceOver is installed but not running; no-prompt readiness probe returned application-not-running. Authorized real-AT testing is required; automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.",
       "subtasks": [
         {
           "id": "T06.04.1",
           "title": "Add repeatable browser/static checks",
           "done_when": "Core read/expand/outbound tasks are tested without JS and by keyboard.",
-          "status": "not_started",
+          "status": "in_progress",
           "evidence": []
         },
         {
           "id": "T06.04.2",
           "title": "Measure size and mobile rendering",
           "done_when": "Compressed payload, LCP/CLS and test environment are recorded.",
-          "status": "not_started",
+          "status": "in_progress",
           "evidence": []
         },
         {
