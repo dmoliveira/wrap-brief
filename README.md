@@ -14,6 +14,7 @@ This repository contains the **delivery plan, progress tooling, Python foundatio
 - [Architecture and extension boundaries](docs/specs/architecture.md)
 - [Reader experience](docs/specs/reader-experience.md)
 - [Implemented data/config API](docs/specs/contracts.md)
+- [Shared synthetic pipeline/reader fixtures](tests/fixtures/README.md)
 - [Offline-prototype and private-state decision](docs/decisions/0001-fixtures-and-private-state.md)
 - [All documentation](docs/index.md)
 

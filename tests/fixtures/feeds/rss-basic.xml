@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>Synthetic fixtures only</title><link>https://example.com/</link><description>Hand-authored development data, not real news.</description>
+<item><title>Fictional console update announced 🎮</title><link>https://example.com/news/update?edition=1&amp;utm_source=fixture</link><guid isPermaLink="false">synthetic-rss-001</guid><pubDate>Fri, 02 Jan 2026 08:00:00 -0400</pubDate></item>
+<item><title>Fictional puzzle date remains unknown</title><link>https://example.com/news/unknown-date</link></item>
+</channel></rss>

@@ -1,0 +1,1 @@
+<!DOCTYPE rss [<!ENTITY small "synthetic-value"><!ENTITY expanded "&small;&small;&small;">]><rss><channel><item><title>&expanded;</title><link>https://example.com/news/entity</link></item></channel></rss>

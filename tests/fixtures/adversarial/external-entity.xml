@@ -1,0 +1,1 @@
+<!DOCTYPE rss [<!ENTITY remote SYSTEM "https://example.invalid/never-request">]><rss><channel><item><title>&remote;</title><link>https://example.com/news/external</link></item></channel></rss>

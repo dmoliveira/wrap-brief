@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic",
+  "observed_at": "2026-01-02T12:30:00Z",
+  "sources_file": "sources.json",
+  "transport_file": "transport.json",
+  "views": [
+    "views/digest.json",
+    "views/empty.json",
+    "views/corrected.json"
+  ],
+  "cases": [
+    {
+      "id": "rss-basic",
+      "path": "feeds/rss-basic.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "8c7eec7f14003b4d580cd1c984bfc616395744e5772fb2b73bbd40d8543cdeee",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-a",
+            "title": "Fictional console update announced \ud83c\udfae",
+            "url": "https://example.com/news/update?edition=1&utm_source=fixture",
+            "guid": "synthetic-rss-001",
+            "published": "Fri, 02 Jan 2026 08:00:00 -0400",
+            "updated": null
+          },
+          {
+            "source_id": "demo-a",
+            "title": "Fictional puzzle date remains unknown",
+            "url": "https://example.com/news/unknown-date",
+            "guid": null,
+            "published": null,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "atom-basic",
+      "path": "feeds/atom-basic.xml",
+      "source_id": "demo-b",
+      "encoding": "utf-8",
+      "sha256": "a3c5359eb67dbff62ad2b4f04c474ad3f4380a541b9bc524b37b13dd09724282",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-b",
+            "title": "Fictional console update announced \ud83c\udfae",
+            "url": "https://example.org/news/update",
+            "guid": "urn:synthetic:atom-001",
+            "published": "2026-01-02T13:00:00+01:00",
+            "updated": "2026-01-02T12:10:00Z"
+          },
+          {
+            "source_id": "demo-b",
+            "title": "Fictional console preview",
+            "url": "https://example.org/news/preview",
+            "guid": "urn:synthetic:atom-002",
+            "published": null,
+            "updated": "2026-01-01T18:00:00Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rss-empty",
+      "path": "feeds/rss-empty.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "ff8f605f72ba825b89f10ff11e8da17e212a40d0081a682b8539eb709d835e55",
+      "expected": {
+        "entries": []
+      }
+    },
+    {
+      "id": "atom-empty",
+      "path": "feeds/atom-empty.xml",
+      "source_id": "demo-b",
+      "encoding": "utf-8",
+      "sha256": "67f9bf1a3df1159a05d19c2ce4916c2b09a399fa62c01c69236ae10483e27703",
+      "expected": {
+        "entries": []
+      }
+    },
+    {
+      "id": "rss-latin1",
+      "path": "feeds/rss-latin1.xml",
+      "source_id": "demo-c",
+      "encoding": "iso-8859-1",
+      "sha256": "fa7c42bacec18285fafe50cbf4aeb125bf8d9c4f99581634fcdca8750d5e4f64",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-c",
+            "title": "Fictional Caf\u00e9 update",
+            "url": "https://example.net/news/cafe",
+            "guid": null,
+            "published": null,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "malformed",
+      "path": "adversarial/malformed.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "105910706a57d2be9cac84ef3fcaeb8e973709e1a24552176b149ef30672d4ec",
+      "expected": {
+        "error": "malformed_xml"
+      }
+    },
+    {
+      "id": "entity",
+      "path": "adversarial/entity.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "a92884e8002e098928e78876c772b4993e2617df0f9bb0f7328eda27d639397e",
+      "expected": {
+        "error": "xml_security"
+      }
+    },
+    {
+      "id": "external-entity",
+      "path": "adversarial/external-entity.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "320c34f3ab5f30d0805650f27dd6d206910bb32e9b49ddb156b33e9de4793ef2",
+      "expected": {
+        "error": "xml_security"
+      }
+    },
+    {
+      "id": "unsupported",
+      "path": "adversarial/unsupported.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "16a79e9471d7663ca764a0ac3f35bfa89c53c22a4cff614ec73bcfdc9d7fff51",
+      "expected": {
+        "error": "unsupported_feed"
+      }
+    },
+    {
+      "id": "unsafe-link",
+      "path": "adversarial/unsafe-link.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "76c5be0cf00f73ae190b5d105342c5cfdec427bf11294e844cb960a866a9e41b",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-a",
+            "title": "Synthetic unsafe link probe",
+            "url": "javascript:synthetic",
+            "guid": null,
+            "published": null,
+            "updated": null
+          }
+        ],
+        "normalization": "reject_url"
+      }
+    },
+    {
+      "id": "hostile-description",
+      "path": "adversarial/hostile-description.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "604a5fcc90dcb07bdfd058b4771cee2459900852916ede100e013316a04e3b1e",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-a",
+            "title": "Synthetic markup probe",
+            "url": "https://example.com/news/markup",
+            "guid": null,
+            "published": null,
+            "updated": null
+          }
+        ],
+        "discard": [
+          "description",
+          "enclosure"
+        ]
+      }
+    },
+    {
+      "id": "mixed-invalid",
+      "path": "adversarial/mixed-invalid.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "3114819e0899a066b21b6cbd5ddfdcd63228bb2f84fb4b8c2caf360f446d674b",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-a",
+            "title": "Synthetic surviving entry",
+            "url": "https://example.com/news/survivor",
+            "guid": null,
+            "published": null,
+            "updated": null
+          }
+        ],
+        "item_issues": [
+          {
+            "index": 0,
+            "code": "missing_title"
+          },
+          {
+            "index": 1,
+            "code": "missing_link"
+          }
+        ]
+      }
+    },
+    {
+      "id": "duplicate",
+      "path": "feeds/duplicate.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "542ace74d7374632f066c873d067fe675761a31d2c8b46bbc6a46b9d811fa762",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-a",
+            "title": "Synthetic duplicate entry",
+            "url": "https://example.com/news/duplicate",
+            "guid": "synthetic-duplicate",
+            "published": null,
+            "updated": null
+          },
+          {
+            "source_id": "demo-a",
+            "title": "Synthetic duplicate entry",
+            "url": "https://example.com/news/duplicate",
+            "guid": "synthetic-duplicate",
+            "published": null,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "invalid-date",
+      "path": "adversarial/invalid-date.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "3211b5f90fe905841cb59f68b2538b73dea4344ec67dec007c0b82e82a5be06d",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-a",
+            "title": "Synthetic invalid-date probe",
+            "url": "https://example.com/news/invalid-date",
+            "guid": null,
+            "published": "not-a-date",
+            "updated": null
+          }
+        ],
+        "normalization": "reject_date"
+      }
+    },
+    {
+      "id": "naive-date",
+      "path": "adversarial/naive-date.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "2633d030d1868d5d9100c90c419fcd5fd71ec971cb5c65ded98e68e6464e6e5c",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-a",
+            "title": "Synthetic naive-date probe",
+            "url": "https://example.com/news/naive-date",
+            "guid": null,
+            "published": "2026-01-02T11:00:00",
+            "updated": null
+          }
+        ],
+        "normalization": "reject_date"
+      }
+    },
+    {
+      "id": "future-date",
+      "path": "adversarial/future-date.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "ad9cb112899f63ac2f56ad84cfd2318a1f2d382246854e44c33ebaa5f1686333",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-a",
+            "title": "Synthetic future-date probe",
+            "url": "https://example.com/news/future-date",
+            "guid": null,
+            "published": "2026-01-10T12:00:00Z",
+            "updated": null
+          }
+        ],
+        "normalization": "reject_future"
+      }
+    },
+    {
+      "id": "bidi-title",
+      "path": "adversarial/bidi-title.xml",
+      "source_id": "demo-a",
+      "encoding": "utf-8",
+      "sha256": "26734c701551c3f508bdb71ab794905bcfa3348a938aee0208f61c93e0fbbcb4",
+      "expected": {
+        "entries": [
+          {
+            "source_id": "demo-a",
+            "title": "Synthetic \u202e formatting probe",
+            "url": "https://example.com/news/bidi",
+            "guid": null,
+            "published": null,
+            "updated": null
+          }
+        ],
+        "normalization": "reject_text"
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "oversized",
+      "kind": "bytes",
+      "size": 2097153,
+      "expected_error": "size_limit"
+    },
+    {
+      "id": "deep",
+      "kind": "depth",
+      "size": 65,
+      "expected_error": "depth_limit"
+    },
+    {
+      "id": "long-title",
+      "kind": "title",
+      "size": 4097,
+      "expected_error": "text_limit"
+    },
+    {
+      "id": "many-items",
+      "kind": "items",
+      "size": 101,
+      "expected_error": "item_limit"
+    }
+  ]
+}
