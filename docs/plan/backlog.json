@@ -62,7 +62,7 @@
         "T06.02",
         "T06.04"
       ],
-      "entry": "M0 complete; source-feasibility go/no-go before substantial contracts/UI work.",
+      "entry": "M0 complete; reviewed prototype-only feasibility boundary. All development inputs are synthetic and offline.",
       "exit": "Deterministic offline models, grouping and accessible static reading pass.",
       "kind": "gate",
       "depends_on": [
@@ -96,7 +96,7 @@
         "T08.03",
         "T08.04"
       ],
-      "entry": "M1 complete and pilot sources/brand cleared.",
+      "entry": "M1 complete; T02.02 source permissions, brand checks and T04.02 private durable storage proven before live collection.",
       "exit": "M1 plus all mandatory M2 tasks, real deployment, named daily supervision, rollback and next-cycle evidence pass. Unattended operation is not claimed.",
       "kind": "gate",
       "depends_on": [
@@ -603,7 +603,12 @@
         "src/wrap_brief/models.py",
         "src/wrap_brief/config.py",
         "config/",
-        "tests/models/"
+        "tests/models/",
+        "docs/specs/contracts.md",
+        "docs/evidence/T02.01-contracts.md",
+        "docs/index.md",
+        "README.md",
+        "tools/check_wheel.py"
       ],
       "depends_on": [
         "T01.02",
@@ -614,35 +619,42 @@
       "deliverable": "Typed versioned public records, invariants and source registry schema.",
       "acceptance": [
         "Unknown dates remain null/first-seen labeled; URLs and cross-record references validate.",
-        "Schema distinguishes source text, original editorial text, rumor/correction status and health."
+        "Schema distinguishes source text, original editorial text, rumor/correction status and health.",
+        "An empty-by-default registry and disabled unreviewed sources keep synthetic prototype records distinct from approved live collection."
       ],
       "verification": [
         "model-unit",
         "schema-compatibility"
       ],
-      "status": "not_started",
+      "status": "review",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T02.01.1",
           "title": "Define minimal record and registry fields",
           "done_when": "Data contracts match the architecture without full text/private fields.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T02.01-contracts.md"
+          ]
         },
         {
           "id": "T02.01.2",
           "title": "Implement validation and serialization",
           "done_when": "Invalid IDs, URLs, dates and references fail with bounded errors.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T02.01-contracts.md"
+          ]
         },
         {
           "id": "T02.01.3",
           "title": "Add schema/version fixtures",
           "done_when": "Producers and consumers share tested stable fixtures.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T02.01-contracts.md"
+          ]
         }
       ],
       "completion": {
@@ -672,16 +684,16 @@
       "size": "S",
       "deliverable": "Small enabled source registry with reviewed rights/retention/attribution evidence.",
       "acceptance": [
-        "Every enabled source has terms review date, permitted fields, polling and archival approval.",
-        "Unclear permission disables the source; no RSS-is-a-license assumption or unlicensed images.",
-        "The same approval-plus-fixture checklist supports a later source addition or disablement without an unrelated pipeline change."
+        "Every enabled live source has dated approval evidence covering exact permitted fields, attribution, polling, private retention/deletion and public rendering/artifact retention.",
+        "Unclear rights leave a source disabled; prototype-only feasibility is not approval, and private storage grants no republication rights.",
+        "Corrections/removal and commercial/donation restrictions are recorded before activation; future additions use the same approval-plus-fixture checklist."
       ],
       "verification": [
         "source-rights-review",
         "registry-validation"
       ],
-      "status": "not_started",
-      "block_reason": "",
+      "status": "blocked",
+      "block_reason": "Zero approved live sources. Resolve permitted public fields, attribution, polling, retention/deletion, public rendering/artifacts and commercial restrictions before enabling any source; see docs/sources/FEASIBILITY.md and issue #4.",
       "subtasks": [
         {
           "id": "T02.02.1",
@@ -693,7 +705,7 @@
         {
           "id": "T02.02.2",
           "title": "Approve exact fields, attribution and history retention",
-          "done_when": "Every enabled source has dated rights evidence compatible with the public-state design; unclear rights mean disabled.",
+          "done_when": "A dated source-specific record covers public output, private retention/deletion, artifacts, attribution, polling and commercial restrictions; no private correspondence is committed.",
           "status": "not_started",
           "evidence": []
         },
@@ -772,63 +784,91 @@
     {
       "id": "T02.04",
       "epic": "E02",
-      "title": "Check source feasibility before substantial prototype work",
+      "title": "Review source feasibility and define the safe prototype boundary",
       "scope": "mvp",
       "milestone": "M1",
       "owner": "Data maintainer",
       "paths": [
         "docs/sources/",
         "docs/decisions/",
-        "docs/index.md"
+        "docs/index.md",
+        "docs/decisions/0001-fixtures-and-private-state.md",
+        "docs/specs/architecture.md",
+        "docs/specs/security-privacy.md",
+        "docs/specs/data-pipeline.md",
+        "docs/operations.md",
+        "README.md"
       ],
       "depends_on": [
         "T00.01"
       ],
       "risk": "medium",
       "size": "S",
-      "deliverable": "Lightweight evidence that a viable reduced source set permits the proposed title/link/metadata and public-history use; final activation remains T02.02.",
+      "deliverable": "Completed source investigation with an explicit synthetic-prototype-only go; live publisher approvals remain blocked in T02.02.",
       "acceptance": [
-        "Review at least three complementary candidate feeds before substantial data/UI implementation; reduce scope or stop if no lawful viable set exists.",
-        "Record rights/retention uncertainties and a go/no-go without copying private correspondence or claiming final source approval.",
-        "A no-go report is recorded as blocked, not done, until viability is established; downstream tasks must not be unlocked merely because research was written."
+        "At least three candidate feeds and their rights uncertainties are documented without implying permission.",
+        "A reviewed ADR separates offline synthetic M1 work from final live-source approval and forbids publisher state in public Git.",
+        "No source is enabled, provider provisioned, or live collection/publication unlocked by completing this research task."
       ],
       "verification": [
         "source-feasibility-review",
-        "public-state-rights-fit"
+        "prototype-storage-boundary-review"
       ],
-      "status": "blocked",
-      "block_reason": "No reviewed candidate set is cleared for the proposed feed-metadata republication and permanent public Git history. Resolve publisher/compatible-license evidence or review storage design before downstream work; see docs/sources/FEASIBILITY.md.",
+      "status": "done",
+      "block_reason": "",
       "subtasks": [
         {
           "id": "T02.04.1",
           "title": "Inventory candidate feeds and terms",
-          "done_when": "Candidate ownership, URLs and intended reuse can be assessed without implementing the collector.",
+          "done_when": "Candidate endpoints and publisher-specific permission gaps are recorded.",
           "status": "done",
           "evidence": [
-            "docs/sources/FEASIBILITY.md"
+            "docs/sources/FEASIBILITY.md",
+            "docs/decisions/0001-fixtures-and-private-state.md"
           ]
         },
         {
           "id": "T02.04.2",
-          "title": "Check minimum viable rights and retention fit",
-          "done_when": "A viable reduced source set has a documented compatible metadata/retention basis. A no-go report leaves this viability gate blocked; it must not unlock contracts or substantial prototype work.",
-          "status": "blocked",
-          "evidence": []
+          "title": "Choose and review the safe prototype/state boundary",
+          "done_when": "An explicit ADR permits synthetic offline work only and requires private deletable live storage; no publisher approval is inferred.",
+          "status": "done",
+          "evidence": [
+            "docs/sources/FEASIBILITY.md",
+            "docs/decisions/0001-fixtures-and-private-state.md"
+          ]
         },
         {
           "id": "T02.04.3",
-          "title": "Record go/no-go and hand off to final onboarding",
-          "done_when": "T02.02 receives unresolved terms, attribution, retention and coverage questions for final approval.",
+          "title": "Hand unresolved live approvals to T02.02",
+          "done_when": "The final source gate remains blocked and continues to gate T07.02.",
           "status": "done",
           "evidence": [
-            "docs/sources/FEASIBILITY.md"
+            "docs/sources/FEASIBILITY.md",
+            "docs/decisions/0001-fixtures-and-private-state.md"
           ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/sources/FEASIBILITY.md",
+          "docs/decisions/0001-fixtures-and-private-state.md"
+        ],
+        "checks": [
+          {
+            "name": "source-feasibility-review",
+            "result": "pass",
+            "evidence": "docs/decisions/0001-fixtures-and-private-state.md"
+          },
+          {
+            "name": "prototype-storage-boundary-review",
+            "result": "pass",
+            "evidence": "docs/decisions/0001-fixtures-and-private-state.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/decisions/0001-fixtures-and-private-state.md"
+        }
       },
       "gate_required": true
     },
@@ -1067,7 +1107,7 @@
     {
       "id": "T04.01",
       "epic": "E04",
-      "title": "Implement full normalized snapshot store",
+      "title": "Implement backend-neutral snapshots and local prototype state",
       "scope": "mvp",
       "milestone": "M1",
       "owner": "Platform maintainer",
@@ -1080,9 +1120,9 @@
       ],
       "risk": "medium",
       "size": "S",
-      "deliverable": "Deterministic local snapshot read/validate/write API and retained complete records.",
+      "deliverable": "Deterministic logical snapshot API and optional untracked local SQLite prototype store; no publisher state in Git or claim of runner durability.",
       "acceptance": [
-        "State stores complete metadata and checkpoints, not only seen IDs.",
+        "Logical snapshots retain complete approved records/checkpoints and serialize deterministically; local SQLite file bytes are not the deterministic format.",
         "Identical inputs produce stable IDs/order; schema and references reject corrupt snapshots."
       ],
       "verification": [
@@ -1094,8 +1134,8 @@
       "subtasks": [
         {
           "id": "T04.01.1",
-          "title": "Implement snapshot serialization and validation",
-          "done_when": "Versioned complete records round-trip deterministically.",
+          "title": "Implement logical snapshots and local prototype store",
+          "done_when": "Versioned complete records round-trip; any local database stays untracked and is not treated as live runner-durable storage.",
           "status": "not_started",
           "evidence": []
         },
@@ -1124,14 +1164,15 @@
     {
       "id": "T04.02",
       "epic": "E04",
-      "title": "Implement isolated state-branch CAS persistence",
+      "title": "Select and implement private durable state persistence",
       "scope": "mvp",
       "milestone": "M2",
       "owner": "Platform maintainer",
       "paths": [
-        "src/wrap_brief/state/git_store.py",
+        "src/wrap_brief/state/",
+        "tests/state/",
         ".github/workflows/",
-        "tests/state/"
+        "docs/decisions/"
       ],
       "depends_on": [
         "T01.03",
@@ -1139,36 +1180,37 @@
       ],
       "risk": "high",
       "size": "S",
-      "deliverable": "Trusted default-branch writer with exact data allowlist and expected-head fast-forward commits.",
+      "deliverable": "A reviewed private/deletable durable backend with atomic versioned writes, scoped credentials, retention and restore proof before live collection.",
       "acceptance": [
-        "Writer rejects path traversal, symlinks, executable/workflow/config artifacts and invalid/oversized JSON.",
-        "No force push or main bypass; conflict causes safe bounded retry/failure under shared concurrency."
+        "Provider/cost/credential/retention/deletion decisions are documented before use; no new provider or account is assumed available.",
+        "Candidate data is revalidated with bounded schema/fields/bytes/references; no executable data or repository write permission is needed.",
+        "Atomic expected-version conflicts fail safely; backups, deletion, recovery and ephemeral-runner loss are exercised."
       ],
       "verification": [
-        "writer-permission-sandbox",
-        "cas-and-artifact-abuse"
+        "private-backend-security-review",
+        "atomic-persistence-and-deletion"
       ],
       "status": "not_started",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T04.02.1",
-          "title": "Define state branch rules and writer contract",
-          "done_when": "Actual branch protections support intended writes without main bypass.",
+          "title": "Select a bounded private durable backend",
+          "done_when": "Terms, free/paid limits, access, deletion and backup behavior satisfy the approved live-state contract.",
           "status": "not_started",
           "evidence": []
         },
         {
           "id": "T04.02.2",
-          "title": "Implement revalidation and expected-parent commit",
-          "done_when": "Only bounded allowed public JSON paths can be committed.",
+          "title": "Implement scoped atomic persistence",
+          "done_when": "Only revalidated data reaches the backend; least-privilege secrets remain outside Git and public artifacts.",
           "status": "not_started",
           "evidence": []
         },
         {
           "id": "T04.02.3",
-          "title": "Exercise conflict and hostile candidate scenarios",
-          "done_when": "CAS conflicts and injected executable/path payloads fail safely.",
+          "title": "Prove conflict, deletion and recovery behavior",
+          "done_when": "Version conflicts, runner loss, retention/deletion and known-good restore are tested before live ingestion.",
           "status": "not_started",
           "evidence": []
         }
@@ -1201,7 +1243,7 @@
       "deliverable": "Component-level retention, schema migration, replay and failed-build recovery tests; operational site rollback belongs to T07.05.",
       "acceptance": [
         "State committed before a failed build remains available to the next complete build.",
-        "Retention/tombstones are rights-aware; Git-history permanence is explicit and restore preserves IDs."
+        "Retention, tombstones, backup expiry and actual deletion follow source policy; restore/migration preserves IDs without depending on public Git history."
       ],
       "verification": [
         "state-component-recovery",
@@ -1226,8 +1268,8 @@
         },
         {
           "id": "T04.03.3",
-          "title": "Simulate failure after state commit",
-          "done_when": "Next build includes every retained item without depending on a lost artifact.",
+          "title": "Simulate failure after persistence",
+          "done_when": "Next build includes every retained item after a failed publish without relying on a lost runner or expiring artifact.",
           "status": "not_started",
           "evidence": []
         }
@@ -1493,7 +1535,7 @@
       "deliverable": "Source-attribution, correction/retraction and removal controls; no original-brief production system required for MVP.",
       "acceptance": [
         "Publisher headlines remain explicitly attributed; an MVP listing never implies original reporting or fabricated editorial context.",
-        "A correction/removal exercise preserves honest provenance, prevents re-promotion and addresses public-state/history rights constraints."
+        "A correction/removal exercise preserves honest provenance, prevents re-promotion, and covers private records, public output, deployment artifacts and owned cache removal without promising control of external copies."
       ],
       "verification": [
         "editorial-provenance",
@@ -1519,7 +1561,7 @@
         {
           "id": "T05.04.3",
           "title": "Exercise source-requested removal",
-          "done_when": "The chosen remedy handles tombstones/retention and does not falsely claim file deletion erases public Git history.",
+          "done_when": "The reviewed remedy covers private retention/deletion, public HTML/JSON/RSS, deployment artifacts and owned caches; accidental Git publication is handled as an incident, not a storage mechanism.",
           "status": "not_started",
           "evidence": []
         }
@@ -1831,7 +1873,7 @@
     {
       "id": "T07.02",
       "epic": "E07",
-      "title": "Schedule daily collection and isolated persistence",
+      "title": "Schedule approved collection and isolated private persistence",
       "scope": "mvp",
       "milestone": "M2",
       "owner": "Release maintainer",
@@ -1848,10 +1890,10 @@
       ],
       "risk": "high",
       "size": "S",
-      "deliverable": "Default-branch daily/manual collect -> validate -> persist pipeline with one mutation lock.",
+      "deliverable": "Default-branch daily/manual collection and validated private persistence, with one mutation lock and final source approval prerequisites.",
       "acceptance": [
         "Only cron 23 6 * * * is enabled initially; UTC/cadence and manual default-branch restrictions are explicit.",
-        "Read-only fetch and trusted state-write jobs are separated; all-source failure/conflict cannot corrupt state."
+        "Read-only network collection and scoped private persistence are separated; no repository state branch is written, and only approved sources may be polled."
       ],
       "verification": [
         "workflow-policy",
@@ -1869,8 +1911,8 @@
         },
         {
           "id": "T07.02.2",
-          "title": "Wire bounded collect and data-only writer artifact",
-          "done_when": "Privileged job revalidates the exact approved candidate contract.",
+          "title": "Wire collection to validated private persistence",
+          "done_when": "The persistence boundary revalidates exact data contracts and uses only the approved backend credentials; no publisher item data enters Git.",
           "status": "not_started",
           "evidence": []
         },
@@ -1907,7 +1949,7 @@
       ],
       "risk": "high",
       "size": "S",
-      "deliverable": "Read-only build from explicit state/code refs, one-day Pages artifact, restricted OIDC deploy.",
+      "deliverable": "Read-only build from reviewed code/config and validated snapshot version; short-lived approved Pages artifact and restricted OIDC deploy.",
       "acceptance": [
         "Deploy job has Pages/OIDC permissions only and runs after every build gate.",
         "Invalid/empty-on-failure output cannot replace live site; actual public URL/manifest is smoke-tested."
@@ -2026,7 +2068,7 @@
       ],
       "risk": "high",
       "size": "S",
-      "deliverable": "One end-to-end operational rollback/restore drill with reviewed code/state refs and reusable public-safe evidence.",
+      "deliverable": "One operational rollback/restore drill using reviewed code/config refs plus private snapshot versions and reusable public-safe evidence.",
       "acceptance": [
         "Rollback does not depend only on expiring artifacts and does not erase valid unseen state.",
         "Practical restore time is measured against a 30-minute target and public URL is checked.",
@@ -2042,7 +2084,7 @@
         {
           "id": "T07.05.1",
           "title": "Implement guarded manual recovery route",
-          "done_when": "Only reviewed refs can be selected under the same production lock.",
+          "done_when": "Reviewed code refs and validated private snapshot versions are selected under the shared production lock; arbitrary downloads are not accepted.",
           "status": "not_started",
           "evidence": []
         },
