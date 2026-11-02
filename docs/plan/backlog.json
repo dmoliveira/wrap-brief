@@ -1211,7 +1211,15 @@
       "owner": "Platform maintainer",
       "paths": [
         "src/wrap_brief/state/snapshot.py",
-        "tests/state/"
+        "tests/state/",
+        "src/wrap_brief/state/__init__.py",
+        "src/wrap_brief/state/local.py",
+        ".gitignore",
+        "tools/check_wheel.py",
+        "README.md",
+        "docs/specs/local-state.md",
+        "docs/evidence/T04.01-snapshots.md",
+        "docs/index.md"
       ],
       "depends_on": [
         "T05.01"
@@ -1227,29 +1235,35 @@
         "snapshot-unit",
         "idempotent-replay"
       ],
-      "status": "not_started",
+      "status": "review",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T04.01.1",
           "title": "Implement logical snapshots and local prototype store",
           "done_when": "Versioned complete records round-trip; any local database stays untracked and is not treated as live runner-durable storage.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T04.01-snapshots.md"
+          ]
         },
         {
           "id": "T04.01.2",
           "title": "Implement idempotent update/tombstone semantics",
           "done_when": "Repeated items do not duplicate or become artificially fresh.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T04.01-snapshots.md"
+          ]
         },
         {
           "id": "T04.01.3",
           "title": "Test cache/artifact independence",
           "done_when": "Loss of optional caches does not change identity or retained records.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T04.01-snapshots.md"
+          ]
         }
       ],
       "completion": {

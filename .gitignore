@@ -8,6 +8,9 @@
 *.sqlite
 *.sqlite3
 *.db
+*.db-*
+*.sqlite-*
+*.sqlite3-*
 *.pem
 *.key
 *.p12
