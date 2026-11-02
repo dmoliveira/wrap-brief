@@ -373,7 +373,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T05.01 — Implement exact identity and conservative URL cleanup
 
-**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Editorial maintainer
 **Dependencies:** T03.03
 **Reserved paths:** `src/wrap_brief/grouping/identity.py`, `tests/grouping/`, `src/wrap_brief/grouping/__init__.py`, `docs/specs/identity.md`, `docs/specs/data-pipeline.md`, `docs/evidence/T05.01-identity.md`, `docs/index.md`, `README.md`, `tools/check_wheel.py`, `docs/specs/architecture.md`
@@ -390,6 +390,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T05.01.1** Define GUID/URL identity precedence — `done`. Done when: Identity rules are deterministic and versioned.
 - [x] **T05.01.2** Implement reviewed URL normalization — `done`. Done when: Only known tracking parameters are stripped.
 - [x] **T05.01.3** Test duplicate/collision/resurfacing cases — `done`. Done when: Same item is stable while distinct editions/events remain separate.
+
+**Completion evidence:** [docs/evidence/T05.01-identity.md](../../docs/evidence/T05.01-identity.md)
 
 ### T05.02 — Group same-event coverage and choose lead source
 

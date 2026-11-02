@@ -1473,7 +1473,7 @@
         "identity-unit",
         "canonicalization-benchmark"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1505,9 +1505,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T05.01-identity.md"
+        ],
+        "checks": [
+          {
+            "name": "identity-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.01-identity.md"
+          },
+          {
+            "name": "canonicalization-benchmark",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.01-identity.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T05.01-identity.md"
+        }
       },
       "gate_required": true
     },
