@@ -117,26 +117,29 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T02.01 — Implement versioned source/item/cluster contracts
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T01.02, T02.04
-**Reserved paths:** `src/wrap_brief/models.py`, `src/wrap_brief/config.py`, `config/`, `tests/models/`
+**Reserved paths:** `src/wrap_brief/models.py`, `src/wrap_brief/config.py`, `config/`, `tests/models/`, `docs/specs/contracts.md`, `docs/evidence/T02.01-contracts.md`, `docs/index.md`, `README.md`, `tools/check_wheel.py`
 
 **Deliverable:** Typed versioned public records, invariants and source registry schema.
 
 **Done criteria:**
 - Unknown dates remain null/first-seen labeled; URLs and cross-record references validate.
 - Schema distinguishes source text, original editorial text, rumor/correction status and health.
+- An empty-by-default registry and disabled unreviewed sources keep synthetic prototype records distinct from approved live collection.
 **Required checks:** model-unit, schema-compatibility.
 
 **Subtasks:**
-- [ ] **T02.01.1** Define minimal record and registry fields — `not_started`. Done when: Data contracts match the architecture without full text/private fields.
-- [ ] **T02.01.2** Implement validation and serialization — `not_started`. Done when: Invalid IDs, URLs, dates and references fail with bounded errors.
-- [ ] **T02.01.3** Add schema/version fixtures — `not_started`. Done when: Producers and consumers share tested stable fixtures.
+- [x] **T02.01.1** Define minimal record and registry fields — `done`. Done when: Data contracts match the architecture without full text/private fields.
+- [x] **T02.01.2** Implement validation and serialization — `done`. Done when: Invalid IDs, URLs, dates and references fail with bounded errors.
+- [x] **T02.01.3** Add schema/version fixtures — `done`. Done when: Producers and consumers share tested stable fixtures.
+
+**Completion evidence:** [docs/evidence/T02.01-contracts.md](../../docs/evidence/T02.01-contracts.md)
 
 ### T02.02 — Approve the first 3–5 sources
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
+**Status:** blocked · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T02.01, T01.04, T02.04
 **Reserved paths:** `config/sources/`, `docs/sources/`
@@ -144,15 +147,17 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Deliverable:** Small enabled source registry with reviewed rights/retention/attribution evidence.
 
 **Done criteria:**
-- Every enabled source has terms review date, permitted fields, polling and archival approval.
-- Unclear permission disables the source; no RSS-is-a-license assumption or unlicensed images.
-- The same approval-plus-fixture checklist supports a later source addition or disablement without an unrelated pipeline change.
+- Every enabled live source has dated approval evidence covering exact permitted fields, attribution, polling, private retention/deletion and public rendering/artifact retention.
+- Unclear rights leave a source disabled; prototype-only feasibility is not approval, and private storage grants no republication rights.
+- Corrections/removal and commercial/donation restrictions are recorded before activation; future additions use the same approval-plus-fixture checklist.
 **Required checks:** source-rights-review, registry-validation.
 
 **Subtasks:**
 - [ ] **T02.02.1** Select complementary pilot sources — `not_started`. Done when: Candidate feasibility is resolved and final feed URLs/coverage scope are documented.
-- [ ] **T02.02.2** Approve exact fields, attribution and history retention — `not_started`. Done when: Every enabled source has dated rights evidence compatible with the public-state design; unclear rights mean disabled.
+- [ ] **T02.02.2** Approve exact fields, attribution and history retention — `not_started`. Done when: A dated source-specific record covers public output, private retention/deletion, artifacts, attribution, polling and commercial restrictions; no private correspondence is committed.
 - [ ] **T02.02.3** Activate and document repeatable onboarding — `not_started`. Done when: Three to five cleared feeds, or an explicitly smaller viable pilot, pass registry checks and a source addition/disable dry-run recipe.
+
+**Block/cancel reason:** Zero approved live sources. Resolve permitted public fields, attribution, polling, retention/deletion, public rendering/artifacts and commercial restrictions before enabling any source; see docs/sources/FEASIBILITY.md and issue #4.
 
 ### T02.03 — Build synthetic feed and view-model fixtures
 
@@ -173,27 +178,27 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [ ] **T02.03.2** Create adversarial/edge fixtures — `not_started`. Done when: Redirect, encoding, XML expansion, limits and duplicate cases are synthetic.
 - [ ] **T02.03.3** Publish shared fixture contract — `not_started`. Done when: Data and UI lanes can work independently on identical expected models.
 
-### T02.04 — Check source feasibility before substantial prototype work
+### T02.04 — Review source feasibility and define the safe prototype boundary
 
-**Status:** blocked · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T00.01
-**Reserved paths:** `docs/sources/`, `docs/decisions/`, `docs/index.md`
+**Reserved paths:** `docs/sources/`, `docs/decisions/`, `docs/index.md`, `docs/decisions/0001-fixtures-and-private-state.md`, `docs/specs/architecture.md`, `docs/specs/security-privacy.md`, `docs/specs/data-pipeline.md`, `docs/operations.md`, `README.md`
 
-**Deliverable:** Lightweight evidence that a viable reduced source set permits the proposed title/link/metadata and public-history use; final activation remains T02.02.
+**Deliverable:** Completed source investigation with an explicit synthetic-prototype-only go; live publisher approvals remain blocked in T02.02.
 
 **Done criteria:**
-- Review at least three complementary candidate feeds before substantial data/UI implementation; reduce scope or stop if no lawful viable set exists.
-- Record rights/retention uncertainties and a go/no-go without copying private correspondence or claiming final source approval.
-- A no-go report is recorded as blocked, not done, until viability is established; downstream tasks must not be unlocked merely because research was written.
-**Required checks:** source-feasibility-review, public-state-rights-fit.
+- At least three candidate feeds and their rights uncertainties are documented without implying permission.
+- A reviewed ADR separates offline synthetic M1 work from final live-source approval and forbids publisher state in public Git.
+- No source is enabled, provider provisioned, or live collection/publication unlocked by completing this research task.
+**Required checks:** source-feasibility-review, prototype-storage-boundary-review.
 
 **Subtasks:**
-- [x] **T02.04.1** Inventory candidate feeds and terms — `done`. Done when: Candidate ownership, URLs and intended reuse can be assessed without implementing the collector.
-- [ ] **T02.04.2** Check minimum viable rights and retention fit — `blocked`. Done when: A viable reduced source set has a documented compatible metadata/retention basis. A no-go report leaves this viability gate blocked; it must not unlock contracts or substantial prototype work.
-- [x] **T02.04.3** Record go/no-go and hand off to final onboarding — `done`. Done when: T02.02 receives unresolved terms, attribution, retention and coverage questions for final approval.
+- [x] **T02.04.1** Inventory candidate feeds and terms — `done`. Done when: Candidate endpoints and publisher-specific permission gaps are recorded.
+- [x] **T02.04.2** Choose and review the safe prototype/state boundary — `done`. Done when: An explicit ADR permits synthetic offline work only and requires private deletable live storage; no publisher approval is inferred.
+- [x] **T02.04.3** Hand unresolved live approvals to T02.02 — `done`. Done when: The final source gate remains blocked and continues to gate T07.02.
 
-**Block/cancel reason:** No reviewed candidate set is cleared for the proposed feed-metadata republication and permanent public Git history. Resolve publisher/compatible-license evidence or review storage design before downstream work; see docs/sources/FEASIBILITY.md.
+**Completion evidence:** [docs/sources/FEASIBILITY.md](../../docs/sources/FEASIBILITY.md), [docs/decisions/0001-fixtures-and-private-state.md](../../docs/decisions/0001-fixtures-and-private-state.md)
 
 ## E03 — Bounded feed collection and normalization
 
@@ -279,43 +284,44 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 **Owner:** Platform maintainer. **Outcome:** Complete replayable state, safe persistence, and recovery. [Specification](../specs/architecture.md).
 
-### T04.01 — Implement full normalized snapshot store
+### T04.01 — Implement backend-neutral snapshots and local prototype state
 
 **Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Platform maintainer
 **Dependencies:** T05.01
 **Reserved paths:** `src/wrap_brief/state/snapshot.py`, `tests/state/`
 
-**Deliverable:** Deterministic local snapshot read/validate/write API and retained complete records.
+**Deliverable:** Deterministic logical snapshot API and optional untracked local SQLite prototype store; no publisher state in Git or claim of runner durability.
 
 **Done criteria:**
-- State stores complete metadata and checkpoints, not only seen IDs.
+- Logical snapshots retain complete approved records/checkpoints and serialize deterministically; local SQLite file bytes are not the deterministic format.
 - Identical inputs produce stable IDs/order; schema and references reject corrupt snapshots.
 **Required checks:** snapshot-unit, idempotent-replay.
 
 **Subtasks:**
-- [ ] **T04.01.1** Implement snapshot serialization and validation — `not_started`. Done when: Versioned complete records round-trip deterministically.
+- [ ] **T04.01.1** Implement logical snapshots and local prototype store — `not_started`. Done when: Versioned complete records round-trip; any local database stays untracked and is not treated as live runner-durable storage.
 - [ ] **T04.01.2** Implement idempotent update/tombstone semantics — `not_started`. Done when: Repeated items do not duplicate or become artificially fresh.
 - [ ] **T04.01.3** Test cache/artifact independence — `not_started`. Done when: Loss of optional caches does not change identity or retained records.
 
-### T04.02 — Implement isolated state-branch CAS persistence
+### T04.02 — Select and implement private durable state persistence
 
 **Status:** not_started · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Platform maintainer
 **Dependencies:** T01.03, T04.01
-**Reserved paths:** `src/wrap_brief/state/git_store.py`, `.github/workflows/`, `tests/state/`
+**Reserved paths:** `src/wrap_brief/state/`, `tests/state/`, `.github/workflows/`, `docs/decisions/`
 
-**Deliverable:** Trusted default-branch writer with exact data allowlist and expected-head fast-forward commits.
+**Deliverable:** A reviewed private/deletable durable backend with atomic versioned writes, scoped credentials, retention and restore proof before live collection.
 
 **Done criteria:**
-- Writer rejects path traversal, symlinks, executable/workflow/config artifacts and invalid/oversized JSON.
-- No force push or main bypass; conflict causes safe bounded retry/failure under shared concurrency.
-**Required checks:** writer-permission-sandbox, cas-and-artifact-abuse.
+- Provider/cost/credential/retention/deletion decisions are documented before use; no new provider or account is assumed available.
+- Candidate data is revalidated with bounded schema/fields/bytes/references; no executable data or repository write permission is needed.
+- Atomic expected-version conflicts fail safely; backups, deletion, recovery and ephemeral-runner loss are exercised.
+**Required checks:** private-backend-security-review, atomic-persistence-and-deletion.
 
 **Subtasks:**
-- [ ] **T04.02.1** Define state branch rules and writer contract — `not_started`. Done when: Actual branch protections support intended writes without main bypass.
-- [ ] **T04.02.2** Implement revalidation and expected-parent commit — `not_started`. Done when: Only bounded allowed public JSON paths can be committed.
-- [ ] **T04.02.3** Exercise conflict and hostile candidate scenarios — `not_started`. Done when: CAS conflicts and injected executable/path payloads fail safely.
+- [ ] **T04.02.1** Select a bounded private durable backend — `not_started`. Done when: Terms, free/paid limits, access, deletion and backup behavior satisfy the approved live-state contract.
+- [ ] **T04.02.2** Implement scoped atomic persistence — `not_started`. Done when: Only revalidated data reaches the backend; least-privilege secrets remain outside Git and public artifacts.
+- [ ] **T04.02.3** Prove conflict, deletion and recovery behavior — `not_started`. Done when: Version conflicts, runner loss, retention/deletion and known-good restore are tested before live ingestion.
 
 ### T04.03 — Test state retention, migrations and component recovery
 
@@ -328,13 +334,13 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 **Done criteria:**
 - State committed before a failed build remains available to the next complete build.
-- Retention/tombstones are rights-aware; Git-history permanence is explicit and restore preserves IDs.
+- Retention, tombstones, backup expiry and actual deletion follow source policy; restore/migration preserves IDs without depending on public Git history.
 **Required checks:** state-component-recovery, migration-retention.
 
 **Subtasks:**
 - [ ] **T04.03.1** Implement bounded retention and tombstones — `not_started`. Done when: Expired/resurfaced/retracted records follow explicit non-fabricated freshness rules.
 - [ ] **T04.03.2** Implement migration and known-good restore — `not_started`. Done when: Previous state version/snapshot restores with validated records/checkpoints.
-- [ ] **T04.03.3** Simulate failure after state commit — `not_started`. Done when: Next build includes every retained item without depending on a lost artifact.
+- [ ] **T04.03.3** Simulate failure after persistence — `not_started`. Done when: Next build includes every retained item after a failed publish without relying on a lost runner or expiring artifact.
 
 ### T04.04 — Compose explicit collect/build/check CLI stages
 
@@ -427,13 +433,13 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 **Done criteria:**
 - Publisher headlines remain explicitly attributed; an MVP listing never implies original reporting or fabricated editorial context.
-- A correction/removal exercise preserves honest provenance, prevents re-promotion and addresses public-state/history rights constraints.
+- A correction/removal exercise preserves honest provenance, prevents re-promotion, and covers private records, public output, deployment artifacts and owned cache removal without promising control of external copies.
 **Required checks:** editorial-provenance, correction-takedown-drill.
 
 **Subtasks:**
 - [ ] **T05.04.1** Preserve publisher and claim provenance — `not_started`. Done when: Attribution and confirmed/reported/rumor labels have explicit source evidence; absent editorial text stays absent.
 - [ ] **T05.04.2** Implement correction/retraction and exclusion controls — `not_started`. Done when: Withdrawn or changed claims cannot remain silently promoted and overrides retain traceable provenance.
-- [ ] **T05.04.3** Exercise source-requested removal — `not_started`. Done when: The chosen remedy handles tombstones/retention and does not falsely claim file deletion erases public Git history.
+- [ ] **T05.04.3** Exercise source-requested removal — `not_started`. Done when: The reviewed remedy covers private retention/deletion, public HTML/JSON/RSS, deployment artifacts and owned caches; accidental Git publication is handled as an incident, not a storage mechanism.
 
 ## E06 — Minimalist static reader experience
 
@@ -538,23 +544,23 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [ ] **T07.01.2** Run fixture build on fork PR — `not_started`. Done when: No production network credentials or write scopes are needed.
 - [ ] **T07.01.3** Test intentionally failing changes — `not_started`. Done when: Broken contracts/unsafe workflows are blocked before merge.
 
-### T07.02 — Schedule daily collection and isolated persistence
+### T07.02 — Schedule approved collection and isolated private persistence
 
 **Status:** not_started · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Release maintainer
 **Dependencies:** T07.01, T04.04, T04.02, T02.02
 **Reserved paths:** `.github/workflows/`, `tests/workflows/`, `docs/operations.md`
 
-**Deliverable:** Default-branch daily/manual collect -> validate -> persist pipeline with one mutation lock.
+**Deliverable:** Default-branch daily/manual collection and validated private persistence, with one mutation lock and final source approval prerequisites.
 
 **Done criteria:**
 - Only cron 23 6 * * * is enabled initially; UTC/cadence and manual default-branch restrictions are explicit.
-- Read-only fetch and trusted state-write jobs are separated; all-source failure/conflict cannot corrupt state.
+- Read-only network collection and scoped private persistence are separated; no repository state branch is written, and only approved sources may be polled.
 **Required checks:** workflow-policy, scheduled-state-sandbox.
 
 **Subtasks:**
 - [ ] **T07.02.1** Configure schedule/manual triggers and lock — `not_started`. Done when: All production mutation/recovery routes share concurrency control.
-- [ ] **T07.02.2** Wire bounded collect and data-only writer artifact — `not_started`. Done when: Privileged job revalidates the exact approved candidate contract.
+- [ ] **T07.02.2** Wire collection to validated private persistence — `not_started`. Done when: The persistence boundary revalidates exact data contracts and uses only the approved backend credentials; no publisher item data enters Git.
 - [ ] **T07.02.3** Run real-source dry run and persistence sandbox — `not_started`. Done when: Approved source polling and state boundaries pass without deploying.
 
 ### T07.03 — Deploy validated static artifact through protected Pages
@@ -564,7 +570,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Dependencies:** T07.02, T06.03
 **Reserved paths:** `.github/workflows/`, `tests/workflows/`, `docs/operations.md`
 
-**Deliverable:** Read-only build from explicit state/code refs, one-day Pages artifact, restricted OIDC deploy.
+**Deliverable:** Read-only build from reviewed code/config and validated snapshot version; short-lived approved Pages artifact and restricted OIDC deploy.
 
 **Done criteria:**
 - Deploy job has Pages/OIDC permissions only and runs after every build gate.
@@ -602,7 +608,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Dependencies:** T07.03, T04.03
 **Reserved paths:** `.github/workflows/`, `tests/recovery/`, `docs/operations.md`, `docs/evidence/`
 
-**Deliverable:** One end-to-end operational rollback/restore drill with reviewed code/state refs and reusable public-safe evidence.
+**Deliverable:** One operational rollback/restore drill using reviewed code/config refs plus private snapshot versions and reusable public-safe evidence.
 
 **Done criteria:**
 - Rollback does not depend only on expiring artifacts and does not erase valid unseen state.
@@ -611,7 +617,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** deployment-rollback-drill, state-restore-drill.
 
 **Subtasks:**
-- [ ] **T07.05.1** Implement guarded manual recovery route — `not_started`. Done when: Only reviewed refs can be selected under the same production lock.
+- [ ] **T07.05.1** Implement guarded manual recovery route — `not_started`. Done when: Reviewed code refs and validated private snapshot versions are selected under the shared production lock; arbitrary downloads are not accepted.
 - [ ] **T07.05.2** Restore known-good site and state in sandbox — `not_started`. Done when: IDs/checkpoints/tombstones and live manifest remain coherent.
 - [ ] **T07.05.3** Record operational recovery evidence — `not_started`. Done when: Elapsed time, outcomes, resume criteria and residual limitations are documented.
 

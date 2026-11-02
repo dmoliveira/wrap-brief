@@ -11,11 +11,11 @@ Use a single package with explicit modules, not microservices. Start with RSS 2.
 ```text
 reviewed source registry + editorial files + overrides (main)
                          ↓
-read prior normalized records/checkpoints (state branch)
+read prior validated snapshot (private state backend)
                          ↓
 fetch → parse → normalize → validate candidate snapshot
                          ↓
-separate trusted writer validates again → CAS state commit
+separate trusted writer validates again → atomic versioned persistence
                          ↓
 identity → group → lead selection → render → validate
                          ↓
@@ -60,18 +60,18 @@ Unknown publication time is `null`, not fabricated. Display “first seen” wit
 ## Stage semantics
 
 1. **Collect, read-only token:** allowlisted URLs only, bounded requests; reuse last-good records for failed sources. Write a bounded candidate data artifact, not executable files.
-2. **Persist, contents-write token:** trusted code from the default branch verifies candidate schema, allowed paths/fields, limits, and expected state head; creates a fast-forward commit on `state`. No force push, `main` write, or execution of artifact content. The token is repository-scoped; branch rules enforce boundaries.
-3. **Build, read-only token:** read the explicit new state SHA and reviewed code/config SHA. Group and render *all retained records*, not just newly seen IDs. A failed build after persistence cannot strand news permanently.
+2. **Persist, scoped private-backend permission:** trusted default-branch code verifies candidate schema, allowed fields, limits and expected state version, then performs an atomic update in the approved private store. No repository writes or execution of artifact content. Credentials never enter the candidate or public output.
+3. **Build, read-only input:** read an explicit validated snapshot version and reviewed code/config SHA. Group and render *all retained records*, not just newly seen IDs. A failed build after persistence cannot strand news permanently.
 4. **Deploy, Pages/OIDC permissions only:** publish the validated immutable Pages artifact. Do not fetch feeds, install arbitrary candidate code, or commit state in this job.
 5. **Verify:** check the actual Pages URL, manifest/freshness, and outbound source path. Record deployment success separately from collection success. The pilot retains daily named supervision; independent stale monitoring gates later unattended mode, as defined in [operations](../operations.md).
 
-One concurrency group covers scheduled/manual/recovery runs. A head conflict fails safely or triggers at most one complete recollect/revalidate from the new head; never merge unknown state blindly. `contents: write` and Pages OIDC solve different authorization problems.
+One concurrency group covers scheduled/manual/recovery runs. A version conflict fails safely or triggers at most one complete recollect/revalidate from the new version; never merge unknown state blindly. Provider state permissions and Pages OIDC solve different authorization problems; collection does not need repository write access.
 
 ## Durability and retention
 
-- A dedicated state branch contains normalized public metadata and complete records for the retained site window, not raw feeds or a seen-ID set. Initial live retention: 90 days of item records plus bounded health; make it configurable and rights-aware.
+- No publisher item/checkpoint data belongs in Git history. A private deletable store retains complete approved metadata, not raw feeds or a seen-ID set. Live retention is source-specific; 90 days is a proposed upper default, not permission to retain a source for that long.
 - Initial identity/tombstone horizon: 180 days, containing only minimum non-republished identity data; confirm source terms. Expired records cannot reappear as fresh just because the feed resurfaces an old item.
-- Git history retains old state even after file deletion. A source that requires reliable erasure or incompatible archival restrictions is not eligible for this public Git-state design; choose an appropriate private store before enabling it. Do not promise history deletion as an ordinary retention operation.
+- M1 uses synthetic fixtures only. Local untracked SQLite and logical snapshots may support later offline state tests, but neither a runner filesystem nor a transport artifact is a durable live backend. T04.02 must prove that backend before live collection.
 - Caches optimize only. Expiring Actions artifacts transport builds; neither is the canonical application state.
 - Schema versions and pure migrations support a previous snapshot restore. Size alarms trigger archival/storage redesign *before* repo/Pages limits are approached.
 
@@ -80,7 +80,7 @@ One concurrency group covers scheduled/manual/recovery runs. A head conflict fai
 - Feed adapters return the same item contract; adding a publisher normally changes registry + approval + fixtures, not pipeline logic.
 - Grouping is a replaceable pure stage with a fixed benchmark. Embeddings/AI remain optional experiments, never a hidden required service.
 - Renderer consumes stable view models. Search, source filters, RSS output, or a release calendar are separate features with no changes to fetching.
-- State backend exposes load/validate/commit semantics. Replace Git storage only after measured need; migration must preserve IDs, tombstones, and recovery behavior.
+- State backends expose load/validate/atomic-update semantics. Keep domain contracts independent of storage; live backend selection must preserve IDs, tombstones, deletion and recovery behavior. See [ADR 0001](../decisions/0001-fixtures-and-private-state.md).
 - Monetization placements are disabled, separately rendered components. They cannot affect story selection or source ranking.
 - Static deployment is portable. Pages policy, traffic, reliability, and cost can trigger a host change without rewriting ingestion/UI.
 

@@ -32,3 +32,5 @@ test-results/
 
 # Local task mapping and validation output (never a public database export)
 .local/
+.state/
+runtime/

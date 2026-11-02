@@ -4,7 +4,7 @@
 
 Start with 3–5 sources whose current feed terms support the exact proposed use. Nintendo's official channels and specialist/general gaming publishers are candidates, not preapproved sources. No automatic top-site crawling or search-engine scraping.
 
-T02.04 performs a lightweight feasibility go/no-go before substantial prototype work. It does not activate feeds. T02.02 owns final approval plus a repeatable source-add/disable checklist. For every enabled source, review and record:
+T02.04 records the source investigation and a reviewed synthetic-prototype-only go. It does not activate feeds; T02.02 remains the blocked live-source gate. T02.02 owns final approval plus a repeatable source-add/disable checklist. For every enabled source, review and record:
 
 - Feed owner, exact feed/site URLs, allowed redirect hosts, stable ID, language, and region.
 - Terms/license URL, review date, permitted fields, attribution wording, retention/archival constraints, and any permission correspondence reference **without private correspondence content**.
@@ -37,7 +37,7 @@ Move to twice daily only if source volume/gap evidence or reader freshness justi
 - Stable source-scoped GUID where reliable; otherwise a hash of source ID and conservatively normalized URL.
 - Remove only reviewed tracking parameters. Preserve query fields that may identify different articles, editions, languages, or pagination. Do not invent canonical URLs by crawling full articles.
 - Exact identity updates the existing record without bumping publication time or creating another card. Material corrections retain provenance.
-- State completeness, persistence/CAS order, retention and Git-history constraints are canonical in [architecture](architecture.md). Privileged writer validation is canonical in [security/privacy](security-privacy.md). The ingestion stage emits data-only validated candidates, never executable state.
+- State completeness, atomic persistence, private retention/deletion and public artifact/cache constraints are canonical in [architecture](architecture.md). Privileged writer validation is canonical in [security/privacy](security-privacy.md). The ingestion stage emits data-only validated candidates, never executable state.
 
 ## Grouping and lead-source selection
 
@@ -53,6 +53,6 @@ MVP T05.04 owns attribution and correction/retraction/takedown controls. Origina
 
 ## Required fixtures and failure cases
 
-RSS, Atom, namespaces, encoding/Unicode, missing GUID, duplicate GUID, changed URL, unsafe schemes, malicious HTML, entity expansion, oversized/slow response, redirect to forbidden target, 304, 429/5xx, empty feed, bad timezone, future/missing date, interrupted state write, CAS conflict, cache loss, state restore, feed truncation, failed build after state commit, corrections/takedowns, and legitimate zero-new-news runs.
+RSS, Atom, namespaces, encoding/Unicode, missing GUID, duplicate GUID, changed URL, unsafe schemes, malicious HTML, entity expansion, oversized/slow response, redirect to forbidden target, 304, 429/5xx, empty feed, bad timezone, future/missing date, interrupted state write, CAS conflict, cache loss, state restore, feed truncation, failed build after persistence, corrections/takedowns, and legitimate zero-new-news runs.
 
 No test needs live production credentials. Synthetic fixtures must not copy publisher article bodies or private response headers.

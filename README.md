@@ -6,24 +6,26 @@ Independent, unofficial, public-source news aggregation. Not affiliated with, en
 
 ## Current state
 
-This repository contains the **delivery plan, progress tooling, and Python package foundation**, not a working news site. No feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Planning or toolchain completion must never be reported as a working product.
+This repository contains the **delivery plan, progress tooling, Python foundation, and versioned core data contracts**, not a working news site. No feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
 
 - [Progress and next ready work](docs/plan/STATUS.md)
 - [Complete epic/task/subtask backlog](docs/plan/BACKLOG.md)
 - [Milestones, parallel lanes, and release gates](docs/plan/new/roadmap.md)
 - [Architecture and extension boundaries](docs/specs/architecture.md)
 - [Reader experience](docs/specs/reader-experience.md)
+- [Implemented data/config API](docs/specs/contracts.md)
+- [Offline-prototype and private-state decision](docs/decisions/0001-fixtures-and-private-state.md)
 - [All documentation](docs/index.md)
 
 ## Start small
 
-1. Check that a viable source set permits the intended use, then build a safe, attractive fixture-only digest.
+1. Build a safe fixture-only prototype from hand-authored synthetic data while final source permissions remain blocked. No publisher material or network collection belongs in this prototype.
 2. Onboard **3–5 approved feeds**, retain complete normalized metadata, and publish daily at **06:23 UTC**.
 3. Validate reliability, grouping quality, accessibility, reader value, and operator effort under named daily supervision. Prove independent monitoring before later unattended operation.
 4. Add sources, original editorial context, RSS, and useful discovery features incrementally.
 5. Enable support or other monetization only after hosting, privacy, provider, and disclosure gates pass.
 
-Product direction: Python managed with `uv`, `ruff`, a small safe XML parser when ingestion is implemented, static HTML/CSS, optional tiny JavaScript, GitHub Actions, and GitHub Pages. No paid AI, database service, reader accounts, or image scraping in the MVP. A public repository on standard GitHub-hosted runners does not consume the account's included compute allowance; storage, external services, and Pages policy still matter.
+Product direction: Python managed with `uv`, `ruff`, a small safe XML parser when ingestion is implemented, static HTML/CSS, optional tiny JavaScript, GitHub Actions, and GitHub Pages. No paid AI, reader accounts, image scraping, or database service is required for the offline prototype. Live durable storage is selected separately before collection. A public repository on standard GitHub-hosted runners does not consume the account's included compute allowance; storage, external services, and Pages policy still matter.
 
 ## Develop locally
 
@@ -37,7 +39,15 @@ make validate
 
 Python 3.13 is the development default; CI also tests Python 3.11. `uv.lock` pins the development tools, and the project currently has **zero runtime dependencies**. The exact `uv_build` build dependency is declared in `pyproject.toml`. Use UV 0.13.4 or newer; CI pins the audited UV 0.13.6. Run `make lock-check` to verify the lock without updating it. Dependency changes require security review and a reviewed lockfile update.
 
-`src/wrap_brief/` is the installed package boundary. Collection, models, grouping, rendering, and CLI features are deliberately absent until their own tasks and source-feasibility gates pass. Tests do not fetch publisher feeds or require credentials.
+`src/wrap_brief/` is the installed package boundary. Each feature is implemented only in its own validated task. Offline contracts and synthetic fixtures may proceed under ADR 0001; collection/publication stays behind source and durable-storage approval. Tests do not fetch publisher feeds or require credentials.
+
+The live registry starts empty. To inspect it without fetching anything:
+
+```sh
+uv run --locked python -c 'from pathlib import Path; from wrap_brief.config import load_registry; print(load_registry(Path("config/sources.json")).enabled_sources)'
+```
+
+`Source`, `Item`, and `Cluster` are immutable version-1 records with strict validation and JSON round trips. Unknown publication dates stay unknown. [Contract fixtures](tests/models/fixtures/v1.json) are hand-authored synthetic examples, never real news or publisher approval.
 
 ## Inspect and maintain the plan
 

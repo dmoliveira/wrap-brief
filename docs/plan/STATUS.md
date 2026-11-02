@@ -9,7 +9,7 @@ Plan updated: 2026-11-02. **Product is not implemented merely because planning i
 | Scope | Enabled | Completed tasks |
 | --- | --- | --- |
 | planning | yes | 1/1 (100%) · 0 canceled |
-| mvp | yes | 1/33 (3%) · 0 canceled |
+| mvp | yes | 3/33 (9%) · 0 canceled |
 | growth | no | 0/4 (0%) · 0 canceled |
 | revenue | no | 0/5 (0%) · 0 canceled |
 | future | no | 0/5 (0%) · 0 canceled |
@@ -31,7 +31,7 @@ Plan updated: 2026-11-02. **Product is not implemented merely because planning i
 | --- | --- | --- | --- |
 | E00 | Planning and evidence-driven execution | 1/1 (100%) · 0 canceled | 3/3 |
 | E01 | Repository, toolchain, and governance | 1/4 (25%) · 0 canceled | 3/12 |
-| E02 | Source approval and versioned contracts | 0/4 (0%) · 0 canceled | 2/12 |
+| E02 | Source approval and versioned contracts | 2/4 (50%) · 0 canceled | 6/12 |
 | E03 | Bounded feed collection and normalization | 0/4 (0%) · 0 canceled | 0/12 |
 | E04 | Durable state and pipeline recovery | 0/4 (0%) · 0 canceled | 0/12 |
 | E05 | Identity, story grouping, and editorial trust | 0/4 (0%) · 0 canceled | 0/12 |
@@ -44,7 +44,7 @@ Plan updated: 2026-11-02. **Product is not implemented merely because planning i
 
 ## Active and blocked
 
-- **T02.04** — Check source feasibility before substantial prototype work · blocked · No reviewed candidate set is cleared for the proposed feed-metadata republication and permanent public Git history. Resolve publisher/compatible-license evidence or review storage design before downstream work; see docs/sources/FEASIBILITY.md.
+- **T02.02** — Approve the first 3–5 sources · blocked · Zero approved live sources. Resolve permitted public fields, attribution, polling, retention/deletion, public rendering/artifacts and commercial restrictions before enabling any source; see docs/sources/FEASIBILITY.md and issue #4.
 
 ## Dependency-ready work
 
@@ -52,6 +52,7 @@ Choose at most two disjoint lanes; readiness is not permission to overlap shared
 
 - **T01.01** — Establish public repository rules and reporting (Platform maintainer)
 - **T01.04** — Clear brand, code license, and policy copy (Platform maintainer)
+- **T02.03** — Build synthetic feed and view-model fixtures (Data maintainer)
 
 ## Disabled-scope rules
 

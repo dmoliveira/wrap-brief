@@ -13,9 +13,13 @@ import sys
 from importlib.metadata import distribution
 from pathlib import Path
 import wrap_brief
+from wrap_brief.config import SourceRegistry
+from wrap_brief.models import SCHEMA_VERSION
 
 package = distribution('wrap-brief')
 assert not package.requires, 'Foundation unexpectedly has runtime dependencies'
+assert SourceRegistry().enabled_sources == ()
+assert SCHEMA_VERSION == 1
 assert not Path(wrap_brief.__file__).resolve().is_relative_to(Path(sys.argv[1]).resolve())
 assert Path(wrap_brief.__file__).resolve() == Path(
     package.locate_file('wrap_brief/__init__.py')

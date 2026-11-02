@@ -12,9 +12,14 @@
 - [Python foundation implementation evidence](evidence/T01.02-foundation.md)
 - [Optional private Codememory workflow](codememory-workflow.md)
 
+## Decisions
+
+- [ADR 0001: synthetic prototype and private/deletable state](decisions/0001-fixtures-and-private-state.md)
+
 ## Component specifications
 
 - [Architecture, data contracts, and extension seams](specs/architecture.md)
+- [Implemented version-1 domain/config contracts](specs/contracts.md)
 - [Source approval, ingestion, state, and grouping](specs/data-pipeline.md)
 - [Pilot source-feasibility evidence and current blocker](sources/FEASIBILITY.md)
 - [Minimal reader experience and design](specs/reader-experience.md)

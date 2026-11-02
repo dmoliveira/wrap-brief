@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "schema_version": 1,
+      "id": "demo-a",
+      "name": "Synthetic Source A",
+      "site_url": "https://example.com/",
+      "feed_url": "https://example.com/synthetic-feed.xml",
+      "allowed_hosts": ["example.com"],
+      "attribution": "Synthetic development data only",
+      "region": "global",
+      "enabled": false,
+      "approval_status": "unreviewed",
+      "approval_ref": null,
+      "reviewed_at": null
+    }
+  ],
+  "items": [
+    {
+      "schema_version": 1,
+      "id": "synthetic-announcement",
+      "source_id": "demo-a",
+      "title": "Fictional test event — not real news",
+      "url": "https://example.com/fictional-event",
+      "first_seen_at": "2026-01-02T12:00:00Z",
+      "last_seen_at": "2026-01-02T12:05:00Z",
+      "published_at": null,
+      "updated_at": null,
+      "guid": "synthetic-guid-001",
+      "status": "active",
+      "claim_status": "reported"
+    }
+  ],
+  "clusters": [
+    {
+      "schema_version": 1,
+      "id": "synthetic-group",
+      "member_ids": ["synthetic-announcement"],
+      "lead_id": "synthetic-announcement",
+      "topic": "events",
+      "confidence": "exact",
+      "claim_status": "reported",
+      "correction_status": "none",
+      "override_ref": null
+    }
+  ]
+}

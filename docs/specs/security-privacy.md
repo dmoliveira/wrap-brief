@@ -14,7 +14,7 @@ Trust reviewed code/config—not feed input, contributor code, action updates, r
 | SSRF/redirect abuse | Registry allowlist, HTTPS, destination/redirect validation, private-IP rejection; hostile URL fixtures |
 | Candidate artifact modifies code | Exact JSON schema/path/file-mode/size allowlist; reject symlinks, traversal, scripts, workflows; writer sandbox tests |
 | Fork PR steals secrets or deploys | Read-only PR jobs, no secrets, no privileged PR-controlled code; fork test and permission audit |
-| State writer alters main | Separate job/token, main PR rules/no bypass, expected-head CAS; sandbox branch-write tests |
+| Persistence crosses trust boundary | Private backend, scoped credentials, atomic version validation; candidate/credential sandbox tests |
 | Compromised dependency/action | Lock dependencies, pin action SHAs, review updates, enable supported scans |
 | Workflow/log secret disclosure | No environment/header dumps, redaction, safe summaries, no raw feeds; scan all publication surfaces |
 | Source poisoning/ranking abuse | Quality tiers, provenance, conservative grouping, rumor labels, reviewed overrides and corrections |
@@ -25,10 +25,10 @@ Trust reviewed code/config—not feed input, contributor code, action updates, r
 
 - Checks on pull requests run untrusted code without secrets or write scopes. Avoid cache poisoning across trust boundaries. No `pull_request_target`/`workflow_run` pattern that checks out and executes untrusted contributions with privileges.
 - Scheduled/manual production workflows operate only from the reviewed default branch. Deployment environment restricts allowed refs. If platform rules are unavailable at the account tier, document and implement a tested equivalent or stop before live release.
-- Default `permissions: {}`; read jobs receive only `contents: read`; state persistence gets `contents: write`; deployment gets `pages: write` and `id-token: write` only. `GITHUB_TOKEN` is ephemeral but not intrinsically branch-limited.
-- Main is protected, required checks and PR merge; no bot/admin bypass for routine automation. State branch permits the intended automation without granting general main writes. Demonstrate behavior with real platform rules before enabling the schedule.
+- Default `permissions: {}`; read jobs receive only `contents: read`; private persistence uses separately scoped provider access; deployment gets `pages: write` and `id-token: write` only. `GITHUB_TOKEN` is ephemeral but not intrinsically branch-limited.
+- Main is protected, required checks and PR merge; no bot/admin bypass for routine automation. Publisher item state never uses a public Git branch. Demonstrate private persistence and protected-deployment behavior before enabling the schedule.
 - Candidate artifacts are data only. Privileged writers use reviewed code, never execute candidate scripts, and revalidate file paths, record schema, URL fields, timestamps, bytes, file count, encodings and mode.
-- One concurrency group for all state/deploy mutation routes, fast-forward expected-parent commits, no force push, bounded conflict retry, immutable artifacts, minimal retention. Third-party Actions pinned to SHAs.
+- One concurrency group for all state/deploy mutation routes, atomic expected-version writes, no repository state commits, bounded conflict retry, immutable artifacts, minimal retention. Third-party Actions pinned to SHAs.
 
 ## Public-data classification
 
@@ -36,7 +36,7 @@ Trust reviewed code/config—not feed input, contributor code, action updates, r
 
 **Private:** credentials, tokens, cookies, correspondence, internal task/session databases, raw request logs, user identifiers, analytics exports, subscriber emails, payment details, incident payloads, machine-specific config/paths. Store outside the repo and never copy into source fixtures or issue bodies.
 
-Minimum state records only; no raw feed response or unnecessary author email. A publisher-supplied contact field is not automatically appropriate to republish. Git-history permanence is part of source approval and retention design.
+Publisher item/checkpoint state is private and deletable, never tracked. M1 input is hand-authored synthetic data with an empty live registry. Minimum state records only; no raw feed response or unnecessary author email. A publisher-supplied contact field is not automatically appropriate to republish. Source approval covers private retention/deletion and public output, deployment-artifact and owned-cache removal. Publisher data is prohibited from Git; accidental publication is an incident.
 
 ## Measurement and consent
 

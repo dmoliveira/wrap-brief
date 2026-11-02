@@ -12,7 +12,7 @@ Status: runbook requirements for future implementation, not an operating service
 
 ## Health model
 
-Record separately: run start, last source attempt/success, latest story time, validated state SHA, build SHA, last successful deployment, and post-deploy verification. Source failure is not a successful empty day.
+Record separately: run start, last source attempt/success, latest story time, validated private snapshot version, build SHA, last successful deployment, and post-deploy verification. Source failure is not a successful empty day.
 
 - Daily freshness target: successful collection within 30 hours. A named maintainer checks the public health/last-check timestamp daily during the supervised pilot, including when collection never starts.
 - On-page absolute “last checked” is always shown. Optional tiny local-time JS can add an age warning; it is not a substitute for independent monitoring.
@@ -28,23 +28,23 @@ Record separately: run start, last source attempt/success, latest story time, va
 | All sources fail | Do not advance success/checkpoints or deploy a misleading fresh empty site; fail/alert | Induced outage |
 | Legitimate no-new-news/304 | Preserve prior records and record successful check; may deploy refreshed health | 304/zero-new fixture |
 | Candidate validation fails | No state write/deployment | Malicious artifact fixture |
-| State head conflict | No force push; one complete re-read/revalidate attempt or fail/alert | CAS conflict sandbox |
-| Build fails after state commit | Keep live site; complete retained records available for next build | Recovery test |
+| State version conflict | No overwrite; one complete re-read/revalidate attempt or fail/alert | CAS conflict sandbox |
+| Build fails after persistence | Keep live site; complete retained records available for next build | Recovery test |
 | Deploy fails | Keep old deployment active, alert; verify actual public state | Failed deploy sandbox |
 | Schedule disabled/missed | Pilot supervisor notices stale health and escalates; later unattended mode requires an independent alert | Supervision drill; independent-monitor drill before unattended mode |
-| Source retracts/requests removal | Disable source/record, apply tombstone/correction; assess Git-history rights and storage choice | Reviewed correction exercise |
+| Source retracts/requests removal | Disable source/record, apply tombstone/correction; remove affected private records and owned public output/artifacts/caches; assess external mirrors without promising their deletion | Reviewed correction exercise |
 | Secret exposure | Revoke first, stop integration, private incident workflow | Tabletop; never publish real secret |
 
 ## Rollback and restore
 
 1. Stop further state/deploy mutation using the shared workflow lock/disable route.
-2. Select a recorded known-good reviewed code/config SHA and state SHA. Never fetch arbitrary URLs or execute unreviewed refs from manual inputs.
+2. Select a recorded known-good reviewed code/config SHA and validated private snapshot version. Never fetch arbitrary URLs or execute unreviewed refs from manual inputs.
 3. Read-only rebuild and validate from that pair, or use a still-valid known-good artifact where supported; expired artifacts cannot be the only recovery path.
 4. Deploy through the normal protected Pages environment; smoke-check content/manifest/source links at the actual site URL.
-5. Keep state records/tombstones intact unless a separately reviewed state repair is required. Reconcile subsequent records before resuming collection.
+5. Keep approved state/tombstones intact unless a separately reviewed repair or source-removal obligation requires deletion. Reconcile subsequent records before resuming collection.
 6. Record result and elapsed time; target a practiced restore within 30 minutes. No promise until a drill demonstrates it.
 
-T04.03 proves component checkpoint/identity/migration recovery; T07.05 owns the one integrated operational rollback/restore drill. Handoff/release tasks reference those results rather than repeat them unchanged. If Git-history growth or rights/erasure needs conflict with public state, migrate storage before continuing affected collection.
+T04.03 proves component checkpoint/identity/migration recovery; T07.05 owns the one integrated operational rollback/restore drill. Handoff/release tasks reference those results rather than repeat them unchanged. If backend limits or source retention/deletion obligations cannot be met, revise private storage and owned public artifact/cache handling before continuing affected collection.
 
 ## Operator review
 
