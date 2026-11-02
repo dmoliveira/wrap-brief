@@ -1235,7 +1235,7 @@
         "snapshot-unit",
         "idempotent-replay"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1267,9 +1267,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T04.01-snapshots.md"
+        ],
+        "checks": [
+          {
+            "name": "snapshot-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T04.01-snapshots.md"
+          },
+          {
+            "name": "idempotent-replay",
+            "result": "pass",
+            "evidence": "docs/evidence/T04.01-snapshots.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T04.01-snapshots.md"
+        }
       },
       "gate_required": true
     },

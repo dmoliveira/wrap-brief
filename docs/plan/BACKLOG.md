@@ -292,7 +292,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T04.01 — Implement backend-neutral snapshots and local prototype state
 
-**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Platform maintainer
 **Dependencies:** T05.01
 **Reserved paths:** `src/wrap_brief/state/snapshot.py`, `tests/state/`, `src/wrap_brief/state/__init__.py`, `src/wrap_brief/state/local.py`, `.gitignore`, `tools/check_wheel.py`, `README.md`, `docs/specs/local-state.md`, `docs/evidence/T04.01-snapshots.md`, `docs/index.md`
@@ -308,6 +308,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T04.01.1** Implement logical snapshots and local prototype store — `done`. Done when: Versioned complete records round-trip; any local database stays untracked and is not treated as live runner-durable storage.
 - [x] **T04.01.2** Implement idempotent update/tombstone semantics — `done`. Done when: Repeated items do not duplicate or become artificially fresh.
 - [x] **T04.01.3** Test cache/artifact independence — `done`. Done when: Loss of optional caches does not change identity or retained records.
+
+**Completion evidence:** [docs/evidence/T04.01-snapshots.md](../../docs/evidence/T04.01-snapshots.md)
 
 ### T04.02 — Select and implement private durable state persistence
 

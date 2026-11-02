@@ -9,7 +9,7 @@ Plan updated: 2026-11-02. **Product is not implemented merely because planning i
 | Scope | Enabled | Completed tasks |
 | --- | --- | --- |
 | planning | yes | 1/1 (100%) · 0 canceled |
-| mvp | yes | 7/33 (21%) · 0 canceled |
+| mvp | yes | 8/33 (24%) · 0 canceled |
 | growth | no | 0/4 (0%) · 0 canceled |
 | revenue | no | 0/5 (0%) · 0 canceled |
 | future | no | 0/5 (0%) · 0 canceled |
@@ -33,7 +33,7 @@ Plan updated: 2026-11-02. **Product is not implemented merely because planning i
 | E01 | Repository, toolchain, and governance | 1/4 (25%) · 0 canceled | 3/12 |
 | E02 | Source approval and versioned contracts | 3/4 (75%) · 0 canceled | 9/12 |
 | E03 | Bounded feed collection and normalization | 2/4 (50%) · 0 canceled | 6/12 |
-| E04 | Durable state and pipeline recovery | 0/4 (0%) · 0 canceled | 3/12 |
+| E04 | Durable state and pipeline recovery | 1/4 (25%) · 0 canceled | 3/12 |
 | E05 | Identity, story grouping, and editorial trust | 1/4 (25%) · 0 canceled | 3/12 |
 | E06 | Minimalist static reader experience | 0/4 (0%) · 0 canceled | 0/12 |
 | E07 | CI, scheduled automation, publishing, and monitoring | 0/5 (0%) · 0 canceled | 0/15 |
@@ -45,7 +45,6 @@ Plan updated: 2026-11-02. **Product is not implemented merely because planning i
 ## Active and blocked
 
 - **T02.02** — Approve the first 3–5 sources · blocked · Zero approved live sources. Resolve permitted public fields, attribution, polling, retention/deletion, public rendering/artifacts and commercial restrictions before enabling any source; see docs/sources/FEASIBILITY.md and issue #4.
-- **T04.01** — Implement backend-neutral snapshots and local prototype state · review
 
 ## Dependency-ready work
 
