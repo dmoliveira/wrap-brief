@@ -2,7 +2,11 @@
 
 ## Reporting
 
-Never disclose a suspected secret or exploit payload in a public issue. Use GitHub private vulnerability reporting once enabled. Until a private reporting route is configured, do not post sensitive details; establishing that route is a foundation task and a prerequisite to production collection.
+Never disclose a suspected secret, vulnerability reproduction payload or private log in a public issue or PR. **GitHub private vulnerability reporting is enabled** for this public repository. Use [Report a vulnerability privately](https://github.com/dmoliveira/wrap-brief/security/advisories/new), also reachable through the repository's Security tab. This creates a private report for maintainers, not a public issue.
+
+Share the affected component/version, impact and the minimum reproduction needed. Prefer synthetic examples; never send active credentials, account exports, publisher feed dumps or unrelated personal data. If a credential may be exposed, revoke/rotate it first. Do not create a fake vulnerability report just to test the form.
+
+If you cannot access the private route, **do not fall back to public issues, PRs or attachments** with sensitive details. Wait for a working private route. The project does not promise a response SLA, bug bounty, legal safe-harbor or encryption mechanism that has not been established. Ordinary non-sensitive bugs use the public-safe issue templates. The maintainer is [@dmoliveira](https://github.com/dmoliveira); no private contact details are published here.
 
 ## Never commit or publish
 

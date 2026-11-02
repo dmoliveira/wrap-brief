@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/dmoliveira/wrap-brief/security/advisories/new
+    about: Do not disclose credentials, exploit payloads or private logs in public issues. If this private route is unavailable, do not publish sensitive details elsewhere.

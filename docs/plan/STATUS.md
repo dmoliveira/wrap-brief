@@ -30,7 +30,7 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 | ID | Component | Task progress | Subtasks done |
 | --- | --- | --- | --- |
 | E00 | Planning and evidence-driven execution | 1/1 (100%) · 0 canceled | 3/3 |
-| E01 | Repository, toolchain, and governance | 1/4 (25%) · 0 canceled | 3/12 |
+| E01 | Repository, toolchain, and governance | 1/4 (25%) · 0 canceled | 5/12 |
 | E02 | Source approval and versioned contracts | 3/4 (75%) · 0 canceled | 9/12 |
 | E03 | Bounded feed collection and normalization | 3/4 (75%) · 0 canceled | 9/12 |
 | E04 | Durable state and pipeline recovery | 1/4 (25%) · 0 canceled | 3/12 |
@@ -44,6 +44,7 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 
 ## Active and blocked
 
+- **T01.01** — Establish public repository rules and reporting · review
 - **T02.02** — Approve the first 3–5 sources · blocked · Zero approved live sources. Resolve permitted public fields, attribution, polling, retention/deletion, public rendering/artifacts and commercial restrictions before enabling any source; see docs/sources/FEASIBILITY.md and issue #4.
 - **T06.04** — Prove core accessibility and performance budgets · blocked · Real screen-reader session outstanding: VoiceOver is installed but not running; no-prompt readiness probe returned application-not-running. Authorized real-AT testing is required; automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.
 
@@ -51,7 +52,6 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 
 Choose at most two disjoint lanes; readiness is not permission to overlap shared files.
 
-- **T01.01** — Establish public repository rules and reporting (Platform maintainer)
 - **T01.04** — Clear brand, code license, and policy copy (Platform maintainer)
 - **T03.04** — Add incremental polling, health and gap detection (Data maintainer)
 - **T05.03** — Benchmark grouping and add reviewed split/merge overrides (Editorial maintainer)
