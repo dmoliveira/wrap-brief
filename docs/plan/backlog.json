@@ -1448,7 +1448,15 @@
       "owner": "Editorial maintainer",
       "paths": [
         "src/wrap_brief/grouping/identity.py",
-        "tests/grouping/"
+        "tests/grouping/",
+        "src/wrap_brief/grouping/__init__.py",
+        "docs/specs/identity.md",
+        "docs/specs/data-pipeline.md",
+        "docs/evidence/T05.01-identity.md",
+        "docs/index.md",
+        "README.md",
+        "tools/check_wheel.py",
+        "docs/specs/architecture.md"
       ],
       "depends_on": [
         "T03.03"
@@ -1458,41 +1466,64 @@
       "deliverable": "Source-scoped stable identity and reviewed tracking-parameter normalization.",
       "acceptance": [
         "Tracking variants deduplicate; article-identifying query fields remain distinct.",
-        "Source GUID collisions/changes do not silently overwrite unrelated articles."
+        "Source GUID collisions/changes do not silently overwrite unrelated articles.",
+        "Initial URL-first policy ignores GUID for identity; source-specific tracking policy can only tighten the exact reviewed allowlist. No live source is approved by hashing metadata."
       ],
       "verification": [
         "identity-unit",
         "canonicalization-benchmark"
       ],
-      "status": "not_started",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T05.01.1",
           "title": "Define GUID/URL identity precedence",
           "done_when": "Identity rules are deterministic and versioned.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.01-identity.md"
+          ]
         },
         {
           "id": "T05.01.2",
           "title": "Implement reviewed URL normalization",
           "done_when": "Only known tracking parameters are stripped.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.01-identity.md"
+          ]
         },
         {
           "id": "T05.01.3",
           "title": "Test duplicate/collision/resurfacing cases",
           "done_when": "Same item is stable while distinct editions/events remain separate.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.01-identity.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T05.01-identity.md"
+        ],
+        "checks": [
+          {
+            "name": "identity-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.01-identity.md"
+          },
+          {
+            "name": "canonicalization-benchmark",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.01-identity.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T05.01-identity.md"
+        }
       },
       "gate_required": true
     },

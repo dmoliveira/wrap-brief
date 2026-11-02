@@ -17,6 +17,7 @@ from wrap_brief.config import SourceRegistry
 from wrap_brief.models import SCHEMA_VERSION
 from wrap_brief.ingest.parsers import parse_feed
 from wrap_brief.ingest.normalize import normalize_entry
+from wrap_brief.grouping.identity import stable_item_id
 
 package = distribution('wrap-brief')
 assert package.requires == ['defusedxml==0.7.1'], 'Unexpected runtime dependencies'
@@ -24,6 +25,7 @@ assert SourceRegistry().enabled_sources == ()
 assert SCHEMA_VERSION == 1
 assert callable(parse_feed)
 assert callable(normalize_entry)
+assert stable_item_id('demo-a', 'https://example.com/a').startswith('item-v1-')
 assert not Path(wrap_brief.__file__).resolve().is_relative_to(Path(sys.argv[1]).resolve())
 assert Path(wrap_brief.__file__).resolve() == Path(
     package.locate_file('wrap_brief/__init__.py')

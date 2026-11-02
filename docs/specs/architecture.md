@@ -49,7 +49,7 @@ These paths are reservations for future tasks, not existing implementation. Keep
 | Contract | Required fields / invariants | Owner |
 | --- | --- | --- |
 | Source | stable ID, HTTPS feed/site URLs, allowed hosts, enabled, rights record, attribution, region, review date | Source maintainer |
-| Item | schema version, stable ID, source ID, GUID if reliable, safe URL, plain-text title, published time if known, first/last seen UTC, status | Data maintainer |
+| Item | schema version, stable ID, source ID, optional source GUID as provenance, safe URL, plain-text title, published time if known, first/last seen UTC, status | Data maintainer |
 | Poll checkpoint | source ID, last attempt/success UTC, ETag/Last-Modified, feed coverage boundary, bounded health codes | Data maintainer |
 | Cluster | stable cluster ID, event/topic label, member IDs, lead ID, confidence tier, rumor/correction labels, override provenance | Grouping/editorial maintainer |
 | Editorial brief (growth, not MVP) | original text, author/byline, reviewed source IDs/links, publish/update time, review state | Editor |
