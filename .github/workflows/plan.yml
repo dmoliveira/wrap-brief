@@ -1,4 +1,4 @@
-name: Validate delivery plan
+name: Validate project and delivery plan
 
 on:
   push:
@@ -28,11 +28,17 @@ jobs:
       - name: Set up pinned UV tooling
         uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
         with:
-          version: "0.9.7"
+          version: "0.13.6"
           enable-cache: false
+      - name: Install the locked Python foundation
+        run: uv sync --locked --python 3.13
       - name: Validate, test, lint and format
-        run: make validate PYTHON='uv run --no-project --python 3.13 python' RUFF='uvx ruff==0.16.2'
+        run: make validate
       - name: Test minimum supported Python
-        run: uv run --no-project --python 3.11 python -m unittest discover -s tests -v
+        run: uv run --locked --python 3.11 python -m unittest discover -s tests -v
+      - name: Verify planning tools remain standalone
+        run: uv run --no-project --python 3.11 python -m unittest discover -s tests -p test_plan.py -v
+      - name: Build and install an isolated wheel
+        run: make test-wheel
       - name: Check change whitespace against first parent
         run: git diff --check HEAD^1 HEAD

@@ -1,6 +1,6 @@
 # Validation policy
 
-## Current planning package
+## Current Python foundation and planning package
 
 ```sh
 make help
@@ -8,7 +8,9 @@ make validate
 git diff --check
 ```
 
-`validate` runs plan checks, unit tests, Ruff lint and format checks. CI runs the same checks with pinned UV/Ruff and Python 3.13, plus tests on the minimum supported Python 3.11. `check-plan` includes task/milestone DAG and exact gate-membership checks, typed state/evidence consistency, local Markdown links, generated views, and limited publication-safety patterns. None proves product behavior. Scan the full candidate tree/history with a dedicated credential scanner before public delivery; record public-safe results in `docs/plan/VALIDATION.md`.
+`validate` runs lock consistency, plan checks, installed-package and planning unit tests, and locked Ruff lint/format checks. CI first performs a clean `uv sync --locked`, runs the same checks on Python 3.13, tests minimum Python 3.11, verifies the standalone planning subset, and requires `make test-wheel` to build/install/import outside the checkout. UV 0.13.6 and Ruff 0.16.2 are the audited CI pins.
+
+`check-plan` includes task/milestone DAG and exact gate-membership checks, typed state/evidence consistency, local Markdown links, generated views, and limited publication-safety patterns. `make check-plan PYTHON=python3` and `make test-plan PYTHON=python3` remain standard-library-only. None proves future feed/site behavior. Scan the candidate tree/history with a dedicated credential scanner before public delivery; record task-specific evidence under `docs/evidence/` without private paths or logs.
 
 ## Future product bundles
 
