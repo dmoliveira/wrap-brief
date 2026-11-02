@@ -1,0 +1,3108 @@
+{
+  "schema_version": 1,
+  "project": {
+    "name": "Wrap Brief",
+    "updated": "2026-11-02",
+    "enabled_scopes": [
+      "planning",
+      "mvp"
+    ],
+    "max_parallel_lanes": 2
+  },
+  "scopes": [
+    {
+      "id": "planning",
+      "activation": "Current plan/tooling deliverable only."
+    },
+    {
+      "id": "mvp",
+      "activation": "Enabled for selection after planning dependencies finish; no money or tracking."
+    },
+    {
+      "id": "growth",
+      "activation": "Enable after M2 with recorded milestone evidence; refine just in time."
+    },
+    {
+      "id": "revenue",
+      "activation": "Enable after M3; complete T10.01 before any commercial integration."
+    },
+    {
+      "id": "future",
+      "activation": "Enable after M2 plus a recorded measured need/budget; select only one relevant slice."
+    }
+  ],
+  "milestones": [
+    {
+      "id": "M0",
+      "title": "Planning ready",
+      "owner": "Delivery lead",
+      "tasks": [
+        "T00.01"
+      ],
+      "entry": "Intent and current repository state checked.",
+      "exit": "Reviewed plan and validated tracker with publication-safe evidence.",
+      "kind": "gate",
+      "depends_on": []
+    },
+    {
+      "id": "M1",
+      "title": "Fixture-only reader prototype",
+      "owner": "Web/data maintainers",
+      "tasks": [
+        "T01.02",
+        "T02.01",
+        "T02.03",
+        "T02.04",
+        "T03.02",
+        "T03.03",
+        "T04.01",
+        "T05.01",
+        "T05.02",
+        "T06.01",
+        "T06.02",
+        "T06.04"
+      ],
+      "entry": "M0 complete; source-feasibility go/no-go before substantial contracts/UI work.",
+      "exit": "Deterministic offline models, grouping and accessible static reading pass.",
+      "kind": "gate",
+      "depends_on": [
+        "M0"
+      ]
+    },
+    {
+      "id": "M2",
+      "title": "Daily supervised noncommercial public pilot",
+      "owner": "Release maintainer",
+      "tasks": [
+        "T01.01",
+        "T01.03",
+        "T01.04",
+        "T02.02",
+        "T03.01",
+        "T03.04",
+        "T04.02",
+        "T04.03",
+        "T04.04",
+        "T05.03",
+        "T05.04",
+        "T06.03",
+        "T07.01",
+        "T07.02",
+        "T07.03",
+        "T07.04",
+        "T07.05",
+        "T08.01",
+        "T08.02",
+        "T08.03",
+        "T08.04"
+      ],
+      "entry": "M1 complete and pilot sources/brand cleared.",
+      "exit": "M1 plus all mandatory M2 tasks, real deployment, named daily supervision, rollback and next-cycle evidence pass. Unattended operation is not claimed.",
+      "kind": "gate",
+      "depends_on": [
+        "M1"
+      ]
+    },
+    {
+      "id": "M3",
+      "title": "Audience and workload validation",
+      "owner": "Product/editorial maintainer",
+      "tasks": [
+        "T09.01",
+        "T09.02",
+        "T09.03",
+        "T09.04"
+      ],
+      "entry": "M2 complete; baseline is collected over at least four weeks before exit.",
+      "exit": "Original value, approved measurement, baseline and one engagement experiment reviewed.",
+      "kind": "gate",
+      "depends_on": [
+        "M2"
+      ]
+    },
+    {
+      "id": "M4",
+      "title": "First revenue experiment validated",
+      "owner": "Business maintainer",
+      "tasks": [
+        "T10.01",
+        "T10.02",
+        "T10.04"
+      ],
+      "entry": "M3 plus commercial/provider/privacy decisions before integration.",
+      "exit": "One support experiment evaluated after fees, cash costs and operator time; keep/stop decision.",
+      "kind": "gate",
+      "depends_on": [
+        "M3"
+      ]
+    },
+    {
+      "id": "M5",
+      "title": "Selective extension opportunities",
+      "owner": "Product maintainer",
+      "tasks": [],
+      "entry": "M2 and specific measured need; choose one later task.",
+      "exit": "Portfolio marker, not a release gate: selected task gets its own evidence/rollback; not every future idea must ship.",
+      "kind": "portfolio",
+      "depends_on": [
+        "M2"
+      ]
+    }
+  ],
+  "epics": [
+    {
+      "id": "E00",
+      "title": "Planning and evidence-driven execution",
+      "owner": "Delivery lead",
+      "objective": "A reviewed, testable plan with truthful progress.",
+      "spec": "docs/plan/new/roadmap.md"
+    },
+    {
+      "id": "E01",
+      "title": "Repository, toolchain, and governance",
+      "owner": "Platform maintainer",
+      "objective": "Safe public collaboration and reproducible development.",
+      "spec": "docs/specs/security-privacy.md"
+    },
+    {
+      "id": "E02",
+      "title": "Source approval and versioned contracts",
+      "owner": "Data maintainer",
+      "objective": "Small approved source set and stable producer/consumer contracts.",
+      "spec": "docs/specs/data-pipeline.md"
+    },
+    {
+      "id": "E03",
+      "title": "Bounded feed collection and normalization",
+      "owner": "Data maintainer",
+      "objective": "Cheap, polite, secure RSS/Atom collection with honest coverage.",
+      "spec": "docs/specs/data-pipeline.md"
+    },
+    {
+      "id": "E04",
+      "title": "Durable state and pipeline recovery",
+      "owner": "Platform maintainer",
+      "objective": "Complete replayable state, safe persistence, and recovery.",
+      "spec": "docs/specs/architecture.md"
+    },
+    {
+      "id": "E05",
+      "title": "Identity, story grouping, and editorial trust",
+      "owner": "Editorial maintainer",
+      "objective": "Less repetition without losing perspectives or provenance.",
+      "spec": "docs/specs/data-pipeline.md"
+    },
+    {
+      "id": "E06",
+      "title": "Minimalist static reader experience",
+      "owner": "Web maintainer",
+      "objective": "Attractive, accessible, fast reading without required JavaScript.",
+      "spec": "docs/specs/reader-experience.md"
+    },
+    {
+      "id": "E07",
+      "title": "CI, scheduled automation, publishing, and monitoring",
+      "owner": "Release maintainer",
+      "objective": "A daily protected release pipeline that fails safely.",
+      "spec": "docs/operations.md"
+    },
+    {
+      "id": "E08",
+      "title": "Security, UX, and live pilot release",
+      "owner": "Release maintainer",
+      "objective": "Demonstrated readiness, not completion inferred from green unit tests.",
+      "spec": "docs/validation-policy.md"
+    },
+    {
+      "id": "E09",
+      "title": "Original value and audience validation",
+      "owner": "Product/editorial maintainer",
+      "objective": "Measure useful repeat readership and operator workload before growth.",
+      "spec": "docs/specs/growth-monetization.md"
+    },
+    {
+      "id": "E10",
+      "title": "Gated support and commercial experiments",
+      "owner": "Business maintainer",
+      "objective": "One reversible, disclosed, measurable revenue channel at a time.",
+      "spec": "docs/specs/growth-monetization.md"
+    },
+    {
+      "id": "E11",
+      "title": "Evidence-led extensions and scale",
+      "owner": "Product maintainer",
+      "objective": "Optional modular improvements only when demand or limits justify them.",
+      "spec": "docs/specs/architecture.md"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T00.01",
+      "epic": "E00",
+      "title": "Deliver the reviewed planning pack and progress tooling",
+      "scope": "planning",
+      "milestone": "M0",
+      "owner": "Delivery lead",
+      "paths": [
+        "README.md",
+        "AGENTS.md",
+        "SECURITY.md",
+        "docs/",
+        "tools/plan.py",
+        "tests/test_plan.py",
+        "Makefile",
+        ".gitignore"
+      ],
+      "depends_on": [],
+      "risk": "low",
+      "size": "M",
+      "deliverable": "Versioned roadmap, component specs, complete backlog, deterministic tracker and evidence.",
+      "acceptance": [
+        "Every component has owned tasks, dependencies, subtasks and measurable done criteria.",
+        "Planning and product progress are separate; disabled work cannot block the MVP or appear ready."
+      ],
+      "verification": [
+        "plan-check",
+        "plan-tests",
+        "public-safety"
+      ],
+      "status": "done",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T00.01.1",
+          "title": "Define architecture, UX, safety and phased business gates",
+          "done_when": "Specifications and roadmap cover the smallest launch and safe extension seams.",
+          "status": "done",
+          "evidence": [
+            "docs/plan/VALIDATION.md"
+          ]
+        },
+        {
+          "id": "T00.01.2",
+          "title": "Encode epics, tasks, subtasks, dependencies and progress",
+          "done_when": "Canonical backlog and generated views validate and agree.",
+          "status": "done",
+          "evidence": [
+            "docs/plan/VALIDATION.md"
+          ]
+        },
+        {
+          "id": "T00.01.3",
+          "title": "Review, test and check publication safety",
+          "done_when": "Independent review has no blocker; named checks and safe evidence are recorded.",
+          "status": "done",
+          "evidence": [
+            "docs/plan/VALIDATION.md"
+          ]
+        }
+      ],
+      "completion": {
+        "evidence": [
+          "docs/plan/VALIDATION.md"
+        ],
+        "checks": [
+          {
+            "name": "plan-check",
+            "result": "pass",
+            "evidence": "docs/plan/VALIDATION.md"
+          },
+          {
+            "name": "plan-tests",
+            "result": "pass",
+            "evidence": "docs/plan/VALIDATION.md"
+          },
+          {
+            "name": "public-safety",
+            "result": "pass",
+            "evidence": "docs/plan/VALIDATION.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/plan/VALIDATION.md"
+        }
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T01.01",
+      "epic": "E01",
+      "title": "Establish public repository rules and reporting",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Platform maintainer",
+      "paths": [
+        ".github/",
+        "SECURITY.md",
+        "CONTRIBUTING.md"
+      ],
+      "depends_on": [
+        "T00.01"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Protected main, PR templates, private vulnerability reporting, public-safe issue guidance and ownership.",
+      "acceptance": [
+        "Required PR/check rules protect main without automation bypass.",
+        "A fork contribution needs no secret; reporting route never invites public disclosure of credentials."
+      ],
+      "verification": [
+        "repository-rule-sandbox",
+        "reporting-review"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T01.01.1",
+          "title": "Configure rules and required-check strategy",
+          "done_when": "Actual account-tier rules are documented and enforced on main.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T01.01.2",
+          "title": "Set contributor and sensitive-reporting paths",
+          "done_when": "Templates and private reporting route are usable without publishing secrets.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T01.01.3",
+          "title": "Exercise branch/fork behavior",
+          "done_when": "Test PR and blocked direct-write evidence is recorded.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T01.02",
+      "epic": "E01",
+      "title": "Create reproducible Python and local check setup",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Platform maintainer",
+      "paths": [
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version",
+        "Makefile",
+        "src/",
+        "tests/"
+      ],
+      "depends_on": [
+        "T00.01"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "uv-managed package, locked minimal dependencies, ruff, unittest/fixture check entry points.",
+      "acceptance": [
+        "Fresh clone installs with the lockfile and runs fixture tests without production credentials.",
+        "Make help describes real available targets; no unnecessary runtime framework or service."
+      ],
+      "verification": [
+        "fresh-clone-setup",
+        "lint-and-unit"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T01.02.1",
+          "title": "Initialize package and supported Python version",
+          "done_when": "uv project and lock file resolve reproducibly.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T01.02.2",
+          "title": "Add lint/test/fixture commands",
+          "done_when": "Formatting, lint and unit tests have documented Make targets.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T01.02.3",
+          "title": "Prove isolated setup",
+          "done_when": "A clean environment passes the advertised commands.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T01.03",
+      "epic": "E01",
+      "title": "Add dependency, action, and credential safety checks",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Platform maintainer",
+      "paths": [
+        ".github/",
+        "pyproject.toml",
+        "uv.lock",
+        "tests/security/"
+      ],
+      "depends_on": [
+        "T01.01",
+        "T01.02"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Pinned actions, locked dependencies, dedicated secret/history scanning and least-privilege CI policy.",
+      "acceptance": [
+        "PR code never receives secrets/write permissions; privileged events cannot execute fork code.",
+        "Credential scanner checks tracked tree/history and public artifacts with reviewed false positives."
+      ],
+      "verification": [
+        "workflow-policy",
+        "credential-history-scan",
+        "dependency-review"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T01.03.1",
+          "title": "Define trust-separated CI permissions",
+          "done_when": "No elevated fork checkout or untrusted privileged execution exists.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T01.03.2",
+          "title": "Pin and scan supply chain/public data",
+          "done_when": "Action SHAs, dependency locks and credential scanning run in CI.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T01.03.3",
+          "title": "Test malicious contribution scenarios",
+          "done_when": "A fork PR cannot deploy, write state, or access credentials.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T01.04",
+      "epic": "E01",
+      "title": "Clear brand, code license, and policy copy",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Platform maintainer",
+      "paths": [
+        "LICENSE",
+        "README.md",
+        "content/policies/",
+        "docs/decisions/"
+      ],
+      "depends_on": [
+        "T00.01"
+      ],
+      "risk": "low",
+      "size": "S",
+      "deliverable": "Working-name checks, explicit code license, attribution/disclaimer/privacy/corrections copy.",
+      "acceptance": [
+        "Name/domain/trademark checks and unofficial presentation are recorded; no Nintendo assets are copied.",
+        "Code licensing is explicit and separate from publisher content rights; private contact/account details stay private."
+      ],
+      "verification": [
+        "brand-license-review",
+        "policy-copy-review"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T01.04.1",
+          "title": "Check Wrap Brief name and independent identity",
+          "done_when": "Evidence supports selected name or a documented rename before launch.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T01.04.2",
+          "title": "Select project license and contribution terms",
+          "done_when": "License scope is clear and excludes third-party content.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T01.04.3",
+          "title": "Write privacy, source, correction and disclaimer copy",
+          "done_when": "Reader-facing policy text accurately reflects the no-tracking pilot.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T02.01",
+      "epic": "E02",
+      "title": "Implement versioned source/item/cluster contracts",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Data maintainer",
+      "paths": [
+        "src/wrap_brief/models.py",
+        "src/wrap_brief/config.py",
+        "config/",
+        "tests/models/"
+      ],
+      "depends_on": [
+        "T01.02",
+        "T02.04"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Typed versioned public records, invariants and source registry schema.",
+      "acceptance": [
+        "Unknown dates remain null/first-seen labeled; URLs and cross-record references validate.",
+        "Schema distinguishes source text, original editorial text, rumor/correction status and health."
+      ],
+      "verification": [
+        "model-unit",
+        "schema-compatibility"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T02.01.1",
+          "title": "Define minimal record and registry fields",
+          "done_when": "Data contracts match the architecture without full text/private fields.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T02.01.2",
+          "title": "Implement validation and serialization",
+          "done_when": "Invalid IDs, URLs, dates and references fail with bounded errors.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T02.01.3",
+          "title": "Add schema/version fixtures",
+          "done_when": "Producers and consumers share tested stable fixtures.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T02.02",
+      "epic": "E02",
+      "title": "Approve the first 3–5 sources",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Data maintainer",
+      "paths": [
+        "config/sources/",
+        "docs/sources/"
+      ],
+      "depends_on": [
+        "T02.01",
+        "T01.04",
+        "T02.04"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Small enabled source registry with reviewed rights/retention/attribution evidence.",
+      "acceptance": [
+        "Every enabled source has terms review date, permitted fields, polling and archival approval.",
+        "Unclear permission disables the source; no RSS-is-a-license assumption or unlicensed images.",
+        "The same approval-plus-fixture checklist supports a later source addition or disablement without an unrelated pipeline change."
+      ],
+      "verification": [
+        "source-rights-review",
+        "registry-validation"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T02.02.1",
+          "title": "Select complementary pilot sources",
+          "done_when": "Candidate feasibility is resolved and final feed URLs/coverage scope are documented.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T02.02.2",
+          "title": "Approve exact fields, attribution and history retention",
+          "done_when": "Every enabled source has dated rights evidence compatible with the public-state design; unclear rights mean disabled.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T02.02.3",
+          "title": "Activate and document repeatable onboarding",
+          "done_when": "Three to five cleared feeds, or an explicitly smaller viable pilot, pass registry checks and a source addition/disable dry-run recipe.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T02.03",
+      "epic": "E02",
+      "title": "Build synthetic feed and view-model fixtures",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Data maintainer",
+      "paths": [
+        "tests/fixtures/",
+        "tests/contracts/"
+      ],
+      "depends_on": [
+        "T02.01"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Rights-safe RSS/Atom, hostile input, and renderer fixtures with injected clocks.",
+      "acceptance": [
+        "Offline fixtures cover valid, empty, malformed, hostile and timezone cases.",
+        "No copied article bodies, real tokens, contact emails or private headers appear in fixtures."
+      ],
+      "verification": [
+        "fixture-contracts",
+        "fixture-public-safety"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T02.03.1",
+          "title": "Create representative RSS/Atom fixtures",
+          "done_when": "Namespaces, Unicode, missing dates/GUIDs and updates are represented.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T02.03.2",
+          "title": "Create adversarial/edge fixtures",
+          "done_when": "Redirect, encoding, XML expansion, limits and duplicate cases are synthetic.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T02.03.3",
+          "title": "Publish shared fixture contract",
+          "done_when": "Data and UI lanes can work independently on identical expected models.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T02.04",
+      "epic": "E02",
+      "title": "Check source feasibility before substantial prototype work",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Data maintainer",
+      "paths": [
+        "docs/sources/",
+        "docs/decisions/"
+      ],
+      "depends_on": [
+        "T00.01"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Lightweight evidence that a viable reduced source set permits the proposed title/link/metadata and public-history use; final activation remains T02.02.",
+      "acceptance": [
+        "Review at least three complementary candidate feeds before substantial data/UI implementation; reduce scope or stop if no lawful viable set exists.",
+        "Record rights/retention uncertainties and a go/no-go without copying private correspondence or claiming final source approval."
+      ],
+      "verification": [
+        "source-feasibility-review",
+        "public-state-rights-fit"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T02.04.1",
+          "title": "Inventory candidate feeds and terms",
+          "done_when": "Candidate ownership, URLs and intended reuse can be assessed without implementing the collector.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T02.04.2",
+          "title": "Check minimum viable rights and retention fit",
+          "done_when": "There is evidence for a viable reduced source set or a documented no-go before substantial M1 work.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T02.04.3",
+          "title": "Record go/no-go and hand off to final onboarding",
+          "done_when": "T02.02 receives unresolved terms, attribution, retention and coverage questions for final approval.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T03.01",
+      "epic": "E03",
+      "title": "Implement bounded safe feed HTTP client",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Data maintainer",
+      "paths": [
+        "src/wrap_brief/ingest/http.py",
+        "tests/ingest/"
+      ],
+      "depends_on": [
+        "T02.01",
+        "T02.03"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Allowlisted HTTPS requests with limits, conditional headers, timeout and backoff.",
+      "acceptance": [
+        "Every redirect/destination is checked; private/metadata targets, oversized bodies and unsafe URLs are rejected.",
+        "Request concurrency/retry budgets respect source policies and do not leak headers in logs."
+      ],
+      "verification": [
+        "http-adversarial",
+        "timeout-retry-budget"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T03.01.1",
+          "title": "Implement safe destination and redirect validation",
+          "done_when": "Only approved hosts/public HTTPS targets can be requested.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T03.01.2",
+          "title": "Implement bounded transport and conditional GET",
+          "done_when": "Timeouts, decompressed byte limit, redirects, retries and 304 are handled.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T03.01.3",
+          "title": "Test abuse and partial-source failures",
+          "done_when": "One malicious/slow feed cannot monopolize the run or erase other data.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T03.02",
+      "epic": "E03",
+      "title": "Parse RSS and Atom safely",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Data maintainer",
+      "paths": [
+        "src/wrap_brief/ingest/parsers.py",
+        "tests/ingest/",
+        "pyproject.toml",
+        "uv.lock"
+      ],
+      "depends_on": [
+        "T02.03"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Pure RSS/Atom adapters using a safe locked XML dependency where justified.",
+      "acceptance": [
+        "External entities/DTD/expansion are disabled; depth/text/item bounds apply.",
+        "Parser emits source metadata only, never raw HTML/full article/enclosure downloads."
+      ],
+      "verification": [
+        "parser-unit",
+        "xml-abuse-fixtures"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T03.02.1",
+          "title": "Implement small RSS/Atom adapters",
+          "done_when": "Supported feed formats return the shared candidate record shape.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T03.02.2",
+          "title": "Enforce safe XML and field bounds",
+          "done_when": "Hostile entities, nesting and oversized text fail safely.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T03.02.3",
+          "title": "Test format and encoding edge cases",
+          "done_when": "Fixture suite passes offline with predictable item quarantine.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T03.03",
+      "epic": "E03",
+      "title": "Normalize and validate public metadata",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Data maintainer",
+      "paths": [
+        "src/wrap_brief/ingest/normalize.py",
+        "tests/ingest/"
+      ],
+      "depends_on": [
+        "T03.02"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Plain-text safe URLs/titles, explicit UTC, provenance, and item quarantine.",
+      "acceptance": [
+        "Publication/update/first-seen times remain distinct; ambiguous dates are not fabricated.",
+        "Unsafe links/markup and unapproved fields cannot reach state or rendered output."
+      ],
+      "verification": [
+        "normalization-unit",
+        "url-time-provenance"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T03.03.1",
+          "title": "Normalize text, URLs and source references",
+          "done_when": "Public fields meet length/scheme/provenance constraints.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T03.03.2",
+          "title": "Normalize UTC and unknown/future dates",
+          "done_when": "Dates and labels retain honest semantics under injected clocks.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T03.03.3",
+          "title": "Test escaping/quarantine paths",
+          "done_when": "Invalid entries are bounded and reported without losing valid entries.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T03.04",
+      "epic": "E03",
+      "title": "Add incremental polling, health and gap detection",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Data maintainer",
+      "paths": [
+        "src/wrap_brief/ingest/",
+        "tests/ingest/"
+      ],
+      "depends_on": [
+        "T03.01",
+        "T03.03"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Per-source checkpoints, 304 handling, last-good fallback and possible truncation warnings.",
+      "acceptance": [
+        "Checkpoints advance only after validated source success; legitimate no-news is not a failure.",
+        "Potential missed feed windows and partial/all-source failures are surfaced honestly."
+      ],
+      "verification": [
+        "incremental-polling",
+        "truncation-and-outage"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T03.04.1",
+          "title": "Persist conditional-request checkpoints",
+          "done_when": "ETag/Last-Modified and poll boundaries survive independent runs.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T03.04.2",
+          "title": "Implement healthy/degraded/no-new outcomes",
+          "done_when": "Source errors preserve prior records; all-source failure stops publication.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T03.04.3",
+          "title": "Detect possible feed-window gaps",
+          "done_when": "Truncation fixtures produce warnings without false completeness claims.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T04.01",
+      "epic": "E04",
+      "title": "Implement full normalized snapshot store",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Platform maintainer",
+      "paths": [
+        "src/wrap_brief/state/snapshot.py",
+        "tests/state/"
+      ],
+      "depends_on": [
+        "T05.01"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Deterministic local snapshot read/validate/write API and retained complete records.",
+      "acceptance": [
+        "State stores complete metadata and checkpoints, not only seen IDs.",
+        "Identical inputs produce stable IDs/order; schema and references reject corrupt snapshots."
+      ],
+      "verification": [
+        "snapshot-unit",
+        "idempotent-replay"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T04.01.1",
+          "title": "Implement snapshot serialization and validation",
+          "done_when": "Versioned complete records round-trip deterministically.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T04.01.2",
+          "title": "Implement idempotent update/tombstone semantics",
+          "done_when": "Repeated items do not duplicate or become artificially fresh.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T04.01.3",
+          "title": "Test cache/artifact independence",
+          "done_when": "Loss of optional caches does not change identity or retained records.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T04.02",
+      "epic": "E04",
+      "title": "Implement isolated state-branch CAS persistence",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Platform maintainer",
+      "paths": [
+        "src/wrap_brief/state/git_store.py",
+        ".github/workflows/",
+        "tests/state/"
+      ],
+      "depends_on": [
+        "T01.03",
+        "T04.01"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Trusted default-branch writer with exact data allowlist and expected-head fast-forward commits.",
+      "acceptance": [
+        "Writer rejects path traversal, symlinks, executable/workflow/config artifacts and invalid/oversized JSON.",
+        "No force push or main bypass; conflict causes safe bounded retry/failure under shared concurrency."
+      ],
+      "verification": [
+        "writer-permission-sandbox",
+        "cas-and-artifact-abuse"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T04.02.1",
+          "title": "Define state branch rules and writer contract",
+          "done_when": "Actual branch protections support intended writes without main bypass.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T04.02.2",
+          "title": "Implement revalidation and expected-parent commit",
+          "done_when": "Only bounded allowed public JSON paths can be committed.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T04.02.3",
+          "title": "Exercise conflict and hostile candidate scenarios",
+          "done_when": "CAS conflicts and injected executable/path payloads fail safely.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T04.03",
+      "epic": "E04",
+      "title": "Test state retention, migrations and component recovery",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Platform maintainer",
+      "paths": [
+        "src/wrap_brief/state/",
+        "tests/state/",
+        "docs/operations.md"
+      ],
+      "depends_on": [
+        "T04.02",
+        "T03.04"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Component-level retention, schema migration, replay and failed-build recovery tests; operational site rollback belongs to T07.05.",
+      "acceptance": [
+        "State committed before a failed build remains available to the next complete build.",
+        "Retention/tombstones are rights-aware; Git-history permanence is explicit and restore preserves IDs."
+      ],
+      "verification": [
+        "state-component-recovery",
+        "migration-retention"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T04.03.1",
+          "title": "Implement bounded retention and tombstones",
+          "done_when": "Expired/resurfaced/retracted records follow explicit non-fabricated freshness rules.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T04.03.2",
+          "title": "Implement migration and known-good restore",
+          "done_when": "Previous state version/snapshot restores with validated records/checkpoints.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T04.03.3",
+          "title": "Simulate failure after state commit",
+          "done_when": "Next build includes every retained item without depending on a lost artifact.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T04.04",
+      "epic": "E04",
+      "title": "Compose explicit collect/build/check CLI stages",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Platform maintainer",
+      "paths": [
+        "src/wrap_brief/pipeline.py",
+        "src/wrap_brief/cli.py",
+        "tests/integration/"
+      ],
+      "depends_on": [
+        "T04.01",
+        "T03.04",
+        "T05.02"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Composable stage commands, dry run, injected time/network and safe manifest/exit codes.",
+      "acceptance": [
+        "Each stage has explicit input/output contracts and can run from fixtures independently.",
+        "Dry run performs no state mutation/deployment; partial failures are represented in bounded health."
+      ],
+      "verification": [
+        "pipeline-fixture-e2e",
+        "dry-run-no-write"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T04.04.1",
+          "title": "Implement orchestration over pure modules",
+          "done_when": "Stages do not mix network, grouping, persistence and rendering concerns.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T04.04.2",
+          "title": "Add dry-run and safe manifest output",
+          "done_when": "Outputs identify code/config/state and health without private fields.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T04.04.3",
+          "title": "Test whole-pipeline replay and failure exits",
+          "done_when": "Fixture pipeline is deterministic and returns actionable bounded failures.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T05.01",
+      "epic": "E05",
+      "title": "Implement exact identity and conservative URL cleanup",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Editorial maintainer",
+      "paths": [
+        "src/wrap_brief/grouping/identity.py",
+        "tests/grouping/"
+      ],
+      "depends_on": [
+        "T03.03"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Source-scoped stable identity and reviewed tracking-parameter normalization.",
+      "acceptance": [
+        "Tracking variants deduplicate; article-identifying query fields remain distinct.",
+        "Source GUID collisions/changes do not silently overwrite unrelated articles."
+      ],
+      "verification": [
+        "identity-unit",
+        "canonicalization-benchmark"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T05.01.1",
+          "title": "Define GUID/URL identity precedence",
+          "done_when": "Identity rules are deterministic and versioned.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T05.01.2",
+          "title": "Implement reviewed URL normalization",
+          "done_when": "Only known tracking parameters are stripped.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T05.01.3",
+          "title": "Test duplicate/collision/resurfacing cases",
+          "done_when": "Same item is stable while distinct editions/events remain separate.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T05.02",
+      "epic": "E05",
+      "title": "Group same-event coverage and choose lead source",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Editorial maintainer",
+      "paths": [
+        "src/wrap_brief/grouping/",
+        "tests/grouping/"
+      ],
+      "depends_on": [
+        "T05.01",
+        "T02.03"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Conservative event clusters, stable IDs, deterministic evidence-based lead ranking.",
+      "acceptance": [
+        "Rumor/confirmation, distinct Direct announcements, reviews and news do not collapse blindly.",
+        "All alternate members retain links/provenance; commercial value never affects ranking."
+      ],
+      "verification": [
+        "grouping-unit",
+        "lead-ranking-rules"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T05.02.1",
+          "title": "Implement bounded similarity candidate stage",
+          "done_when": "Entities/event types/time window constrain title similarity.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T05.02.2",
+          "title": "Implement stable groups and transparent lead choice",
+          "done_when": "Primary/original/substantive coverage rules have deterministic tie-breakers.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T05.02.3",
+          "title": "Test ambiguous and conflicting coverage",
+          "done_when": "Uncertain matches split; rumors/corrections retain explicit labels.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T05.03",
+      "epic": "E05",
+      "title": "Benchmark grouping and add reviewed split/merge overrides",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Editorial maintainer",
+      "paths": [
+        "tests/benchmarks/",
+        "config/overrides/",
+        "src/wrap_brief/grouping/"
+      ],
+      "depends_on": [
+        "T05.02"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Labeled benchmark, measured precision/recall, reversible manual corrections.",
+      "acceptance": [
+        "At least 100 labeled pairs include known hard cases; automatic merge precision is at least 98% on sample.",
+        "Overrides are reviewed, deterministic and traceable; fuzzy grouping can be disabled safely."
+      ],
+      "verification": [
+        "grouping-gold-benchmark",
+        "override-replay"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T05.03.1",
+          "title": "Label representative real-event metadata pairs",
+          "done_when": "Rights-safe benchmark covers event/edition/rumor/correction edge cases.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T05.03.2",
+          "title": "Measure and tune conservative thresholds",
+          "done_when": "Precision, recall, sample size and false merges are reported.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T05.03.3",
+          "title": "Implement split/merge and disable controls",
+          "done_when": "Reviewed overrides survive reruns without deleting source provenance.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T05.04",
+      "epic": "E05",
+      "title": "Add provenance, corrections and takedown controls",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Editorial maintainer",
+      "paths": [
+        "content/corrections/",
+        "src/wrap_brief/editorial/",
+        "tests/editorial/"
+      ],
+      "depends_on": [
+        "T02.01",
+        "T05.02"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Source-attribution, correction/retraction and removal controls; no original-brief production system required for MVP.",
+      "acceptance": [
+        "Publisher headlines remain explicitly attributed; an MVP listing never implies original reporting or fabricated editorial context.",
+        "A correction/removal exercise preserves honest provenance, prevents re-promotion and addresses public-state/history rights constraints."
+      ],
+      "verification": [
+        "editorial-provenance",
+        "correction-takedown-drill"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T05.04.1",
+          "title": "Preserve publisher and claim provenance",
+          "done_when": "Attribution and confirmed/reported/rumor labels have explicit source evidence; absent editorial text stays absent.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T05.04.2",
+          "title": "Implement correction/retraction and exclusion controls",
+          "done_when": "Withdrawn or changed claims cannot remain silently promoted and overrides retain traceable provenance.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T05.04.3",
+          "title": "Exercise source-requested removal",
+          "done_when": "The chosen remedy handles tombstones/retention and does not falsely claim file deletion erases public Git history.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T06.01",
+      "epic": "E06",
+      "title": "Create responsive visual tokens and semantic shell",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Web maintainer",
+      "paths": [
+        "web/",
+        "src/wrap_brief/render/",
+        "tests/render/"
+      ],
+      "depends_on": [
+        "T02.03"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Original minimalist mobile-first shell, typography, spacing and contrast-tested colors.",
+      "acceptance": [
+        "No copied Nintendo identity/assets, external fonts or required client framework.",
+        "Semantic landmarks, skip link, visible focus and readable 320px layout are present."
+      ],
+      "verification": [
+        "design-token-contrast",
+        "shell-mobile-keyboard"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T06.01.1",
+          "title": "Translate UX spec into a small token set",
+          "done_when": "Typography, spacing and accent colors pass contrast targets.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T06.01.2",
+          "title": "Build semantic responsive shell",
+          "done_when": "Header/content/footer reflow cleanly from mobile to desktop.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T06.01.3",
+          "title": "Validate long text and focus states",
+          "done_when": "No clipped links/labels or invisible keyboard focus.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T06.02",
+      "epic": "E06",
+      "title": "Render grouped digest with accessible alternate sources",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Web maintainer",
+      "paths": [
+        "src/wrap_brief/render/",
+        "tests/render/",
+        "web/"
+      ],
+      "depends_on": [
+        "T06.01",
+        "T05.02",
+        "T04.01"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Escaped static story cards with lead links, native disclosures and honest labels.",
+      "acceptance": [
+        "Core reading and all source links work with JavaScript disabled.",
+        "Title/source/known time/rumor status are visible; other coverage remains reachable by keyboard."
+      ],
+      "verification": [
+        "renderer-golden-html",
+        "no-js-source-navigation"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T06.02.1",
+          "title": "Implement pure view models and HTML escaping",
+          "done_when": "Hostile source fields render as safe text/links.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T06.02.2",
+          "title": "Implement cards and native coverage disclosure",
+          "done_when": "Lead action and alternate publishers have descriptive links.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T06.02.3",
+          "title": "Build deterministic fixture homepage",
+          "done_when": "Same supplied inputs/clock yield identical output files.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T06.03",
+      "epic": "E06",
+      "title": "Render policies, honest health and empty/degraded states",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Web maintainer",
+      "paths": [
+        "src/wrap_brief/render/",
+        "content/policies/",
+        "tests/render/",
+        "web/"
+      ],
+      "depends_on": [
+        "T06.02",
+        "T01.04"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "About/sources/privacy/corrections, absolute check time and safe empty/stale states.",
+      "acceptance": [
+        "Failed feeds are not described as no news; no-JS readers always see the absolute check timestamp.",
+        "30-hour stale behavior is truthful, including limits of static HTML and any optional local-clock enhancement."
+      ],
+      "verification": [
+        "policy-and-health-render",
+        "empty-degraded-stale"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T06.03.1",
+          "title": "Render methodology and required policy links",
+          "done_when": "Independent status, rights, privacy and correction route are reachable.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T06.03.2",
+          "title": "Implement healthy/empty/degraded states",
+          "done_when": "Source failures and genuine zero-new-news have different copy.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T06.03.3",
+          "title": "Implement/test freshness display",
+          "done_when": "Publication, first-seen, last-check and deployment times are not conflated.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T06.04",
+      "epic": "E06",
+      "title": "Prove core accessibility and performance budgets",
+      "scope": "mvp",
+      "milestone": "M1",
+      "owner": "Web maintainer",
+      "paths": [
+        "tests/browser/",
+        "tests/render/",
+        "web/",
+        "docs/evidence/"
+      ],
+      "depends_on": [
+        "T06.02"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Repeatable browser/a11y/no-JS and compressed-size checks against fixture site.",
+      "acceptance": [
+        "320px, desktop, keyboard, screen-reader checks, 200/400% reflow and reduced-motion behavior pass.",
+        "Initial HTML/CSS/JS <=150 KB compressed; mobile LCP/CLS targets measured with environment noted."
+      ],
+      "verification": [
+        "browser-a11y-no-js",
+        "performance-budget"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T06.04.1",
+          "title": "Add repeatable browser/static checks",
+          "done_when": "Core read/expand/outbound tasks are tested without JS and by keyboard.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T06.04.2",
+          "title": "Measure size and mobile rendering",
+          "done_when": "Compressed payload, LCP/CLS and test environment are recorded.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T06.04.3",
+          "title": "Fix UX/a11y regressions",
+          "done_when": "No release-blocking overflow, contrast, focus or source-navigation failure remains.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T07.01",
+      "epic": "E07",
+      "title": "Wire credential-free PR CI and full fixture build",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Release maintainer",
+      "paths": [
+        ".github/workflows/",
+        "Makefile",
+        "tests/integration/"
+      ],
+      "depends_on": [
+        "T01.03",
+        "T06.04",
+        "T05.03"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Required read-only lint/unit/fixture/schema/render/workflow checks on pull requests.",
+      "acceptance": [
+        "Fork PR check paths cannot mutate state/deploy or obtain secrets.",
+        "CI rejects invalid source/config/grouping/output and generated-plan drift."
+      ],
+      "verification": [
+        "ci-fork-sandbox",
+        "full-fixture-build"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T07.01.1",
+          "title": "Assemble named required checks",
+          "done_when": "Lint, unit, integration, schemas, HTML/links and plan checks have stable names.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.01.2",
+          "title": "Run fixture build on fork PR",
+          "done_when": "No production network credentials or write scopes are needed.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.01.3",
+          "title": "Test intentionally failing changes",
+          "done_when": "Broken contracts/unsafe workflows are blocked before merge.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T07.02",
+      "epic": "E07",
+      "title": "Schedule daily collection and isolated persistence",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Release maintainer",
+      "paths": [
+        ".github/workflows/",
+        "tests/workflows/",
+        "docs/operations.md"
+      ],
+      "depends_on": [
+        "T07.01",
+        "T04.04",
+        "T04.02",
+        "T02.02"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Default-branch daily/manual collect -> validate -> persist pipeline with one mutation lock.",
+      "acceptance": [
+        "Only cron 23 6 * * * is enabled initially; UTC/cadence and manual default-branch restrictions are explicit.",
+        "Read-only fetch and trusted state-write jobs are separated; all-source failure/conflict cannot corrupt state."
+      ],
+      "verification": [
+        "workflow-policy",
+        "scheduled-state-sandbox"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T07.02.1",
+          "title": "Configure schedule/manual triggers and lock",
+          "done_when": "All production mutation/recovery routes share concurrency control.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.02.2",
+          "title": "Wire bounded collect and data-only writer artifact",
+          "done_when": "Privileged job revalidates the exact approved candidate contract.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.02.3",
+          "title": "Run real-source dry run and persistence sandbox",
+          "done_when": "Approved source polling and state boundaries pass without deploying.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T07.03",
+      "epic": "E07",
+      "title": "Deploy validated static artifact through protected Pages",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Release maintainer",
+      "paths": [
+        ".github/workflows/",
+        "tests/workflows/",
+        "docs/operations.md"
+      ],
+      "depends_on": [
+        "T07.02",
+        "T06.03"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Read-only build from explicit state/code refs, one-day Pages artifact, restricted OIDC deploy.",
+      "acceptance": [
+        "Deploy job has Pages/OIDC permissions only and runs after every build gate.",
+        "Invalid/empty-on-failure output cannot replace live site; actual public URL/manifest is smoke-tested."
+      ],
+      "verification": [
+        "pages-deployment-sandbox",
+        "public-url-smoke"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T07.03.1",
+          "title": "Configure Pages source and environment restrictions",
+          "done_when": "Only reviewed default-branch releases can deploy.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.03.2",
+          "title": "Wire build/validate/upload/deploy jobs",
+          "done_when": "Artifact root, entry point, retention and manifest are correct.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.03.3",
+          "title": "Exercise successful and failed publication",
+          "done_when": "Known-good site survives a pre-deploy failure; live output matches manifest.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T07.04",
+      "epic": "E07",
+      "title": "Add health reporting and supervised pilot checks",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Release maintainer",
+      "paths": [
+        ".github/workflows/",
+        "src/wrap_brief/health.py",
+        "docs/operations.md",
+        "docs/evidence/"
+      ],
+      "depends_on": [
+        "T07.03"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Public minimal health manifest, failed-job notifications and a named daily supervision procedure; independent monitoring gates later unattended mode.",
+      "acceptance": [
+        "A named maintainer role checks freshness/source health daily and records escalation for a 30-hour stale result; a disabled schedule is not assumed self-monitoring.",
+        "Alerts and health omit credentials/private contacts; pilot is explicitly supervised until independent stale monitoring is proven."
+      ],
+      "verification": [
+        "health-and-supervision-drill",
+        "alert-redaction-and-dedupe"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T07.04.1",
+          "title": "Emit bounded collection/source/deployment health",
+          "done_when": "Manifest distinguishes successful collection, deployment, source failures and possible feed gaps.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.04.2",
+          "title": "Define named daily supervision and failure notification",
+          "done_when": "Maintainer role, daily check, 30-hour threshold and escalation are documented without publishing private contacts.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.04.3",
+          "title": "Exercise failed and disabled schedule detection",
+          "done_when": "Supervised checks notice stale/missed runs; no claim of unattended operation is made. Independent monitoring moves to T11.01.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T07.05",
+      "epic": "E07",
+      "title": "Rehearse known-good rollback and state restore",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Release maintainer",
+      "paths": [
+        ".github/workflows/",
+        "tests/recovery/",
+        "docs/operations.md",
+        "docs/evidence/"
+      ],
+      "depends_on": [
+        "T07.03",
+        "T04.03"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "One end-to-end operational rollback/restore drill with reviewed code/state refs and reusable public-safe evidence.",
+      "acceptance": [
+        "Rollback does not depend only on expiring artifacts and does not erase valid unseen state.",
+        "Practical restore time is measured against a 30-minute target and public URL is checked.",
+        "T08.04 and the release checklist reference this drill; they do not rerun it unless inputs or recovery behavior change."
+      ],
+      "verification": [
+        "deployment-rollback-drill",
+        "state-restore-drill"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T07.05.1",
+          "title": "Implement guarded manual recovery route",
+          "done_when": "Only reviewed refs can be selected under the same production lock.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.05.2",
+          "title": "Restore known-good site and state in sandbox",
+          "done_when": "IDs/checkpoints/tombstones and live manifest remain coherent.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T07.05.3",
+          "title": "Record operational recovery evidence",
+          "done_when": "Elapsed time, outcomes, resume criteria and residual limitations are documented.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T08.01",
+      "epic": "E08",
+      "title": "Complete adversarial and public-surface security review",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Release maintainer",
+      "paths": [
+        "tests/security/",
+        "docs/evidence/",
+        "SECURITY.md"
+      ],
+      "depends_on": [
+        "T07.04",
+        "T07.05"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Threat-driven tests and scan evidence across repo/history/state/artifacts/logs/output.",
+      "acceptance": [
+        "Unsafe feed URLs/XML/HTML/artifact paths and privileged fork scenarios are rejected.",
+        "No credentials, user/payment data, private contact fields or runtime state is published."
+      ],
+      "verification": [
+        "full-adversarial-suite",
+        "public-surface-scan",
+        "security-review"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T08.01.1",
+          "title": "Test input and privilege attack paths",
+          "done_when": "SSRF, XML abuse, XSS, writer traversal and fork escalation cases pass.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T08.01.2",
+          "title": "Inspect all public publication surfaces",
+          "done_when": "Dedicated scanner plus manual classification review finds no unresolved secret.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T08.01.3",
+          "title": "Resolve high-severity findings",
+          "done_when": "Security review signs off the actual integrated release candidate.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T08.02",
+      "epic": "E08",
+      "title": "Validate the integrated reader flow with users",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Release maintainer",
+      "paths": [
+        "docs/evidence/",
+        "web/",
+        "tests/browser/"
+      ],
+      "depends_on": [
+        "T06.03",
+        "T06.04",
+        "T05.03"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Observed reader tasks, accessibility/performance results and repaired usability failures.",
+      "acceptance": [
+        "At least five representative sessions test check time, rumor, source comparison and publisher navigation.",
+        "Core mobile/keyboard/no-JS flow and performance guardrails pass on the integrated candidate."
+      ],
+      "verification": [
+        "reader-task-sessions",
+        "integrated-a11y-performance"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T08.02.1",
+          "title": "Prepare realistic story scenarios",
+          "done_when": "Long headlines, rumors, corrections, many sources and stale/empty states are covered.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T08.02.2",
+          "title": "Observe reader tasks and accessibility",
+          "done_when": "Findings distinguish observed behavior from assumptions.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T08.02.3",
+          "title": "Repair and recheck material failures",
+          "done_when": "No blocker remains in core comprehension or outbound reading.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T08.03",
+      "epic": "E08",
+      "title": "Release and verify the daily public pilot",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Release maintainer",
+      "paths": [
+        "docs/evidence/",
+        "docs/plan/",
+        ".github/"
+      ],
+      "depends_on": [
+        "T08.01",
+        "T08.02",
+        "T07.04",
+        "T07.05",
+        "T05.04",
+        "T08.04"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Noncommercial pilot release with cleared sources, live checks and first scheduled cycle evidence.",
+      "acceptance": [
+        "All prerequisite MVP tasks and source/brand/security/recovery gates pass; no tracking or monetization is enabled.",
+        "Actual Pages site and next scheduled cycle are checked; supervised ownership and limitations are visible.",
+        "Any security-relevant change after T08.01 receives a scoped delta review before release; this task does not require its own prior completion."
+      ],
+      "verification": [
+        "release-gate-checklist",
+        "live-pilot-and-next-cycle"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T08.03.1",
+          "title": "Audit integrated launch checklist",
+          "done_when": "Prerequisite evidence is complete and changes since final security review have been checked; T08.03 itself is completed only after release verification.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T08.03.2",
+          "title": "Publish and smoke-check pilot",
+          "done_when": "Public URL has expected content, links, policies, safe state and freshness.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T08.03.3",
+          "title": "Verify next daily cycle and handoff",
+          "done_when": "Scheduled update, alerts and operator runbook work in live operation.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T08.04",
+      "epic": "E08",
+      "title": "Review contributor/operator handoff using existing evidence",
+      "scope": "mvp",
+      "milestone": "M2",
+      "owner": "Release maintainer",
+      "paths": [
+        "CONTRIBUTING.md",
+        "docs/operations.md",
+        "docs/evidence/"
+      ],
+      "depends_on": [
+        "T07.05",
+        "T01.03"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Usable contributor and incident handoff referencing existing security/recovery evidence rather than duplicating drills.",
+      "acceptance": [
+        "A maintainer can follow source-disable, failure-triage and restore instructions using the evidence owned by T07.05 and T08.01.",
+        "Public contributor instructions are verified against the existing T01.02 clean-clone result; only changed steps are rerun."
+      ],
+      "verification": [
+        "operator-handoff-review",
+        "contributor-docs-evidence-review"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T08.04.1",
+          "title": "Assign routine maintenance and incident ownership",
+          "done_when": "Weekly source/quality/cost reviews and escalation have an accountable maintainer role.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T08.04.2",
+          "title": "Review runbooks against existing drills",
+          "done_when": "Links to T07.05 recovery and T08.01 security evidence are correct; no redundant restore tabletop is required.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T08.04.3",
+          "title": "Check contributor documentation against clean-clone evidence",
+          "done_when": "Instructions match T01.02 setup and current CI; rerun only behavior changed since that evidence.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T09.01",
+      "epic": "E09",
+      "title": "Decide measurement approach; instrument only if approved",
+      "scope": "growth",
+      "milestone": "M3",
+      "owner": "Product/editorial maintainer",
+      "paths": [
+        "docs/decisions/",
+        "content/policies/",
+        "web/",
+        "tests/privacy/"
+      ],
+      "depends_on": [
+        "T08.03"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Evidence-based no-tracking or approved-minimal-measurement decision with honest metrics and privacy controls.",
+      "acceptance": [
+        "A documented no-tracking decision is a valid completion outcome; operational, editorial-output, workload and cash-cost metrics can support M3.",
+        "Any instrumentation has provider/data/legal/performance review; unique-reader/retention/attribution claims require an actually approved method."
+      ],
+      "verification": [
+        "privacy-data-inventory",
+        "measurement-accuracy"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T09.01.1",
+          "title": "Choose no-tracking or minimal approved provider",
+          "done_when": "Data categories, region/consent basis, retention and access are recorded.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T09.01.2",
+          "title": "Implement only if approved, or document no-tracking",
+          "done_when": "No-tracking remains the default; any chosen instrumentation stays within approved consent/data/performance boundaries.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T09.01.3",
+          "title": "Validate counts and honest reporting",
+          "done_when": "Known test events match documented metric denominators/limitations.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T09.02",
+      "epic": "E09",
+      "title": "Publish original digest, public RSS and selective SEO",
+      "scope": "growth",
+      "milestone": "M3",
+      "owner": "Product/editorial maintainer",
+      "paths": [
+        "content/",
+        "src/wrap_brief/render/",
+        "tests/seo/",
+        "docs/evidence/"
+      ],
+      "depends_on": [
+        "T08.03",
+        "T05.04"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Original-brief model and review workflow, useful recurring editorial content, public RSS and quality-first search metadata.",
+      "acceptance": [
+        "Only substantive original/curated pages are indexed; no thin per-keyword page explosion.",
+        "Canonical/sitemap/robots/feed links are accurate and all publisher attribution is preserved."
+      ],
+      "verification": [
+        "editorial-and-seo-review",
+        "rss-and-metadata-validation"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T09.02.1",
+          "title": "Implement and publish a reviewed original digest",
+          "done_when": "Original briefs have a minimal content model, byline, cited sources and review state; sustainable effort is recorded separately from MVP source listings.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T09.02.2",
+          "title": "Add RSS and accurate discovery metadata",
+          "done_when": "Feed, canonical, sitemap and share metadata validate without unlicensed assets.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T09.02.3",
+          "title": "Review indexability and acquisition channels",
+          "done_when": "Thin/duplicate pages are excluded and community sharing follows rules.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T09.03",
+      "epic": "E09",
+      "title": "Establish four-week reader-value and cost baseline",
+      "scope": "growth",
+      "milestone": "M3",
+      "owner": "Product/editorial maintainer",
+      "paths": [
+        "docs/evidence/",
+        "docs/experiments/"
+      ],
+      "depends_on": [
+        "T09.01",
+        "T09.02"
+      ],
+      "risk": "medium",
+      "size": "M",
+      "deliverable": "Four-week aggregate reliability, quality, reader-value and operator-effort report.",
+      "acceptance": [
+        "Report actual available metrics and missing-data limitations, not invented retention.",
+        "Cash costs and operator minutes have reproducible definitions and a sustainable workload cap."
+      ],
+      "verification": [
+        "baseline-data-review",
+        "operator-cost-review"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T09.03.1",
+          "title": "Collect four weeks of approved observations",
+          "done_when": "Reliability, source quality, editorial effort and measured audience data are complete enough to interpret.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T09.03.2",
+          "title": "Compute contribution and workload baseline",
+          "done_when": "Fees/tools/time are included with an explicit operator rate.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T09.03.3",
+          "title": "Decide next smallest improvement",
+          "done_when": "Keep/change/stop decision cites reader value and actual cost.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T09.04",
+      "epic": "E09",
+      "title": "Run one ethical engagement experiment",
+      "scope": "growth",
+      "milestone": "M3",
+      "owner": "Product/editorial maintainer",
+      "paths": [
+        "docs/experiments/",
+        "content/",
+        "web/",
+        "tests/browser/"
+      ],
+      "depends_on": [
+        "T09.03"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "One time-boxed experiment such as digest placement or source navigation, with guardrails.",
+      "acceptance": [
+        "Hypothesis, time/cash cap, measurement method and stop/rollback rule precede implementation.",
+        "No modal/forced signup/dark pattern; source referrals, accessibility and performance are protected."
+      ],
+      "verification": [
+        "engagement-experiment-review",
+        "ux-guardrail-check"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T09.04.1",
+          "title": "Select one evidence-led engagement change",
+          "done_when": "Baseline supports the chosen reader problem.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T09.04.2",
+          "title": "Ship a small reversible experiment",
+          "done_when": "Only approved data and an accessible no-JS baseline are used.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T09.04.3",
+          "title": "Evaluate and keep/change/stop",
+          "done_when": "Observed benefit and operator cost determine the result.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T10.01",
+      "epic": "E10",
+      "title": "Resolve commercial hosting, provider and financial gates",
+      "scope": "revenue",
+      "milestone": "M4",
+      "owner": "Business maintainer",
+      "paths": [
+        "docs/decisions/",
+        "content/policies/",
+        "docs/evidence/"
+      ],
+      "depends_on": [
+        "T09.04"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Public-safe go/no-go decision for hosting, provider terms, disclosures, privacy and financial obligations.",
+      "acceptance": [
+        "Pages commercial-use uncertainty is resolved appropriately or hosting migrates before money features.",
+        "Provider account/secrets and private tax/payment details are never committed."
+      ],
+      "verification": [
+        "commercial-policy-review",
+        "provider-privacy-finance-review"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T10.01.1",
+          "title": "Review current hosting and provider policies",
+          "done_when": "Document compatible use or select/migrate to an appropriate host.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.01.2",
+          "title": "Complete private account/financial setup",
+          "done_when": "Required verification, fee/tax obligations and private credential storage are addressed.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.01.3",
+          "title": "Approve public disclosures and experiment cap",
+          "done_when": "Integration is permitted, transparent, reversible and budgeted.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T10.02",
+      "epic": "E10",
+      "title": "Enable one quiet hosted support option",
+      "scope": "revenue",
+      "milestone": "M4",
+      "owner": "Business maintainer",
+      "paths": [
+        "web/",
+        "content/policies/",
+        "src/wrap_brief/render/",
+        "tests/browser/"
+      ],
+      "depends_on": [
+        "T10.01"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Optional honest support callout linking to an approved hosted payment provider.",
+      "acceptance": [
+        "No payment details collected on Pages; no default recurring charge, guilt or blocking popup.",
+        "Support provider is disclosed and core performance/accessibility/referral tasks remain intact."
+      ],
+      "verification": [
+        "support-provider-sandbox",
+        "support-ux-privacy-check"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T10.02.1",
+          "title": "Design minimal support placement and copy",
+          "done_when": "One nonintrusive callout follows reader value and explains use of funds.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.02.2",
+          "title": "Integrate approved hosted support flow",
+          "done_when": "Only reviewed public URLs/IDs ship; private payment state stays with provider.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.02.3",
+          "title": "Test success/failure/disable paths",
+          "done_when": "No sensitive data leaks and removal is a small configuration change.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T10.03",
+      "epic": "E10",
+      "title": "Pilot disclosed affiliate commerce or sponsorship",
+      "scope": "revenue",
+      "milestone": "M4",
+      "owner": "Business maintainer",
+      "paths": [
+        "content/commerce/",
+        "content/policies/",
+        "web/",
+        "docs/experiments/"
+      ],
+      "depends_on": [
+        "T10.04"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Only one selected later commercial pilot with useful original content and clear separation.",
+      "acceptance": [
+        "Program/contract/provider rules are reviewed; disclosures appear before clicks and no source ranking is sold.",
+        "Audience claims are truthful and contribution is evaluated after operator time."
+      ],
+      "verification": [
+        "affiliate-or-sponsor-policy",
+        "commercial-experiment-review"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T10.03.1",
+          "title": "Choose channel based on audience evidence",
+          "done_when": "Affiliate purchase intent or sponsor fit has a reasoned business case.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.03.2",
+          "title": "Ship separated disclosed content/placement",
+          "done_when": "No editorial card or lead ranking masquerades as paid promotion.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.03.3",
+          "title": "Evaluate contribution and trust guardrails",
+          "done_when": "Keep/change/stop decision includes fees/time and user impact.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": false
+    },
+    {
+      "id": "T10.04",
+      "epic": "E10",
+      "title": "Evaluate support conversion and net contribution",
+      "scope": "revenue",
+      "milestone": "M4",
+      "owner": "Business maintainer",
+      "paths": [
+        "docs/experiments/",
+        "docs/evidence/"
+      ],
+      "depends_on": [
+        "T10.02"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "Time-boxed support experiment result and explicit expand/stop decision.",
+      "acceptance": [
+        "Gross donations are not called profit; fees, tools and operator hours are subtracted.",
+        "Conversion is reported only with valid exposure measurement; otherwise raw totals/limitations are shown."
+      ],
+      "verification": [
+        "revenue-evidence-review",
+        "contribution-calculation"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T10.04.1",
+          "title": "Collect approved aggregate support outcomes",
+          "done_when": "No donor records or private provider exports enter the repo.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.04.2",
+          "title": "Calculate net contribution and workload",
+          "done_when": "Operator rate, expenses and measurement limits are explicit.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.04.3",
+          "title": "Choose keep/change/stop before expansion",
+          "done_when": "Negative economics or trust/performance harm can disable the channel.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": true
+    },
+    {
+      "id": "T10.05",
+      "epic": "E10",
+      "title": "Evaluate and optionally pilot display advertising",
+      "scope": "revenue",
+      "milestone": "M4",
+      "owner": "Business maintainer",
+      "paths": [
+        "web/",
+        "content/policies/",
+        "docs/experiments/",
+        "tests/browser/"
+      ],
+      "depends_on": [
+        "T10.04"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Ad go/no-go and, only if approved, a bounded labeled placement with consent controls.",
+      "acceptance": [
+        "Hosting/network/original-content/privacy/consent approval precedes scripts.",
+        "Reserved dimensions, Advertisement labels, no-ad fallback and before/after performance/referral checks pass."
+      ],
+      "verification": [
+        "ad-provider-privacy-approval",
+        "ad-performance-trust-guardrails"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T10.05.1",
+          "title": "Validate commercial and network eligibility",
+          "done_when": "Thin aggregation alone is not assumed sufficient for approval.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.05.2",
+          "title": "Pilot one safe placement or record no-go",
+          "done_when": "No deceptive card placement, behavioral tracking by default or layout shift.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T10.05.3",
+          "title": "Measure return after all costs and harms",
+          "done_when": "Ads are removed if contribution/reader-value guardrails fail.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": false
+    },
+    {
+      "id": "T11.01",
+      "epic": "E11",
+      "title": "Expand cadence, sources or unattended operation with evidence",
+      "scope": "future",
+      "milestone": "M5",
+      "owner": "Product maintainer",
+      "paths": [
+        "config/sources/",
+        ".github/workflows/",
+        "docs/decisions/",
+        "tests/ingest/"
+      ],
+      "depends_on": [
+        "T08.03"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "A selected expansion: twice-daily polling, additional approved sources, or independently monitored unattended operation.",
+      "acceptance": [
+        "Feed gaps, freshness or operator workload justify the chosen change; no expansion is required just because public compute is free.",
+        "Before unattended mode, an independent monitor detects a disabled schedule at a 30-hour threshold using an approved private notification route.",
+        "Additional sources/cadence still meet rights, quality and request budgets; rollback and incremental cost are documented."
+      ],
+      "verification": [
+        "cadence-source-cost-review",
+        "expanded-source-regression"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T11.01.1",
+          "title": "Select one observed coverage or workload problem",
+          "done_when": "Evidence supports cadence/source expansion or reducing manual supervision; no automatic expansion is assumed.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.01.2",
+          "title": "Implement only the selected bounded change",
+          "done_when": "Use one approved cron/source set; unattended mode requires a separately verified independent monitor and private notification route.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.01.3",
+          "title": "Compare value, cost and missed-schedule behavior",
+          "done_when": "Coverage/workload improves without trust/rights regressions; disabled-schedule detection is proven before claiming unattended operation.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": false
+    },
+    {
+      "id": "T11.02",
+      "epic": "E11",
+      "title": "Select one discovery feature: search, game page or calendar",
+      "scope": "future",
+      "milestone": "M5",
+      "owner": "Product maintainer",
+      "paths": [
+        "src/wrap_brief/render/",
+        "web/",
+        "tests/browser/",
+        "docs/experiments/"
+      ],
+      "depends_on": [
+        "T09.03"
+      ],
+      "risk": "medium",
+      "size": "S",
+      "deliverable": "One modular static discovery feature backed by demand, not a full portal rewrite.",
+      "acceptance": [
+        "New pages provide unique value; no empty keyword doorway pages or backend dependency without need.",
+        "Core no-JS reading, performance and source attribution remain intact."
+      ],
+      "verification": [
+        "discovery-feature-acceptance",
+        "seo-a11y-performance"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T11.02.1",
+          "title": "Choose and refine the highest-value discovery need",
+          "done_when": "Reader baseline supports search, selected game page or release calendar.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.02.2",
+          "title": "Implement against existing view models",
+          "done_when": "Ingestion/state contracts do not need an unnecessary rewrite.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.02.3",
+          "title": "Measure usage and maintenance burden",
+          "done_when": "Feature is retained only if value exceeds its operating complexity.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": false
+    },
+    {
+      "id": "T11.03",
+      "epic": "E11",
+      "title": "Add consented email digest only after demonstrated demand",
+      "scope": "future",
+      "milestone": "M5",
+      "owner": "Product maintainer",
+      "paths": [
+        "docs/decisions/",
+        "content/policies/",
+        "docs/experiments/",
+        "web/"
+      ],
+      "depends_on": [
+        "T09.03",
+        "T09.01"
+      ],
+      "risk": "high",
+      "size": "S",
+      "deliverable": "Approved provider-based newsletter with consent, unsubscribe, private storage and portability.",
+      "acceptance": [
+        "Subscriber/suppression lists never enter Git/Pages; signup and unsubscribe work securely.",
+        "Free-tier limits, consent/retention/privacy, export/exit and workload are reviewed."
+      ],
+      "verification": [
+        "email-consent-unsubscribe",
+        "provider-portability-security"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T11.03.1",
+          "title": "Validate demand and choose bounded provider",
+          "done_when": "Cost, deliverability, privacy and migration options are documented.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.03.2",
+          "title": "Implement consent and lifecycle via provider",
+          "done_when": "Signup/confirmation/unsubscribe/deletion work without a custom public data store.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.03.3",
+          "title": "Pilot digest and measure sustainable value",
+          "done_when": "No scraped outreach or misleading subscriber metrics; stop/exit path is proven.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": false
+    },
+    {
+      "id": "T11.04",
+      "epic": "E11",
+      "title": "Migrate storage or hosting when policy/limits require it",
+      "scope": "future",
+      "milestone": "M5",
+      "owner": "Product maintainer",
+      "paths": [
+        "src/wrap_brief/state/",
+        ".github/workflows/",
+        "docs/decisions/",
+        "docs/operations.md"
+      ],
+      "depends_on": [
+        "T08.03",
+        "T04.03"
+      ],
+      "risk": "high",
+      "size": "M",
+      "deliverable": "Portable static host/state backend migration preserving public IDs, URLs and recovery.",
+      "acceptance": [
+        "Policy, retention/erasure, state growth or reliability need is measured and budgeted.",
+        "Dual-read/restore verification and cutover rollback protect content, tombstones, links and credentials."
+      ],
+      "verification": [
+        "migration-dry-run",
+        "cutover-restore-drill"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T11.04.1",
+          "title": "Define migration trigger and target",
+          "done_when": "Provider terms/cost/retention and secret boundaries satisfy the actual need.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.04.2",
+          "title": "Migrate snapshots/URLs with validation",
+          "done_when": "IDs, records, checkpoints and public links remain consistent.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.04.3",
+          "title": "Rehearse cutover and rollback",
+          "done_when": "Known-good site/state restore is proven before irreversible cleanup.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": false
+    },
+    {
+      "id": "T11.05",
+      "epic": "E11",
+      "title": "Evaluate advanced grouping or localization as a separate slice",
+      "scope": "future",
+      "milestone": "M5",
+      "owner": "Product maintainer",
+      "paths": [
+        "src/wrap_brief/grouping/",
+        "tests/benchmarks/",
+        "content/",
+        "docs/experiments/"
+      ],
+      "depends_on": [
+        "T05.03",
+        "T09.03"
+      ],
+      "risk": "medium",
+      "size": "M",
+      "deliverable": "Refined evidence-led experiment, not automatic AI/multilingual scope expansion.",
+      "acceptance": [
+        "Benchmark gain or reader demand justifies cost, rights and editorial complexity.",
+        "Baseline deterministic pipeline still works without paid services; language/rumor/correction semantics remain accurate."
+      ],
+      "verification": [
+        "advanced-feature-benchmark",
+        "cost-rights-fallback-review"
+      ],
+      "status": "not_started",
+      "block_reason": "",
+      "subtasks": [
+        {
+          "id": "T11.05.1",
+          "title": "Select one concrete quality or language problem",
+          "done_when": "Baseline metrics support a narrow experiment with an explicit budget.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.05.2",
+          "title": "Prototype behind disabled-by-default configuration",
+          "done_when": "Provider/privacy/translation rights and fallback are reviewed before use.",
+          "status": "not_started",
+          "evidence": []
+        },
+        {
+          "id": "T11.05.3",
+          "title": "Compare quality, cost and operational burden",
+          "done_when": "Only a measurable improvement proceeds; failed experiment is removed cleanly.",
+          "status": "not_started",
+          "evidence": []
+        }
+      ],
+      "completion": {
+        "evidence": [],
+        "checks": [],
+        "review": null
+      },
+      "gate_required": false
+    }
+  ]
+}
