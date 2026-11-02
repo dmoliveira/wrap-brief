@@ -34,7 +34,7 @@ Move to twice daily only if source volume/gap evidence or reader freshness justi
 
 ## Identity and durable state
 
-- Stable source-scoped GUID where reliable; otherwise a hash of source ID and conservatively normalized URL.
+- Initial MVP identity is a versioned hash of source ID and conservatively canonicalized URL. GUID remains provenance only; no reliable-GUID mode is enabled without later reviewed evidence and collision handling. See [identity policy](identity.md).
 - Remove only reviewed tracking parameters. Preserve query fields that may identify different articles, editions, languages, or pagination. Do not invent canonical URLs by crawling full articles.
 - Exact identity updates the existing record without bumping publication time or creating another card. Material corrections retain provenance.
 - State completeness, atomic persistence, private retention/deletion and public artifact/cache constraints are canonical in [architecture](architecture.md). Privileged writer validation is canonical in [security/privacy](security-privacy.md). The ingestion stage emits data-only validated candidates, never executable state.

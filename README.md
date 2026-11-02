@@ -6,7 +6,7 @@ Independent, unofficial, public-source news aggregation. Not affiliated with, en
 
 ## Current state
 
-This repository contains the **delivery plan, core contracts, synthetic fixtures, offline RSS/Atom parser and metadata normalization**, not a working news site. No live feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
+This repository contains the **delivery plan, core contracts, synthetic fixtures, offline parsing, metadata normalization and exact item identity**, not a working news site. No live feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
 
 - [Progress and next ready work](docs/plan/STATUS.md)
 - [Complete epic/task/subtask backlog](docs/plan/BACKLOG.md)
@@ -17,6 +17,7 @@ This repository contains the **delivery plan, core contracts, synthetic fixtures
 - [Shared synthetic pipeline/reader fixtures](tests/fixtures/README.md)
 - [Implemented safe feed-parser boundary](docs/specs/feed-parser.md)
 - [Implemented normalization/quarantine boundary](docs/specs/normalization.md)
+- [Implemented exact identity policy](docs/specs/identity.md)
 - [Offline-prototype and private-state decision](docs/decisions/0001-fixtures-and-private-state.md)
 - [All documentation](docs/index.md)
 
@@ -53,6 +54,8 @@ uv run --locked python -c 'from pathlib import Path; from wrap_brief.config impo
 `Source`, `Item`, and `Cluster` are immutable version-1 records with strict validation and JSON round trips. Unknown publication dates stay unknown. [Contract fixtures](tests/models/fixtures/v1.json) are hand-authored synthetic examples, never real news or publisher approval.
 
 `wrap_brief.ingest.parsers.parse_feed` accepts bytes only and returns bounded provisional metadata. `wrap_brief.ingest.normalize.normalize_entry` validates a row using an explicit observation clock and supplied pure identity callback, returning a typed Item or a fixed quarantine code. Neither fetches anything or grants publisher permission. Parser output must not bypass normalization into persistence or rendering.
+
+`wrap_brief.grouping.identity.stable_item_id` supplies that callback: source-scoped URL-v1 IDs ignore unreliable GUIDs and remove only reviewed tracking keys from identity input. It does not mutate the displayed URL, combine story coverage, or make outbound links tracking-free.
 
 ## Inspect and maintain the plan
 

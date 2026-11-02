@@ -373,22 +373,23 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T05.01 — Implement exact identity and conservative URL cleanup
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Editorial maintainer
 **Dependencies:** T03.03
-**Reserved paths:** `src/wrap_brief/grouping/identity.py`, `tests/grouping/`
+**Reserved paths:** `src/wrap_brief/grouping/identity.py`, `tests/grouping/`, `src/wrap_brief/grouping/__init__.py`, `docs/specs/identity.md`, `docs/specs/data-pipeline.md`, `docs/evidence/T05.01-identity.md`, `docs/index.md`, `README.md`, `tools/check_wheel.py`, `docs/specs/architecture.md`
 
 **Deliverable:** Source-scoped stable identity and reviewed tracking-parameter normalization.
 
 **Done criteria:**
 - Tracking variants deduplicate; article-identifying query fields remain distinct.
 - Source GUID collisions/changes do not silently overwrite unrelated articles.
+- Initial URL-first policy ignores GUID for identity; source-specific tracking policy can only tighten the exact reviewed allowlist. No live source is approved by hashing metadata.
 **Required checks:** identity-unit, canonicalization-benchmark.
 
 **Subtasks:**
-- [ ] **T05.01.1** Define GUID/URL identity precedence — `not_started`. Done when: Identity rules are deterministic and versioned.
-- [ ] **T05.01.2** Implement reviewed URL normalization — `not_started`. Done when: Only known tracking parameters are stripped.
-- [ ] **T05.01.3** Test duplicate/collision/resurfacing cases — `not_started`. Done when: Same item is stable while distinct editions/events remain separate.
+- [x] **T05.01.1** Define GUID/URL identity precedence — `done`. Done when: Identity rules are deterministic and versioned.
+- [x] **T05.01.2** Implement reviewed URL normalization — `done`. Done when: Only known tracking parameters are stripped.
+- [x] **T05.01.3** Test duplicate/collision/resurfacing cases — `done`. Done when: Same item is stable while distinct editions/events remain separate.
 
 ### T05.02 — Group same-event coverage and choose lead source
 
