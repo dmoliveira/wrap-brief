@@ -778,7 +778,8 @@
       "owner": "Data maintainer",
       "paths": [
         "docs/sources/",
-        "docs/decisions/"
+        "docs/decisions/",
+        "docs/index.md"
       ],
       "depends_on": [
         "T00.01"
@@ -788,35 +789,40 @@
       "deliverable": "Lightweight evidence that a viable reduced source set permits the proposed title/link/metadata and public-history use; final activation remains T02.02.",
       "acceptance": [
         "Review at least three complementary candidate feeds before substantial data/UI implementation; reduce scope or stop if no lawful viable set exists.",
-        "Record rights/retention uncertainties and a go/no-go without copying private correspondence or claiming final source approval."
+        "Record rights/retention uncertainties and a go/no-go without copying private correspondence or claiming final source approval.",
+        "A no-go report is recorded as blocked, not done, until viability is established; downstream tasks must not be unlocked merely because research was written."
       ],
       "verification": [
         "source-feasibility-review",
         "public-state-rights-fit"
       ],
-      "status": "not_started",
-      "block_reason": "",
+      "status": "blocked",
+      "block_reason": "No reviewed candidate set is cleared for the proposed feed-metadata republication and permanent public Git history. Resolve publisher/compatible-license evidence or review storage design before downstream work; see docs/sources/FEASIBILITY.md.",
       "subtasks": [
         {
           "id": "T02.04.1",
           "title": "Inventory candidate feeds and terms",
           "done_when": "Candidate ownership, URLs and intended reuse can be assessed without implementing the collector.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/sources/FEASIBILITY.md"
+          ]
         },
         {
           "id": "T02.04.2",
           "title": "Check minimum viable rights and retention fit",
-          "done_when": "There is evidence for a viable reduced source set or a documented no-go before substantial M1 work.",
-          "status": "not_started",
+          "done_when": "A viable reduced source set has a documented compatible metadata/retention basis. A no-go report leaves this viability gate blocked; it must not unlock contracts or substantial prototype work.",
+          "status": "blocked",
           "evidence": []
         },
         {
           "id": "T02.04.3",
           "title": "Record go/no-go and hand off to final onboarding",
           "done_when": "T02.02 receives unresolved terms, attribution, retention and coverage questions for final approval.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/sources/FEASIBILITY.md"
+          ]
         }
       ],
       "completion": {

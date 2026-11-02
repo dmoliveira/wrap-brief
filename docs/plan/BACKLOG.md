@@ -175,22 +175,25 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T02.04 — Check source feasibility before substantial prototype work
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** blocked · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T00.01
-**Reserved paths:** `docs/sources/`, `docs/decisions/`
+**Reserved paths:** `docs/sources/`, `docs/decisions/`, `docs/index.md`
 
 **Deliverable:** Lightweight evidence that a viable reduced source set permits the proposed title/link/metadata and public-history use; final activation remains T02.02.
 
 **Done criteria:**
 - Review at least three complementary candidate feeds before substantial data/UI implementation; reduce scope or stop if no lawful viable set exists.
 - Record rights/retention uncertainties and a go/no-go without copying private correspondence or claiming final source approval.
+- A no-go report is recorded as blocked, not done, until viability is established; downstream tasks must not be unlocked merely because research was written.
 **Required checks:** source-feasibility-review, public-state-rights-fit.
 
 **Subtasks:**
-- [ ] **T02.04.1** Inventory candidate feeds and terms — `not_started`. Done when: Candidate ownership, URLs and intended reuse can be assessed without implementing the collector.
-- [ ] **T02.04.2** Check minimum viable rights and retention fit — `not_started`. Done when: There is evidence for a viable reduced source set or a documented no-go before substantial M1 work.
-- [ ] **T02.04.3** Record go/no-go and hand off to final onboarding — `not_started`. Done when: T02.02 receives unresolved terms, attribution, retention and coverage questions for final approval.
+- [x] **T02.04.1** Inventory candidate feeds and terms — `done`. Done when: Candidate ownership, URLs and intended reuse can be assessed without implementing the collector.
+- [ ] **T02.04.2** Check minimum viable rights and retention fit — `blocked`. Done when: A viable reduced source set has a documented compatible metadata/retention basis. A no-go report leaves this viability gate blocked; it must not unlock contracts or substantial prototype work.
+- [x] **T02.04.3** Record go/no-go and hand off to final onboarding — `done`. Done when: T02.02 receives unresolved terms, attribution, retention and coverage questions for final approval.
+
+**Block/cancel reason:** No reviewed candidate set is cleared for the proposed feed-metadata republication and permanent public Git history. Resolve publisher/compatible-license evidence or review storage design before downstream work; see docs/sources/FEASIBILITY.md.
 
 ## E03 — Bounded feed collection and normalization
 
