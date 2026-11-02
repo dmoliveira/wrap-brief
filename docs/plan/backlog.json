@@ -396,7 +396,13 @@
         ".python-version",
         "Makefile",
         "src/",
-        "tests/"
+        "tests/",
+        "README.md",
+        ".github/workflows/plan.yml",
+        "docs/evidence/T01.02-foundation.md",
+        "tools/check_wheel.py",
+        "docs/validation-policy.md",
+        "docs/index.md"
       ],
       "depends_on": [
         "T00.01"
@@ -412,28 +418,32 @@
         "fresh-clone-setup",
         "lint-and-unit"
       ],
-      "status": "not_started",
+      "status": "review",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T01.02.1",
           "title": "Initialize package and supported Python version",
           "done_when": "uv project and lock file resolve reproducibly.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.02-foundation.md"
+          ]
         },
         {
           "id": "T01.02.2",
           "title": "Add lint/test/fixture commands",
           "done_when": "Formatting, lint and unit tests have documented Make targets.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.02-foundation.md"
+          ]
         },
         {
           "id": "T01.02.3",
           "title": "Prove isolated setup",
           "done_when": "A clean environment passes the advertised commands.",
-          "status": "not_started",
+          "status": "in_progress",
           "evidence": []
         }
       ],

@@ -6,7 +6,7 @@ Independent, unofficial, public-source news aggregation. Not affiliated with, en
 
 ## Current state
 
-This repository contains the **delivery plan and its validation tools**, not a working news site. No feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Planning completion must never be reported as product completion.
+This repository contains the **delivery plan, progress tooling, and Python package foundation**, not a working news site. No feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Planning or toolchain completion must never be reported as a working product.
 
 - [Progress and next ready work](docs/plan/STATUS.md)
 - [Complete epic/task/subtask backlog](docs/plan/BACKLOG.md)
@@ -23,22 +23,36 @@ This repository contains the **delivery plan and its validation tools**, not a w
 4. Add sources, original editorial context, RSS, and useful discovery features incrementally.
 5. Enable support or other monetization only after hosting, privacy, provider, and disclosure gates pass.
 
-Proposed product: Python managed with `uv`, `ruff`, a small safe XML parser, static HTML/CSS, optional tiny JavaScript, GitHub Actions, and GitHub Pages. No paid AI, database service, reader accounts, or image scraping in the MVP. A public repository on standard GitHub-hosted runners does not consume the account's included compute allowance; storage, external services, and Pages policy still matter.
+Product direction: Python managed with `uv`, `ruff`, a small safe XML parser when ingestion is implemented, static HTML/CSS, optional tiny JavaScript, GitHub Actions, and GitHub Pages. No paid AI, database service, reader accounts, or image scraping in the MVP. A public repository on standard GitHub-hosted runners does not consume the account's included compute allowance; storage, external services, and Pages policy still matter.
 
-## Inspect and maintain the plan
+## Develop locally
 
-The current planning tools use only Python's standard library; Python 3.11+ is sufficient.
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
 
 ```sh
 make help
-make check-plan
-make test-plan
-make next
+make sync
+make validate
+```
+
+Python 3.13 is the development default; CI also tests Python 3.11. `uv.lock` pins the development tools, and the project currently has **zero runtime dependencies**. The exact `uv_build` build dependency is declared in `pyproject.toml`. Use UV 0.13.4 or newer; CI pins the audited UV 0.13.6. Run `make lock-check` to verify the lock without updating it. Dependency changes require security review and a reviewed lockfile update.
+
+`src/wrap_brief/` is the installed package boundary. Collection, models, grouping, rendering, and CLI features are deliberately absent until their own tasks and source-feasibility gates pass. Tests do not fetch publisher feeds or require credentials.
+
+## Inspect and maintain the plan
+
+Planning tools still use only Python's standard library. The normal Make commands use the locked project environment; an explicit `PYTHON=python3` keeps plan inspection available without installing the package:
+
+```sh
+make help
+make check-plan PYTHON=python3
+make test-plan PYTHON=python3
+make next PYTHON=python3
 ```
 
 Edit `docs/plan/backlog.json`, then run `make render-plan`. Do not hand-edit generated `BACKLOG.md` or `STATUS.md`. See [delivery workflow](docs/delivery-workflow.md) for state transitions and completion evidence. The tooling reports progress and readiness; it does not implement tasks or deploy anything.
 
-With Ruff installed, `make validate` runs the complete local plan/test/lint/format gate. Validation evidence currently uses Ruff 0.16.2; an isolated installation can be provided with `uv tool install ruff==0.16.2`.
+`make validate` runs lock consistency, plan checks, all tests, lint, and format checks with the locked Ruff 0.16.2. `make test-plan` selects the planning subset; `make test` includes installed-package checks. `make test-wheel` separately builds and installs the wheel in a temporary environment outside the checkout; CI requires this packaging check too.
 
 ## Public repository safety
 

@@ -9,6 +9,7 @@
 - [Delivery workflow](delivery-workflow.md)
 - [Validation policy](validation-policy.md)
 - [Planning validation evidence](plan/VALIDATION.md)
+- [Python foundation implementation evidence](evidence/T01.02-foundation.md)
 - [Optional private Codememory workflow](codememory-workflow.md)
 
 ## Component specifications

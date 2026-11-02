@@ -18,7 +18,21 @@ SPEC.loader.exec_module(plan)
 
 class PlanTests(unittest.TestCase):
     def setUp(self):
-        self.data = json.loads((ROOT / plan.BACKLOG).read_text())
+        self.current = json.loads((ROOT / plan.BACKLOG).read_text())
+        self.data = copy.deepcopy(self.current)
+        # Progress updates must not change the starting conditions of unit cases.
+        # The real public snapshot is validated separately below and by check-plan.
+        self.data["project"]["enabled_scopes"] = ["planning", "mvp"]
+        self.data["project"].pop("activation_evidence", None)
+        for task in self.data["tasks"]:
+            task.update(
+                status="not_started",
+                block_reason="",
+                completion={"evidence": [], "checks": [], "review": None},
+            )
+            for subtask in task["subtasks"]:
+                subtask.update(status="not_started", evidence=[])
+        self.completed_planning()
 
     def invalid(self, change, message):
         change(self.data)
@@ -26,7 +40,14 @@ class PlanTests(unittest.TestCase):
             plan.validate(self.data, ROOT)
 
     def test_current_plan_valid(self):
-        plan.validate(self.data, ROOT)
+        plan.validate(self.current, ROOT)
+
+    def test_unit_fixture_does_not_inherit_product_progress(self):
+        self.assertTrue(
+            all(
+                t["status"] == "not_started" for t in self.data["tasks"] if t["scope"] != "planning"
+            )
+        )
 
     def test_duplicate_task(self):
         self.invalid(lambda d: d["tasks"].append(copy.deepcopy(d["tasks"][0])), "duplicate task")
