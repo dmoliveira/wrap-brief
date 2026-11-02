@@ -418,7 +418,7 @@
         "fresh-clone-setup",
         "lint-and-unit"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -443,14 +443,32 @@
           "id": "T01.02.3",
           "title": "Prove isolated setup",
           "done_when": "A clean environment passes the advertised commands.",
-          "status": "in_progress",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.02-foundation.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T01.02-foundation.md"
+        ],
+        "checks": [
+          {
+            "name": "fresh-clone-setup",
+            "result": "pass",
+            "evidence": "docs/evidence/T01.02-foundation.md"
+          },
+          {
+            "name": "lint-and-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T01.02-foundation.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T01.02-foundation.md"
+        }
       },
       "gate_required": true
     },

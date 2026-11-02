@@ -54,7 +54,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T01.02 — Create reproducible Python and local check setup
 
-**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Platform maintainer
 **Dependencies:** T00.01
 **Reserved paths:** `pyproject.toml`, `uv.lock`, `.python-version`, `Makefile`, `src/`, `tests/`, `README.md`, `.github/workflows/plan.yml`, `docs/evidence/T01.02-foundation.md`, `tools/check_wheel.py`, `docs/validation-policy.md`, `docs/index.md`
@@ -69,7 +69,9 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Subtasks:**
 - [x] **T01.02.1** Initialize package and supported Python version — `done`. Done when: uv project and lock file resolve reproducibly.
 - [x] **T01.02.2** Add lint/test/fixture commands — `done`. Done when: Formatting, lint and unit tests have documented Make targets.
-- [ ] **T01.02.3** Prove isolated setup — `in_progress`. Done when: A clean environment passes the advertised commands.
+- [x] **T01.02.3** Prove isolated setup — `done`. Done when: A clean environment passes the advertised commands.
+
+**Completion evidence:** [docs/evidence/T01.02-foundation.md](../../docs/evidence/T01.02-foundation.md)
 
 ### T01.03 — Add dependency, action, and credential safety checks
 
