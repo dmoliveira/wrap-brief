@@ -1,0 +1,33 @@
+name: Validate delivery plan
+
+on:
+  push:
+    branches: [main, docs/wrap-brief-plan]
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: plan-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    name: Planning checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Check out reviewed candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+      - name: Validate plan and generated views
+        run: make check-plan
+      - name: Test planning tools
+        run: make test-plan
+      - name: Check change whitespace against first parent
+        run: git diff --check HEAD^1 HEAD
