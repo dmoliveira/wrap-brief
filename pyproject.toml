@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A modular, static-first Nintendo news hub."
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["defusedxml==0.7.1"]
 
 [dependency-groups]
 dev = ["ruff==0.16.2"]

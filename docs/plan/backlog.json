@@ -982,7 +982,14 @@
         "src/wrap_brief/ingest/parsers.py",
         "tests/ingest/",
         "pyproject.toml",
-        "uv.lock"
+        "uv.lock",
+        "src/wrap_brief/ingest/__init__.py",
+        "tests/test_foundation.py",
+        "tools/check_wheel.py",
+        "README.md",
+        "docs/specs/feed-parser.md",
+        "docs/evidence/T03.02-parser.md",
+        "docs/index.md"
       ],
       "depends_on": [
         "T02.03"
@@ -998,29 +1005,35 @@
         "parser-unit",
         "xml-abuse-fixtures"
       ],
-      "status": "not_started",
+      "status": "review",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T03.02.1",
           "title": "Implement small RSS/Atom adapters",
           "done_when": "Supported feed formats return the shared candidate record shape.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.02-parser.md"
+          ]
         },
         {
           "id": "T03.02.2",
           "title": "Enforce safe XML and field bounds",
           "done_when": "Hostile entities, nesting and oversized text fail safely.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.02-parser.md"
+          ]
         },
         {
           "id": "T03.02.3",
           "title": "Test format and encoding edge cases",
           "done_when": "Fixture suite passes offline with predictable item quarantine.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.02-parser.md"
+          ]
         }
       ],
       "completion": {
