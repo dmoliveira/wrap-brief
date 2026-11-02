@@ -24,6 +24,7 @@
 - [Offline RSS/Atom parser and security budgets](specs/feed-parser.md)
 - [Metadata normalization and quarantine boundary](specs/normalization.md)
 - [Exact identity and conservative canonicalization](specs/identity.md)
+- [Logical snapshots and private local prototype state](specs/local-state.md)
 - [Source approval, ingestion, state, and grouping](specs/data-pipeline.md)
 - [Pilot source-feasibility evidence and current blocker](sources/FEASIBILITY.md)
 - [Minimal reader experience and design](specs/reader-experience.md)
