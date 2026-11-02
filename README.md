@@ -10,6 +10,8 @@ This repository contains the **delivery plan and offline pipeline components thr
 
 A [responsive offline shell preview](web/README.md) is also available: open `web/index.html` directly in a browser. This establishes the page layout and accessibility foundations only; it does not render news yet.
 
+The [fixture-backed grouped digest](docs/specs/digest-renderer.md) now renders synthetic headline/source cards and native alternate-coverage disclosures. Build a local preview with `uv run --locked python tools/build_fixture_site.py digest`, then open `.local/fixture-sites/digest/index.html`. This is hand-authored demonstration content, not real news or a live site. Full-reader accessibility/performance validation remains a separate task.
+
 - [Progress and next ready work](docs/plan/STATUS.md)
 - [Complete epic/task/subtask backlog](docs/plan/BACKLOG.md)
 - [Milestones, parallel lanes, and release gates](docs/plan/new/roadmap.md)

@@ -481,10 +481,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T06.02 — Render grouped digest with accessible alternate sources
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Web maintainer
 **Dependencies:** T06.01, T05.02, T04.01
-**Reserved paths:** `src/wrap_brief/render/`, `tests/render/`, `web/`
+**Reserved paths:** `src/wrap_brief/render/`, `tests/render/`, `web/`, `tools/build_fixture_site.py`, `tools/check_wheel.py`, `README.md`, `docs/specs/digest-renderer.md`, `docs/evidence/T06.02-digest-renderer.md`
 
 **Deliverable:** Escaped static story cards with lead links, native disclosures and honest labels.
 
@@ -494,9 +494,9 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** renderer-golden-html, no-js-source-navigation.
 
 **Subtasks:**
-- [ ] **T06.02.1** Implement pure view models and HTML escaping — `not_started`. Done when: Hostile source fields render as safe text/links.
-- [ ] **T06.02.2** Implement cards and native coverage disclosure — `not_started`. Done when: Lead action and alternate publishers have descriptive links.
-- [ ] **T06.02.3** Build deterministic fixture homepage — `not_started`. Done when: Same supplied inputs/clock yield identical output files.
+- [x] **T06.02.1** Implement pure view models and HTML escaping — `done`. Done when: Hostile source fields render as safe text/links.
+- [x] **T06.02.2** Implement cards and native coverage disclosure — `done`. Done when: Lead action and alternate publishers have descriptive links.
+- [x] **T06.02.3** Build deterministic fixture homepage — `done`. Done when: Same supplied inputs/clock yield identical output files.
 
 ### T06.03 — Render policies, honest health and empty/degraded states
 

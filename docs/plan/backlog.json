@@ -1856,7 +1856,12 @@
       "paths": [
         "src/wrap_brief/render/",
         "tests/render/",
-        "web/"
+        "web/",
+        "tools/build_fixture_site.py",
+        "tools/check_wheel.py",
+        "README.md",
+        "docs/specs/digest-renderer.md",
+        "docs/evidence/T06.02-digest-renderer.md"
       ],
       "depends_on": [
         "T06.01",
@@ -1874,29 +1879,35 @@
         "renderer-golden-html",
         "no-js-source-navigation"
       ],
-      "status": "not_started",
+      "status": "review",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T06.02.1",
           "title": "Implement pure view models and HTML escaping",
           "done_when": "Hostile source fields render as safe text/links.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T06.02-digest-renderer.md"
+          ]
         },
         {
           "id": "T06.02.2",
           "title": "Implement cards and native coverage disclosure",
           "done_when": "Lead action and alternate publishers have descriptive links.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T06.02-digest-renderer.md"
+          ]
         },
         {
           "id": "T06.02.3",
           "title": "Build deterministic fixture homepage",
           "done_when": "Same supplied inputs/clock yield identical output files.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T06.02-digest-renderer.md"
+          ]
         }
       ],
       "completion": {
