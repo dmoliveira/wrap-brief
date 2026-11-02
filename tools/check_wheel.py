@@ -15,11 +15,13 @@ from pathlib import Path
 import wrap_brief
 from wrap_brief.config import SourceRegistry
 from wrap_brief.models import SCHEMA_VERSION
+from wrap_brief.ingest.parsers import parse_feed
 
 package = distribution('wrap-brief')
-assert not package.requires, 'Foundation unexpectedly has runtime dependencies'
+assert package.requires == ['defusedxml==0.7.1'], 'Unexpected runtime dependencies'
 assert SourceRegistry().enabled_sources == ()
 assert SCHEMA_VERSION == 1
+assert callable(parse_feed)
 assert not Path(wrap_brief.__file__).resolve().is_relative_to(Path(sys.argv[1]).resolve())
 assert Path(wrap_brief.__file__).resolve() == Path(
     package.locate_file('wrap_brief/__init__.py')
@@ -33,7 +35,19 @@ def main() -> None:
         key: value
         for key, value in os.environ.items()
         if key
-        not in {"GH_TOKEN", "GITHUB_TOKEN", "PYTHONPATH", "VIRTUAL_ENV", "UV_PROJECT_ENVIRONMENT"}
+        not in {
+            "GH_TOKEN",
+            "GITHUB_TOKEN",
+            "PYTHONPATH",
+            "VIRTUAL_ENV",
+            "UV_PROJECT_ENVIRONMENT",
+            "UV_INDEX",
+            "UV_DEFAULT_INDEX",
+            "UV_INDEX_URL",
+            "UV_EXTRA_INDEX_URL",
+            "PIP_INDEX_URL",
+            "PIP_EXTRA_INDEX_URL",
+        }
     }
     with tempfile.TemporaryDirectory(prefix="wrap-brief-wheel-") as temporary:
         directory = Path(temporary)
@@ -54,6 +68,8 @@ def main() -> None:
                 "run",
                 "--no-project",
                 "--isolated",
+                "--default-index",
+                "https://pypi.org/simple",
                 "--python",
                 (ROOT / ".python-version").read_text().strip(),
                 "--with",

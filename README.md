@@ -6,7 +6,7 @@ Independent, unofficial, public-source news aggregation. Not affiliated with, en
 
 ## Current state
 
-This repository contains the **delivery plan, progress tooling, Python foundation, and versioned core data contracts**, not a working news site. No feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
+This repository contains the **delivery plan, progress tooling, core contracts, synthetic fixture library, and offline RSS/Atom parser**, not a working news site. No live feeds, scheduled collection, Pages deployment, tracking, advertising, or payment integration are enabled. Component completion must never be reported as a working product.
 
 - [Progress and next ready work](docs/plan/STATUS.md)
 - [Complete epic/task/subtask backlog](docs/plan/BACKLOG.md)
@@ -15,6 +15,7 @@ This repository contains the **delivery plan, progress tooling, Python foundatio
 - [Reader experience](docs/specs/reader-experience.md)
 - [Implemented data/config API](docs/specs/contracts.md)
 - [Shared synthetic pipeline/reader fixtures](tests/fixtures/README.md)
+- [Implemented safe feed-parser boundary](docs/specs/feed-parser.md)
 - [Offline-prototype and private-state decision](docs/decisions/0001-fixtures-and-private-state.md)
 - [All documentation](docs/index.md)
 
@@ -38,7 +39,7 @@ make sync
 make validate
 ```
 
-Python 3.13 is the development default; CI also tests Python 3.11. `uv.lock` pins the development tools, and the project currently has **zero runtime dependencies**. The exact `uv_build` build dependency is declared in `pyproject.toml`. Use UV 0.13.4 or newer; CI pins the audited UV 0.13.6. Run `make lock-check` to verify the lock without updating it. Dependency changes require security review and a reviewed lockfile update.
+Python 3.13 is the development default; CI also tests Python 3.11. `uv.lock` pins the development tools and the single runtime dependency **defusedxml 0.7.1**, justified for hostile XML. The exact `uv_build` build dependency is declared in `pyproject.toml`. Use UV 0.13.4 or newer; CI pins the audited UV 0.13.6. Run `make lock-check` to verify the lock without updating it. Dependency changes require security review and a reviewed lockfile update.
 
 `src/wrap_brief/` is the installed package boundary. Each feature is implemented only in its own validated task. Offline contracts and synthetic fixtures may proceed under ADR 0001; collection/publication stays behind source and durable-storage approval. Tests do not fetch publisher feeds or require credentials.
 
@@ -49,6 +50,8 @@ uv run --locked python -c 'from pathlib import Path; from wrap_brief.config impo
 ```
 
 `Source`, `Item`, and `Cluster` are immutable version-1 records with strict validation and JSON round trips. Unknown publication dates stay unknown. [Contract fixtures](tests/models/fixtures/v1.json) are hand-authored synthetic examples, never real news or publisher approval.
+
+`wrap_brief.ingest.parsers.parse_feed` accepts bytes only and returns bounded provisional metadata. It never fetches a feed. Raw dates/URLs still require the later normalization stage; parser output must not be persisted or rendered directly.
 
 ## Inspect and maintain the plan
 

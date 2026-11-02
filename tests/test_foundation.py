@@ -10,10 +10,10 @@ from importlib import metadata
 
 
 class InstalledPackageTests(unittest.TestCase):
-    def test_distribution_has_no_runtime_dependencies(self):
+    def test_distribution_has_only_approved_runtime_dependencies(self):
         distribution = metadata.distribution("wrap-brief")
         self.assertEqual(distribution.metadata["Name"], "wrap-brief")
-        self.assertEqual(distribution.requires or [], [])
+        self.assertEqual(distribution.requires, ["defusedxml==0.7.1"])
 
     def test_isolated_import_outside_checkout(self):
         with tempfile.TemporaryDirectory() as directory:
