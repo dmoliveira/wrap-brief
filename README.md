@@ -38,6 +38,8 @@ make next
 
 Edit `docs/plan/backlog.json`, then run `make render-plan`. Do not hand-edit generated `BACKLOG.md` or `STATUS.md`. See [delivery workflow](docs/delivery-workflow.md) for state transitions and completion evidence. The tooling reports progress and readiness; it does not implement tasks or deploy anything.
 
+With Ruff installed, `make validate` runs the complete local plan/test/lint/format gate. Validation evidence currently uses Ruff 0.16.2; an isolated installation can be provided with `uv tool install ruff==0.16.2`.
+
 ## Public repository safety
 
 Public source does **not** mean public credentials, raw logs, subscriber lists, payment records, or agent databases. Only explicitly public configuration belongs here. Read [SECURITY.md](SECURITY.md) and [the security/privacy spec](docs/specs/security-privacy.md) before adding integrations. Never paste production credentials into issues or pull requests.

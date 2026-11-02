@@ -10,6 +10,7 @@ This file records only public-safe planning/tool validation. It is **not** evide
 - `make check-plan`: passed for 12 epics, 48 tasks, and 144 subtasks; checks include all-edge dependencies, activation gates, local links, publication heuristics, and generated-view agreement.
 - `make test-plan`: 36 deterministic tests passed, including ignored/sensitive/symlink evidence and malformed check/review regressions.
 - `ruff check tools tests` and `ruff format --check tools tests`: passed with Ruff 0.16.2.
+- `make validate` combines the actual plan, test, Ruff lint and format checks into one reproducible local gate; it requires Ruff in addition to standard-library Python.
 - `git diff --cached --check`: passed. Planning-only CI uses a read-only SHA-pinned checkout and checks the candidate against its first parent, including PR merge results.
 - `actionlint` 1.7.7: passed for the planning-only workflow. No product collection, tracking, deployment, or payment workflow is enabled.
 - Gitleaks 8.24.3, downloaded from its official release and SHA256-verified: staged publication tree scan found zero leaks. Bootstrap history contains no content; full committed history must be rescanned before first push.
