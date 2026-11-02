@@ -61,6 +61,8 @@ uv run --locked python -c 'from pathlib import Path; from wrap_brief.config impo
 
 `wrap_brief.ingest.parsers.parse_feed` accepts bytes only and returns bounded provisional metadata. `wrap_brief.ingest.normalize.normalize_entry` validates a row using an explicit observation clock and supplied pure identity callback, returning a typed Item or a fixed quarantine code. Neither fetches anything or grants publisher permission. Parser output must not bypass normalization into persistence or rendering.
 
+`wrap_brief.ingest.http.fetch_feed` is a separate [bounded, approval-gated HTTP component](docs/specs/feed-http.md) with injected offline tests and an isolated single-hop transport. It is not wired into collection or the fixture reader: no source is approved/enabled, no schedule is activated, and private durable state remains a prerequisite before live polling.
+
 `wrap_brief.grouping.identity.stable_item_id` supplies that callback: source-scoped URL-v1 IDs ignore unreliable GUIDs and remove only reviewed tracking keys from identity input. It does not mutate the displayed URL, combine story coverage, or make outbound links tracking-free.
 
 `wrap_brief.state.snapshot.Snapshot` validates complete records and exports deterministic logical JSON. `wrap_brief.state.local.LocalState` is a private, untracked SQLite **development** adapter with versioned atomic commits, not durable live runner storage. Database files, sidecars and real-data exports must never enter Git or public site artifacts.

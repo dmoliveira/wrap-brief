@@ -10,6 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 IMPORT_CHECK = """
 import sys
+import json
+import subprocess
 from datetime import UTC, datetime
 from importlib.metadata import distribution
 from pathlib import Path
@@ -23,6 +25,7 @@ from wrap_brief.state.snapshot import Snapshot
 from wrap_brief.state.local import LocalState
 from wrap_brief.grouping.stories import group_items
 from wrap_brief.render.digest import render_digest
+from wrap_brief.ingest.http import fetch_feed
 
 package = distribution('wrap-brief')
 assert package.requires == ['defusedxml==0.7.1'], 'Unexpected runtime dependencies'
@@ -33,6 +36,12 @@ assert callable(normalize_entry)
 assert stable_item_id('demo-a', 'https://example.com/a').startswith('item-v1-')
 assert callable(Snapshot.from_json) and callable(LocalState)
 assert callable(group_items)
+assert callable(fetch_feed)
+worker = subprocess.run(
+    [sys.executable, '-I', '-m', 'wrap_brief.ingest._http_worker'],
+    input=b'{}', capture_output=True, timeout=5, check=True,
+)
+assert json.loads(worker.stdout) == {'error': 'protocol'} and worker.stderr == b''
 assert 'Hand-authored examples only.' in render_digest(Snapshot(datetime(2026, 1, 2, tzinfo=UTC)))
 assert not Path(wrap_brief.__file__).resolve().is_relative_to(Path(sys.argv[1]).resolve())
 assert Path(wrap_brief.__file__).resolve() == Path(
