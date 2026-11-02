@@ -1591,7 +1591,7 @@
         "grouping-unit",
         "lead-ranking-rules"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1623,9 +1623,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T05.02-story-grouping.md"
+        ],
+        "checks": [
+          {
+            "name": "grouping-unit",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.02-story-grouping.md"
+          },
+          {
+            "name": "lead-ranking-rules",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.02-story-grouping.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T05.02-story-grouping.md"
+        }
       },
       "gate_required": true
     },

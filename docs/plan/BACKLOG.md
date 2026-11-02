@@ -397,7 +397,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T05.02 — Group same-event coverage and choose lead source
 
-**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Editorial maintainer
 **Dependencies:** T05.01, T02.03
 **Reserved paths:** `src/wrap_brief/grouping/`, `tests/grouping/`, `docs/specs/story-grouping.md`, `docs/evidence/T05.02-story-grouping.md`, `docs/index.md`, `README.md`, `tools/check_wheel.py`, `Makefile`, `.github/workflows/plan.yml`, `docs/validation-policy.md`
@@ -413,6 +413,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T05.02.1** Implement bounded similarity candidate stage — `done`. Done when: Entities/event types/time window constrain title similarity.
 - [x] **T05.02.2** Implement stable groups and transparent lead choice — `done`. Done when: Primary/original/substantive coverage rules have deterministic tie-breakers.
 - [x] **T05.02.3** Test ambiguous and conflicting coverage — `done`. Done when: Uncertain matches split; rumors/corrections retain explicit labels.
+
+**Completion evidence:** [docs/evidence/T05.02-story-grouping.md](../../docs/evidence/T05.02-story-grouping.md)
 
 ### T05.03 — Benchmark grouping and add reviewed split/merge overrides
 
