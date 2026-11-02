@@ -17,10 +17,8 @@ Never disclose a suspected secret or exploit payload in a public issue. Use GitH
 ## Credentials and automation
 
 - Use ephemeral `GITHUB_TOKEN` and Pages OIDC, not a long-lived personal access token, for normal publishing.
-- Default workflow permissions to none/read; split network collection, state writing, rendering, and Pages deployment into separate jobs.
-- A token with `contents: write` is repository-scoped, **not branch-scoped**. Protect `main` with required PR/check rules and no automation bypass; validate actual platform behavior in a sandbox.
-- Only reviewed default-branch workflows may persist state or deploy. Fork PR checks get no secrets and no write permission. Do not use `pull_request_target` to execute PR-controlled code.
-- Pin Actions to reviewed full commit SHAs. Lock dependencies. Never execute files obtained from feeds or candidate data artifacts.
+- The canonical job/token/branch/artifact threat controls and proving tests are in [security/privacy](docs/specs/security-privacy.md). A contents-write token is not branch-scoped; protect main and test the real platform rules.
+- Fork checks are unprivileged; only reviewed default-branch code may persist/deploy. Pin Actions and lock dependencies. Never execute downloaded feed/artifact content.
 - Future ad/newsletter/donation credentials belong in provider secret storage or GitHub Secrets/Environments, never browser code. Public provider IDs are not credentials but still require review.
 
 ## Incident response

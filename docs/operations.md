@@ -14,10 +14,10 @@ Status: runbook requirements for future implementation, not an operating service
 
 Record separately: run start, last source attempt/success, latest story time, validated state SHA, build SHA, last successful deployment, and post-deploy verification. Source failure is not a successful empty day.
 
-- Daily freshness target: successful collection within 30 hours. A missing/stale check must be visible even if the collection workflow itself never starts.
+- Daily freshness target: successful collection within 30 hours. A named maintainer checks the public health/last-check timestamp daily during the supervised pilot, including when collection never starts.
 - On-page absolute “last checked” is always shown. Optional tiny local-time JS can add an age warning; it is not a substitute for independent monitoring.
-- GitHub failure notifications catch started-but-failed jobs, not a disabled schedule. Before pilot release, configure an independent monitor of a public minimal health endpoint/manifest with a 30h stale threshold and an approved private notification channel. Verify free-tier limits/terms at selection time; no specific free provider is assumed available forever.
-- If no independent freshness notification route is available, do not claim unattended operation; keep the pilot supervised and document the limitation as a release blocker to unattended mode.
+- GitHub failure notifications catch started-but-failed jobs, not a disabled schedule. T07.04 proves the manual daily check and escalation route; the pilot does not claim unattended operation.
+- Before later unattended mode (T11.01), configure and test an **independent** monitor of the public minimal health endpoint with a 30h stale threshold and an approved private notification channel. Check free-tier terms at selection time; no provider is assumed permanently free. Until this gate passes, retain named supervision.
 - One deduplicated/rate-limited alert per continuing incident; clear on recovery. Never put webhook addresses or private contacts in the public manifest.
 
 ## Failure matrix
@@ -31,7 +31,7 @@ Record separately: run start, last source attempt/success, latest story time, va
 | State head conflict | No force push; one complete re-read/revalidate attempt or fail/alert | CAS conflict sandbox |
 | Build fails after state commit | Keep live site; complete retained records available for next build | Recovery test |
 | Deploy fails | Keep old deployment active, alert; verify actual public state | Failed deploy sandbox |
-| Schedule disabled/missed | Independent stale monitor alerts; maintainer reactivates reviewed schedule | Disabled-schedule drill |
+| Schedule disabled/missed | Pilot supervisor notices stale health and escalates; later unattended mode requires an independent alert | Supervision drill; independent-monitor drill before unattended mode |
 | Source retracts/requests removal | Disable source/record, apply tombstone/correction; assess Git-history rights and storage choice | Reviewed correction exercise |
 | Secret exposure | Revoke first, stop integration, private incident workflow | Tabletop; never publish real secret |
 
@@ -44,7 +44,7 @@ Record separately: run start, last source attempt/success, latest story time, va
 5. Keep state records/tombstones intact unless a separately reviewed state repair is required. Reconcile subsequent records before resuming collection.
 6. Record result and elapsed time; target a practiced restore within 30 minutes. No promise until a drill demonstrates it.
 
-State-loss restore must prove checkpoint and dedup recovery, not just site rollback. Test source config rollback and schema migration rollback separately. If Git-history growth or rights/erasure needs conflict with public state, migrate storage before continuing affected collection.
+T04.03 proves component checkpoint/identity/migration recovery; T07.05 owns the one integrated operational rollback/restore drill. Handoff/release tasks reference those results rather than repeat them unchanged. If Git-history growth or rights/erasure needs conflict with public state, migrate storage before continuing affected collection.
 
 ## Operator review
 

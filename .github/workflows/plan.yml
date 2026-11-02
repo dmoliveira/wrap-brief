@@ -2,7 +2,7 @@ name: Validate delivery plan
 
 on:
   push:
-    branches: [main, docs/wrap-brief-plan]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -25,9 +25,14 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 2
-      - name: Validate plan and generated views
-        run: make check-plan
-      - name: Test planning tools
-        run: make test-plan
+      - name: Set up pinned UV tooling
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+        with:
+          version: "0.9.7"
+          enable-cache: false
+      - name: Validate, test, lint and format
+        run: make validate PYTHON='uv run --no-project --python 3.13 python' RUFF='uvx ruff==0.16.2'
+      - name: Test minimum supported Python
+        run: uv run --no-project --python 3.11 python -m unittest discover -s tests -v
       - name: Check change whitespace against first parent
         run: git diff --check HEAD^1 HEAD

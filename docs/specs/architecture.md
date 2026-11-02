@@ -52,7 +52,7 @@ These paths are reservations for future tasks, not existing implementation. Keep
 | Item | schema version, stable ID, source ID, GUID if reliable, safe URL, plain-text title, published time if known, first/last seen UTC, status | Data maintainer |
 | Poll checkpoint | source ID, last attempt/success UTC, ETag/Last-Modified, feed coverage boundary, bounded health codes | Data maintainer |
 | Cluster | stable cluster ID, event/topic label, member IDs, lead ID, confidence tier, rumor/correction labels, override provenance | Grouping/editorial maintainer |
-| Editorial brief | original text, author/byline, reviewed source IDs/links, publish/update time, review state | Editor |
+| Editorial brief (growth, not MVP) | original text, author/byline, reviewed source IDs/links, publish/update time, review state | Editor |
 | Build manifest | schema/config/code/state references, generated UTC, source results/counts, public-safe health, artifact hash | Release maintainer |
 
 Unknown publication time is `null`, not fabricated. Display “first seen” with that label. Parseable times normalize to UTC; missing/ambiguous dates never become today's publication date silently.
@@ -63,7 +63,7 @@ Unknown publication time is `null`, not fabricated. Display “first seen” wit
 2. **Persist, contents-write token:** trusted code from the default branch verifies candidate schema, allowed paths/fields, limits, and expected state head; creates a fast-forward commit on `state`. No force push, `main` write, or execution of artifact content. The token is repository-scoped; branch rules enforce boundaries.
 3. **Build, read-only token:** read the explicit new state SHA and reviewed code/config SHA. Group and render *all retained records*, not just newly seen IDs. A failed build after persistence cannot strand news permanently.
 4. **Deploy, Pages/OIDC permissions only:** publish the validated immutable Pages artifact. Do not fetch feeds, install arbitrary candidate code, or commit state in this job.
-5. **Verify:** check the actual Pages URL, manifest/freshness, and outbound source path. Record deployment success separately from collection success.
+5. **Verify:** check the actual Pages URL, manifest/freshness, and outbound source path. Record deployment success separately from collection success. The pilot retains daily named supervision; independent stale monitoring gates later unattended mode, as defined in [operations](../operations.md).
 
 One concurrency group covers scheduled/manual/recovery runs. A head conflict fails safely or triggers at most one complete recollect/revalidate from the new head; never merge unknown state blindly. `contents: write` and Pages OIDC solve different authorization problems.
 

@@ -73,7 +73,12 @@ class PlanTests(unittest.TestCase):
         self.invalid(lambda d: d["tasks"][1].update(status="blocked"), "reason required")
 
     def test_active_dependency_required(self):
-        self.data["tasks"][0]["status"] = "in_progress"
+        planning = self.data["tasks"][0]
+        planning.update(
+            status="in_progress", completion={"evidence": [], "checks": [], "review": None}
+        )
+        for subtask in planning["subtasks"]:
+            subtask.update(status="not_started", evidence=[])
         self.invalid(lambda d: d["tasks"][1].update(status="in_progress"), "unfinished dependency")
 
     def test_activation_gate_required(self):
@@ -182,7 +187,7 @@ class PlanTests(unittest.TestCase):
     def test_ready_excludes_disabled_and_blocked(self):
         self.completed_planning()
         ready_ids = {t["id"] for t in plan.ready(self.data)}
-        self.assertEqual(ready_ids, {"T01.01", "T01.02", "T01.04"})
+        self.assertEqual(ready_ids, {"T01.01", "T01.02", "T01.04", "T02.04"})
         self.data["tasks"][1].update(status="blocked", block_reason="test gate")
         self.assertNotIn("T01.01", {t["id"] for t in plan.ready(self.data)})
 
@@ -205,6 +210,99 @@ class PlanTests(unittest.TestCase):
 
     def test_portfolio_is_not_automatically_done(self):
         self.assertFalse(plan.milestone_done(self.data, "M5"))
+
+    def test_primary_gate_membership_must_match(self):
+        self.invalid(lambda d: d["tasks"][1].update(milestone="M1"), "membership mismatch")
+
+    def test_milestone_dependencies_are_acyclic(self):
+        self.invalid(
+            lambda d: d["milestones"][0].update(depends_on=["M2"]), "milestone dependency cycle"
+        )
+
+    def test_milestone_waits_for_predecessor(self):
+        for task in self.data["tasks"]:
+            if task["milestone"] == "M2":
+                task["status"] = "done"
+        self.assertFalse(plan.milestone_done(self.data, "M2"))
+
+    def test_optional_tasks_do_not_become_release_requirements(self):
+        optional = next(t for t in self.data["tasks"] if t["id"] == "T10.05")
+        self.assertFalse(optional["gate_required"])
+        milestone = next(m for m in self.data["milestones"] if m["id"] == "M4")
+        self.assertNotIn(optional["id"], milestone["tasks"])
+        milestone["tasks"].append(optional["id"])
+        with self.assertRaisesRegex(ValueError, "membership mismatch"):
+            plan.validate(self.data, ROOT)
+
+    def test_non_done_task_cannot_keep_completion_claims(self):
+        task = self.data["tasks"][1]
+        task["completion"]["evidence"] = ["docs/plan/schema.md"]
+        with self.assertRaisesRegex(ValueError, "stale completion claims"):
+            plan.validate(self.data, ROOT)
+
+    def test_invalid_subtask_shapes(self):
+        for field, value in (("title", 1), ("done_when", {}), ("evidence", "not a list")):
+            with self.subTest(field=field):
+                data = copy.deepcopy(self.data)
+                data["tasks"][1]["subtasks"][0][field] = value
+                with self.assertRaises(ValueError):
+                    plan.validate(data, ROOT)
+
+    def test_active_subtask_needs_active_parent(self):
+        self.invalid(
+            lambda d: d["tasks"][1]["subtasks"][0].update(status="in_progress"),
+            "inconsistent parent status",
+        )
+
+    def test_unfinished_subtask_cannot_keep_done_evidence(self):
+        self.invalid(
+            lambda d: d["tasks"][1]["subtasks"][0].update(evidence=["README.md"]),
+            "unfinished subtask",
+        )
+
+    def test_stale_block_reason_rejected(self):
+        self.invalid(lambda d: d["tasks"][1].update(block_reason="old reason"), "stale block")
+
+    def test_invalid_dates_and_boolean_lane_limit(self):
+        for field, value in (
+            ("updated", "2026-02-30"),
+            ("updated", 1),
+            ("max_parallel_lanes", True),
+        ):
+            with self.subTest(field=field, value=value):
+                data = copy.deepcopy(self.data)
+                data["project"][field] = value
+                with self.assertRaises(ValueError):
+                    plan.validate(data, ROOT)
+
+    def test_unhashable_dependencies_report_validation_error(self):
+        self.invalid(lambda d: d["tasks"][1].update(depends_on=[{}]), "invalid text entry")
+
+    def test_generated_evidence_cannot_bypass_with_normalized_path(self):
+        with self.assertRaisesRegex(ValueError, "not completion evidence"):
+            plan.public_file(ROOT, "docs/plan/./STATUS.md", evidence=True)
+
+    def test_validation_collects_public_candidates_once(self):
+        with patch.object(plan, "project_files", wraps=plan.project_files) as files:
+            plan.validate(self.data, ROOT)
+            self.assertEqual(files.call_count, 1)
+
+    def test_publication_accepts_binary_assets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "icon.png"
+            path.write_bytes(b"\x89PNG\r\n\x1a\n\xff")
+            with patch.object(plan, "project_files", return_value=[path]):
+                plan.check_publication(root)
+
+    def test_binary_asset_does_not_hide_ascii_token(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "icon.png"
+            path.write_bytes(b"\xff" + b"ghp_" + b"a" * 30)
+            with patch.object(plan, "project_files", return_value=[path]):
+                with self.assertRaisesRegex(ValueError, "possible private material"):
+                    plan.check_publication(root)
 
     def test_publication_rejects_private_and_token_material(self):
         with tempfile.TemporaryDirectory() as directory:

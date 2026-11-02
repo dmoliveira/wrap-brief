@@ -4,12 +4,11 @@
 
 ```sh
 make help
-make check-plan
-make test-plan
+make validate
 git diff --check
 ```
 
-`check-plan` validates dependency/schema/evidence consistency, local Markdown links, generated progress, and limited publication-safety patterns. These checks do not prove feed/runtime/browser behavior. Before first public push, add a dedicated credential scan of the full candidate tree/history and manual public-data review. Record concise results in `docs/plan/VALIDATION.md` without raw sensitive logs.
+`validate` runs plan checks, unit tests, Ruff lint and format checks. CI runs the same checks with pinned UV/Ruff and Python 3.13, plus tests on the minimum supported Python 3.11. `check-plan` includes task/milestone DAG and exact gate-membership checks, typed state/evidence consistency, local Markdown links, generated views, and limited publication-safety patterns. None proves product behavior. Scan the full candidate tree/history with a dedicated credential scanner before public delivery; record public-safe results in `docs/plan/VALIDATION.md`.
 
 ## Future product bundles
 
@@ -21,7 +20,7 @@ The targets below describe requirements to implement in E01/E08; they do not exi
 | Pure model/parser/grouping/render | `ruff` format/lint, focused unit tests, fixture integration/build, plan checks | Two passes for meaningful features |
 | Runtime/network/state/workflow/security | Lint, full unit + adversarial fixtures, integrated deterministic build, workflow permission/action lint, recovery/sandbox tests | Three passes across design/implementation/release, up to five if findings warrant |
 | Reader UI | Above relevant bundle + browser at 320px/desktop, keyboard/screen-reader/no-JS/zoom, a11y and performance checks | Design + final behavior review |
-| Public release | Full suite, rights/source inventory, credential/history scan, real Pages smoke, induced failure + rollback, stale alert | Security/release sign-off |
+| Public release | Full suite, rights/source inventory, credential/history scan, real Pages smoke, one operational rollback drill, supervision/freshness check; independent monitoring before unattended mode | Security/release sign-off |
 | Analytics/monetization | Privacy/provider/hosting/disclosure decisions, script/data inventory, before/after performance/referral checks, disable drill | High-risk review |
 
 Named task verifications are acceptance-specific checks, not a license to omit the full touched-surface risk bundle. Do not claim green from skipped, unavailable, or unrelated tests. Record a concrete blocker when a required check cannot safely run; reduce scope rather than bypass protections.

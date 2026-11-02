@@ -18,9 +18,8 @@
 
 ## Delivery and evidence
 
-- Run `make help` first. Current checks are `make check-plan`, `make test-plan`, and `git diff --check`; product checks are future tasks, not commands claimed to exist today.
-- Use `docs/validation-policy.md` for the selected task's risk bundle. Required checks and review are agent/maintainer-owned evidence loops, not routine human approval checkpoints.
-- Review before merging through a PR. Do not bypass repository protections, write generated state to protected `main`, deploy fork code with write credentials, or publish unreviewed commercial integrations.
+- Run `make help` first, then follow the current checks and risk bundle in `docs/validation-policy.md`. Product checks remain future tasks, not commands claimed to exist today.
+- Follow `docs/delivery-workflow.md` for PR review/evidence and `docs/specs/security-privacy.md` for automation trust boundaries. Do not bypass repository protections.
 - Update task/subtask status and public-safe completion evidence together. Regenerate progress. `done` requires dependencies, subtasks, verification results, and review; writing a specification does not finish its product task.
 - If blocked, record the precise dependency/reason and next action. Future scopes stay disabled until their activation gate is evidenced.
 

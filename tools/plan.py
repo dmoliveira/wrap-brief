@@ -6,6 +6,7 @@ import argparse
 import json
 import re
 import subprocess
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,19 +22,22 @@ def require(condition: object, message: str) -> None:
         raise ValueError(message)
 
 
-def public_file(root: Path, value: str, *, evidence: bool = False) -> Path:
+def public_file(
+    root: Path, value: str, *, evidence: bool = False, candidates: set[Path] | None = None
+) -> Path:
     require(isinstance(value, str) and bool(value), "file reference must be text")
     path = Path(value)
     require(not path.is_absolute() and ".." not in path.parts, f"unsafe path: {value}")
     require((root / path).resolve().is_relative_to(root.resolve()), f"escaped path: {value}")
     require((root / path).is_file(), f"missing file: {value}")
     if evidence:
-        require(value not in GENERATED, "generated progress is not completion evidence")
+        require(path.as_posix() not in GENERATED, "generated progress is not completion evidence")
         require(not any(p.startswith(".") for p in path.parts), "private evidence path")
-        require(path.suffix not in SENSITIVE_SUFFIXES, "sensitive evidence file")
+        require(path.suffix.lower() not in SENSITIVE_SUFFIXES, "sensitive evidence file")
         require(not (root / path).is_symlink(), "symlink evidence is not allowed")
         require(
-            root / path in project_files(root), "evidence is not a public publication candidate"
+            root / path in (candidates if candidates is not None else set(project_files(root))),
+            "evidence is not a public publication candidate",
         )
     return root / path
 
@@ -50,32 +54,75 @@ def unique_index(records: list, pattern: str, label: str) -> dict:
     return result
 
 
-def evidence_list(root: Path, values: list, label: str) -> None:
+def text(value: object, label: str) -> None:
+    require(isinstance(value, str) and value.strip(), f"{label}: nonempty text required")
+
+
+def text_list(value: object, label: str, *, allow_empty: bool = False) -> None:
+    require(isinstance(value, list) and (allow_empty or value), f"{label}: list required")
+    require(all(isinstance(v, str) and v.strip() for v in value), f"{label}: invalid text entry")
+    require(len(value) == len(set(value)), f"{label}: duplicate entry")
+
+
+def evidence_list(
+    root: Path, values: list, label: str, candidates: set[Path] | None = None
+) -> None:
     require(isinstance(values, list) and values, f"{label}: evidence required")
     for value in values:
-        public_file(root, value, evidence=True)
+        public_file(root, value, evidence=True, candidates=candidates)
+
+
+def check_dag(records: dict, label: str) -> None:
+    visiting, visited = set(), set()
+
+    def visit(id: str) -> None:
+        require(id not in visiting, f"{label} dependency cycle at {id}")
+        if id in visited:
+            return
+        visiting.add(id)
+        for dep in records[id]["depends_on"]:
+            visit(dep)
+        visiting.remove(id)
+        visited.add(id)
+
+    for id in records:
+        visit(id)
 
 
 def milestone_done(data: dict, id: str) -> bool:
     tasks = {t["id"]: t for t in data["tasks"]}
     milestone = next((m for m in data["milestones"] if m["id"] == id), None)
-    return bool(milestone and milestone["tasks"]) and all(
-        tasks[t]["status"] == "done" for t in milestone["tasks"]
+    return bool(milestone and milestone["kind"] == "gate" and milestone["tasks"]) and (
+        all(tasks[t]["status"] == "done" for t in milestone["tasks"])
+        and all(milestone_done(data, dep) for dep in milestone["depends_on"])
     )
 
 
 def validate(data: dict, root: Path) -> None:
-    require(isinstance(data, dict) and data.get("schema_version") == 1, "unsupported schema")
+    require(
+        isinstance(data, dict)
+        and type(data.get("schema_version")) is int
+        and data["schema_version"] == 1,
+        "unsupported schema",
+    )
     project = data.get("project", {})
-    require(isinstance(project, dict) and project.get("name"), "project name required")
-    require(re.fullmatch(r"\d{4}-\d{2}-\d{2}", project.get("updated", "")), "invalid plan date")
-    require(project.get("max_parallel_lanes") in (1, 2), "parallel lane limit must be 1 or 2")
+    require(isinstance(project, dict), "project must be an object")
+    text(project.get("name"), "project name")
+    updated = project.get("updated")
+    require(
+        isinstance(updated, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", updated),
+        "invalid plan date",
+    )
+    try:
+        date.fromisoformat(updated)
+    except ValueError as error:
+        raise ValueError("invalid plan date") from error
+    lanes = project.get("max_parallel_lanes")
+    require(type(lanes) is int and lanes in (1, 2), "parallel lane limit must be 1 or 2")
     scopes = unique_index(data.get("scopes"), r"planning|mvp|growth|revenue|future", "scope")
     require(set(scopes) == SCOPES, "all scope definitions required")
     enabled = project.get("enabled_scopes")
-    require(
-        isinstance(enabled, list) and len(enabled) == len(set(enabled)), "invalid enabled scopes"
-    )
+    text_list(enabled, "enabled scopes")
     require(
         set(enabled) <= SCOPES and {"planning", "mvp"} <= set(enabled), "invalid scope activation"
     )
@@ -85,6 +132,7 @@ def validate(data: dict, root: Path) -> None:
     tasks = unique_index(data.get("tasks"), r"T\d{2}\.\d{2}", "task")
     milestones = unique_index(data.get("milestones"), r"M\d+", "milestone")
     require(epics and tasks and milestones, "epics, tasks and milestones required")
+    candidates = set(project_files(root))
     for epic in epics.values():
         require(
             all(epic.get(k) for k in ("title", "owner", "objective", "spec")),
@@ -98,16 +146,30 @@ def validate(data: dict, root: Path) -> None:
             "milestone fields required",
         )
         ids = milestone.get("tasks")
-        require(isinstance(ids, list) and len(ids) == len(set(ids)), "invalid milestone tasks")
+        text_list(ids, "milestone tasks", allow_empty=True)
         require(all(t in tasks for t in ids), "missing milestone task")
-        require(ids or milestone["id"] == "M5", "only portfolio milestone M5 may be empty")
+        require(milestone.get("kind") in {"gate", "portfolio"}, "invalid milestone kind")
+        require(
+            ids if milestone["kind"] == "gate" else not ids,
+            "invalid milestone gate/portfolio members",
+        )
+        deps = milestone.get("depends_on")
+        text_list(deps, "milestone dependencies", allow_empty=True)
+        require(
+            all(d in milestones and d != milestone["id"] for d in deps),
+            "invalid milestone dependency",
+        )
+    check_dag(milestones, "milestone")
     subtask_ids = set()
     for id, task in tasks.items():
         require(
             task.get("epic") in epics and task["epic"] == "E" + id[1:3], f"{id}: invalid parent"
         )
-        require(task.get("scope") in SCOPES, f"{id}: invalid scope")
+        require(
+            isinstance(task.get("scope"), str) and task["scope"] in SCOPES, f"{id}: invalid scope"
+        )
         require(task.get("milestone") in milestones, f"{id}: invalid milestone")
+        require(type(task.get("gate_required")) is bool, f"{id}: gate_required must be boolean")
         require(task.get("status") in STATES, f"{id}: invalid status")
         require(task.get("risk") in {"low", "medium", "high"}, f"{id}: invalid risk")
         require(task.get("size") in {"XS", "S", "M"}, f"{id}: split oversized task")
@@ -129,9 +191,7 @@ def validate(data: dict, root: Path) -> None:
                 f"{id}: unsafe reservation",
             )
         deps = task.get("depends_on")
-        require(
-            isinstance(deps, list) and len(deps) == len(set(deps)), f"{id}: invalid dependencies"
-        )
+        text_list(deps, f"{id}: dependencies", allow_empty=True)
         require(all(d in tasks and d != id for d in deps), f"{id}: missing/self dependency")
         if task["scope"] in {"planning", "mvp"}:
             require(
@@ -146,6 +206,8 @@ def validate(data: dict, root: Path) -> None:
         require(isinstance(task.get("block_reason"), str), f"{id}: reason field required")
         if task["status"] in {"blocked", "canceled"}:
             require(task["block_reason"].strip(), f"{id}: block/cancel reason required")
+        else:
+            require(not task["block_reason"], f"{id}: stale block/cancel reason")
         for subtask in task["subtasks"]:
             require(isinstance(subtask, dict), f"{id}: invalid subtask")
             sid = subtask.get("id", "")
@@ -155,23 +217,41 @@ def validate(data: dict, root: Path) -> None:
             )
             require(sid not in subtask_ids, f"duplicate subtask: {sid}")
             subtask_ids.add(sid)
-            require(
-                subtask.get("title") and subtask.get("done_when"), f"{sid}: done criterion required"
-            )
+            text(subtask.get("title"), f"{sid}: title")
+            text(subtask.get("done_when"), f"{sid}: done criterion")
             require(subtask.get("status") in STATES, f"{sid}: invalid status")
-            if subtask["status"] == "done":
+            text_list(subtask.get("evidence"), f"{sid}: evidence", allow_empty=True)
+            if task["status"] == "not_started":
+                require(subtask["status"] == "not_started", f"{sid}: inconsistent parent status")
+            if subtask["status"] in {"in_progress", "review", "blocked"}:
                 require(
-                    task["status"] not in {"not_started", "canceled"},
+                    task["status"] in {"in_progress", "review", "blocked"},
                     f"{sid}: inconsistent parent status",
                 )
-                evidence_list(root, subtask.get("evidence"), sid)
+            if subtask["status"] == "done":
+                require(
+                    task["status"] != "not_started",
+                    f"{sid}: inconsistent parent status",
+                )
+                evidence_list(root, subtask.get("evidence"), sid, candidates)
+            else:
+                require(
+                    not subtask["evidence"], f"{sid}: unfinished subtask has completion evidence"
+                )
         completion = task.get("completion")
         require(isinstance(completion, dict), f"{id}: completion record required")
+        text_list(completion.get("evidence"), f"{id}: completion evidence", allow_empty=True)
+        require(isinstance(completion.get("checks"), list), f"{id}: checks required")
+        if task["status"] != "done":
+            require(
+                completion == {"evidence": [], "checks": [], "review": None},
+                f"{id}: stale completion claims",
+            )
         if task["status"] == "done":
             require(
                 all(s["status"] == "done" for s in task["subtasks"]), f"{id}: unfinished subtask"
             )
-            evidence_list(root, completion.get("evidence"), id)
+            evidence_list(root, completion.get("evidence"), id, candidates)
             checks = completion.get("checks")
             require(isinstance(checks, list), f"{id}: checks required")
             require(all(isinstance(c, dict) for c in checks), f"{id}: invalid check record")
@@ -182,31 +262,30 @@ def validate(data: dict, root: Path) -> None:
             )
             for check in checks:
                 require(check.get("result") == "pass", f"{id}: failed verification")
-                public_file(root, check.get("evidence"), evidence=True)
+                public_file(root, check.get("evidence"), evidence=True, candidates=candidates)
             review = completion.get("review")
             require(
                 isinstance(review, dict) and review.get("result") == "pass",
                 f"{id}: passing review required",
             )
-            public_file(root, review.get("evidence"), evidence=True)
-    visiting, visited = set(), set()
-
-    def visit(id: str) -> None:
-        require(id not in visiting, f"dependency cycle at {id}")
-        if id in visited:
-            return
-        visiting.add(id)
-        for dep in tasks[id]["depends_on"]:
-            visit(dep)
-        visiting.remove(id)
-        visited.add(id)
-
-    for id in tasks:
-        visit(id)
+            public_file(root, review.get("evidence"), evidence=True, candidates=candidates)
+    for milestone in milestones.values():
+        expected = {
+            t["id"]
+            for t in tasks.values()
+            if t["milestone"] == milestone["id"] and t["gate_required"]
+        }
+        require(
+            set(milestone["tasks"]) == expected,
+            f"{milestone['id']}: milestone/task membership mismatch",
+        )
+    check_dag(tasks, "task")
     for scope, gate in (("growth", "M2"), ("revenue", "M3"), ("future", "M2")):
         if scope in enabled:
             require(milestone_done(data, gate), f"{scope}: incomplete activation gate {gate}")
-            evidence_list(root, project.get("activation_evidence", {}).get(scope), scope)
+            activations = project.get("activation_evidence", {})
+            require(isinstance(activations, dict), "activation evidence must be an object")
+            evidence_list(root, activations.get(scope), scope, candidates)
 
 
 def ready(data: dict) -> list[dict]:
@@ -248,16 +327,24 @@ def render_status(data: dict) -> str:
         lines.append(
             f"| {scope['id']} | {'yes' if scope['id'] in data['project']['enabled_scopes'] else 'no'} | {count([t for t in data['tasks'] if t['scope'] == scope['id']])} |"
         )
-    lines += ["", "## Milestones", "", "| Gate | Outcome | Status |", "| --- | --- | --- |"]
+    lines += [
+        "",
+        "## Milestones",
+        "",
+        "| Gate | Outcome | Prerequisite gates | Status |",
+        "| --- | --- | --- | --- |",
+    ]
     for m in data["milestones"]:
         status = (
             "portfolio, select only justified tasks"
-            if not m["tasks"]
+            if m["kind"] == "portfolio"
             else "done"
             if milestone_done(data, m["id"])
             else "not complete"
         )
-        lines.append(f"| {m['id']} | {m['title']} | {status} |")
+        lines.append(
+            f"| {m['id']} | {m['title']} | {', '.join(m['depends_on']) or 'none'} | {status} |"
+        )
     lines += [
         "",
         "## Epics",
@@ -323,7 +410,7 @@ def render_backlog(data: dict) -> str:
             lines += [
                 f"### {t['id']} — {t['title']}",
                 "",
-                f"**Status:** {t['status']} · **Scope:** {t['scope']} · **Milestone:** {t['milestone']} · **Risk:** {t['risk']} · **Size:** {t['size']}",
+                f"**Status:** {t['status']} · **Scope:** {t['scope']} · **Milestone:** {t['milestone']} ({'required' if t['gate_required'] else 'optional'}) · **Risk:** {t['risk']} · **Size:** {t['size']}",
                 f"**Owner:** {t['owner']}",
                 f"**Dependencies:** {', '.join(t['depends_on']) or 'none'}",
                 f"**Reserved paths:** {', '.join('`' + p + '`' for p in t['paths'])}",
@@ -334,7 +421,7 @@ def render_backlog(data: dict) -> str:
             ]
             lines += [f"- {criterion}" for criterion in t["acceptance"]]
             lines += [
-                f"- All named checks pass: {', '.join(t['verification'])}; independent review and public-safe evidence recorded.",
+                f"**Required checks:** {', '.join(t['verification'])}.",
                 "",
                 "**Subtasks:**",
             ]
@@ -381,14 +468,15 @@ def check_publication(root: Path) -> None:
         )
         require(not path.is_symlink(), f"unreviewed symlink: {relative}")
         require(
-            path.suffix not in {".sqlite", ".sqlite3", ".db", ".pem", ".key", ".p12", ".pfx"},
+            path.suffix.lower() not in SENSITIVE_SUFFIXES,
             f"sensitive file: {relative}",
         )
         require(
             not path.name.startswith(".env") or path.name == ".env.example",
             f"environment file: {relative}",
         )
-        text = path.read_text(encoding="utf-8")
+        # ASCII token/path patterns remain detectable even inside non-UTF-8 assets.
+        text = path.read_bytes().decode("utf-8", errors="replace")
         for pattern in patterns:
             require(not re.search(pattern, text), f"possible private material in {relative}")
         if path.suffix == ".md":

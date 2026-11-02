@@ -18,6 +18,8 @@ Primary objective: contribution after cash costs **and operator time**, with rea
 
 First collect a four-week operational baseline: source health, grouping review, original briefs produced, operator minutes, support requests, and cash costs. Reader measurement is optional and privacy-gated.
 
+T09.01 can finish with a documented **no-tracking** decision. M3 then uses honest operational/editorial/workload/cost evidence and qualitative reader feedback; it does not require an analytics vendor or invented retention figures. T09.02 owns original-brief production, which is intentionally outside the MVP critical path.
+
 | Metric | Definition / limitation |
 | --- | --- |
 | Source-attribution completeness | published items with valid source/link/provenance ÷ sampled published items; target 100% |

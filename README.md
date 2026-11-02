@@ -17,9 +17,9 @@ This repository contains the **delivery plan and its validation tools**, not a w
 
 ## Start small
 
-1. Build a safe, attractive fixture-only digest.
+1. Check that a viable source set permits the intended use, then build a safe, attractive fixture-only digest.
 2. Onboard **3–5 approved feeds**, retain complete normalized metadata, and publish daily at **06:23 UTC**.
-3. Validate reliability, grouping quality, accessibility, reader value, and operator effort.
+3. Validate reliability, grouping quality, accessibility, reader value, and operator effort under named daily supervision. Prove independent monitoring before later unattended operation.
 4. Add sources, original editorial context, RSS, and useful discovery features incrementally.
 5. Enable support or other monetization only after hosting, privacy, provider, and disclosure gates pass.
 

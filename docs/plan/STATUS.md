@@ -16,14 +16,14 @@ Plan updated: 2026-11-02. **Product is not implemented merely because planning i
 
 ## Milestones
 
-| Gate | Outcome | Status |
-| --- | --- | --- |
-| M0 | Planning ready | done |
-| M1 | Fixture-only reader prototype | not complete |
-| M2 | Daily noncommercial public pilot | not complete |
-| M3 | Audience and workload validation | not complete |
-| M4 | First revenue experiment validated | not complete |
-| M5 | Selective extension opportunities | portfolio, select only justified tasks |
+| Gate | Outcome | Prerequisite gates | Status |
+| --- | --- | --- | --- |
+| M0 | Planning ready | none | done |
+| M1 | Fixture-only reader prototype | M0 | not complete |
+| M2 | Daily supervised noncommercial public pilot | M1 | not complete |
+| M3 | Audience and workload validation | M2 | not complete |
+| M4 | First revenue experiment validated | M3 | not complete |
+| M5 | Selective extension opportunities | M2 | portfolio, select only justified tasks |
 
 ## Epics
 
@@ -53,6 +53,7 @@ Choose at most two disjoint lanes; readiness is not permission to overlap shared
 - **T01.01** — Establish public repository rules and reporting (Platform maintainer)
 - **T01.02** — Create reproducible Python and local check setup (Platform maintainer)
 - **T01.04** — Clear brand, code license, and policy copy (Platform maintainer)
+- **T02.04** — Check source feasibility before substantial prototype work (Data maintainer)
 
 ## Disabled-scope rules
 

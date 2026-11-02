@@ -30,7 +30,7 @@ End of today's stories · Sources · Corrections · Privacy
 Optional support placement only after commercial gates
 ```
 
-No invented automated prose. Without reviewed original context, display an honestly attributed headline/link listing. Do not imply that publisher headlines were written by Wrap Brief.
+No invented automated prose. MVP displays honestly attributed headline/link listings; it does not need an original-brief authoring system. Growth T09.02 can add reviewed original context. Do not imply publisher headlines were written by Wrap Brief.
 
 ## Visual direction
 

@@ -4,7 +4,7 @@
 
 Start with 3–5 sources whose current feed terms support the exact proposed use. Nintendo's official channels and specialist/general gaming publishers are candidates, not preapproved sources. No automatic top-site crawling or search-engine scraping.
 
-For every enabled source, review and record:
+T02.04 performs a lightweight feasibility go/no-go before substantial prototype work. It does not activate feeds. T02.02 owns final approval plus a repeatable source-add/disable checklist. For every enabled source, review and record:
 
 - Feed owner, exact feed/site URLs, allowed redirect hosts, stable ID, language, and region.
 - Terms/license URL, review date, permitted fields, attribution wording, retention/archival constraints, and any permission correspondence reference **without private correspondence content**.
@@ -37,10 +37,7 @@ Move to twice daily only if source volume/gap evidence or reader freshness justi
 - Stable source-scoped GUID where reliable; otherwise a hash of source ID and conservatively normalized URL.
 - Remove only reviewed tracking parameters. Preserve query fields that may identify different articles, editions, languages, or pagination. Do not invent canonical URLs by crawling full articles.
 - Exact identity updates the existing record without bumping publication time or creating another card. Material corrections retain provenance.
-- Candidate snapshots include the full retained records, checkpoints, tombstones, and schema version. Validate references and all fields again before privileged state writes.
-- Repository state writes use the explicit expected parent SHA, allowed JSON paths only, maximum byte/file counts, and no symlinks, executable bits, path traversal, scripts, or workflow/config files.
-- Persist complete records before rendering. If rendering/deployment fails, the next build still has the content. Do not roll back state merely because a deploy failed; select a known-good code/state pair for a safe site rollback.
-- Retention and Git-history caveats are specified in [architecture](architecture.md); rights-removal procedures may require changing storage rather than claiming a deleted file is erased history.
+- State completeness, persistence/CAS order, retention and Git-history constraints are canonical in [architecture](architecture.md). Privileged writer validation is canonical in [security/privacy](security-privacy.md). The ingestion stage emits data-only validated candidates, never executable state.
 
 ## Grouping and lead-source selection
 
@@ -51,6 +48,8 @@ MVP grouping uses normalized title tokens + named game/company + event type + a 
 Lead selection is deterministic: relevant primary announcement → original reporting → substantive reliable coverage; then explicit quality/recency tie-breakers. A primary source is not always the right lead for analysis/review. Commercial relationships never enter ranking. Rumor and confirmation remain distinguishable; correction/retraction state can demote or withdraw a lead.
 
 Gold benchmark before launch: at least 100 labeled story pairs, with Direct multi-announcements, same-game different events, reviews/previews, localization, rumors/confirmation, syndication, resurfaced articles, tracking parameters, and corrections. Target ≥98% automatic-merge precision on that sample; report sample size and recall rather than optimizing away every duplicate. Review all pilot automatic merges for the first week; a false-merge spike disables fuzzy grouping while exact dedup continues.
+
+MVP T05.04 owns attribution and correction/retraction/takedown controls. Original brief authoring, review-state models and recurring editorial production are growth T09.02; the launch can remain clearly attributed listings without invented summaries.
 
 ## Required fixtures and failure cases
 
