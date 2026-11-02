@@ -161,7 +161,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T02.03 — Build synthetic feed and view-model fixtures
 
-**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T02.01
 **Reserved paths:** `tests/fixtures/`, `tests/contracts/`, `docs/evidence/T02.03-fixtures.md`, `docs/index.md`, `README.md`
@@ -177,6 +177,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T02.03.1** Create representative RSS/Atom fixtures — `done`. Done when: Namespaces, Unicode, missing dates/GUIDs and updates are represented.
 - [x] **T02.03.2** Create adversarial/edge fixtures — `done`. Done when: Redirect, encoding, XML expansion, limits and duplicate cases are synthetic.
 - [x] **T02.03.3** Publish shared fixture contract — `done`. Done when: Data and UI lanes can work independently on identical expected models.
+
+**Completion evidence:** [docs/evidence/T02.03-fixtures.md](../../docs/evidence/T02.03-fixtures.md)
 
 ### T02.04 — Review source feasibility and define the safe prototype boundary
 

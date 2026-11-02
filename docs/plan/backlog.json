@@ -768,7 +768,7 @@
         "fixture-contracts",
         "fixture-public-safety"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -800,9 +800,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T02.03-fixtures.md"
+        ],
+        "checks": [
+          {
+            "name": "fixture-contracts",
+            "result": "pass",
+            "evidence": "docs/evidence/T02.03-fixtures.md"
+          },
+          {
+            "name": "fixture-public-safety",
+            "result": "pass",
+            "evidence": "docs/evidence/T02.03-fixtures.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T02.03-fixtures.md"
+        }
       },
       "gate_required": true
     },
