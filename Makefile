@@ -22,7 +22,7 @@ test-plan:
 	$(PYTHON) -m unittest discover -s tests -p test_plan.py -v
 
 test:
-	$(PYTHON) -m unittest discover -s tests -v
+	$(PYTHON) -W error::ResourceWarning -m unittest discover -s tests -v
 
 test-wheel:
 	$(PYTHON) tools/check_wheel.py

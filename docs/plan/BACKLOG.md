@@ -397,10 +397,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T05.02 — Group same-event coverage and choose lead source
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Editorial maintainer
 **Dependencies:** T05.01, T02.03
-**Reserved paths:** `src/wrap_brief/grouping/`, `tests/grouping/`
+**Reserved paths:** `src/wrap_brief/grouping/`, `tests/grouping/`, `docs/specs/story-grouping.md`, `docs/evidence/T05.02-story-grouping.md`, `docs/index.md`, `README.md`, `tools/check_wheel.py`, `Makefile`, `.github/workflows/plan.yml`, `docs/validation-policy.md`
 
 **Deliverable:** Conservative event clusters, stable IDs, deterministic evidence-based lead ranking.
 
@@ -410,9 +410,9 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** grouping-unit, lead-ranking-rules.
 
 **Subtasks:**
-- [ ] **T05.02.1** Implement bounded similarity candidate stage — `not_started`. Done when: Entities/event types/time window constrain title similarity.
-- [ ] **T05.02.2** Implement stable groups and transparent lead choice — `not_started`. Done when: Primary/original/substantive coverage rules have deterministic tie-breakers.
-- [ ] **T05.02.3** Test ambiguous and conflicting coverage — `not_started`. Done when: Uncertain matches split; rumors/corrections retain explicit labels.
+- [x] **T05.02.1** Implement bounded similarity candidate stage — `done`. Done when: Entities/event types/time window constrain title similarity.
+- [x] **T05.02.2** Implement stable groups and transparent lead choice — `done`. Done when: Primary/original/substantive coverage rules have deterministic tie-breakers.
+- [x] **T05.02.3** Test ambiguous and conflicting coverage — `done`. Done when: Uncertain matches split; rumors/corrections retain explicit labels.
 
 ### T05.03 — Benchmark grouping and add reviewed split/merge overrides
 

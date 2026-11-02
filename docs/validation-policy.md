@@ -10,6 +10,8 @@ git diff --check
 
 `validate` runs lock consistency, plan checks, installed-package and planning unit tests, and locked Ruff lint/format checks. CI first performs a clean `uv sync --locked`, runs the same checks on Python 3.13, tests minimum Python 3.11, verifies the standalone planning subset, and requires `make test-wheel` to build/install/import outside the checkout. UV 0.13.6 and Ruff 0.16.2 are the audited CI pins.
 
+The full local unit target and both supported-version CI unit commands treat `ResourceWarning` as an error, so leaked database/file resources cannot silently pass the normal delivery gate.
+
 `check-plan` includes task/milestone DAG and exact gate-membership checks, typed state/evidence consistency, local Markdown links, generated views, and limited publication-safety patterns. `make check-plan PYTHON=python3` and `make test-plan PYTHON=python3` remain standard-library-only. None proves future feed/site behavior. Scan the candidate tree/history with a dedicated credential scanner before public delivery; record task-specific evidence under `docs/evidence/` without private paths or logs.
 
 ## Future product bundles
