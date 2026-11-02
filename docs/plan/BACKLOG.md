@@ -208,10 +208,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T03.01 — Implement bounded safe feed HTTP client
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T02.01, T02.03
-**Reserved paths:** `src/wrap_brief/ingest/http.py`, `tests/ingest/`
+**Reserved paths:** `src/wrap_brief/ingest/http.py`, `tests/ingest/`, `src/wrap_brief/ingest/_http_worker.py`, `docs/specs/feed-http.md`, `docs/specs/data-pipeline.md`, `docs/evidence/T03.01-feed-http.md`, `README.md`, `tools/check_wheel.py`
 
 **Deliverable:** Allowlisted HTTPS requests with limits, conditional headers, timeout and backoff.
 
@@ -221,9 +221,11 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** http-adversarial, timeout-retry-budget.
 
 **Subtasks:**
-- [ ] **T03.01.1** Implement safe destination and redirect validation — `not_started`. Done when: Only approved hosts/public HTTPS targets can be requested.
-- [ ] **T03.01.2** Implement bounded transport and conditional GET — `not_started`. Done when: Timeouts, decompressed byte limit, redirects, retries and 304 are handled.
-- [ ] **T03.01.3** Test abuse and partial-source failures — `not_started`. Done when: One malicious/slow feed cannot monopolize the run or erase other data.
+- [x] **T03.01.1** Implement safe destination and redirect validation — `done`. Done when: Only approved hosts/public HTTPS targets can be requested.
+- [x] **T03.01.2** Implement bounded transport and conditional GET — `done`. Done when: Timeouts, decompressed byte limit, redirects, retries and 304 are handled.
+- [x] **T03.01.3** Test abuse and partial-source failures — `done`. Done when: One malicious/slow feed cannot monopolize the run or erase other data.
+
+**Completion evidence:** [docs/evidence/T03.01-feed-http.md](../../docs/evidence/T03.01-feed-http.md)
 
 ### T03.02 — Parse RSS and Atom safely
 

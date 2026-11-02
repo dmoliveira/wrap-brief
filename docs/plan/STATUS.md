@@ -9,7 +9,7 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 | Scope | Enabled | Completed tasks |
 | --- | --- | --- |
 | planning | yes | 1/1 (100%) · 0 canceled |
-| mvp | yes | 11/33 (33%) · 0 canceled |
+| mvp | yes | 12/33 (36%) · 0 canceled |
 | growth | no | 0/4 (0%) · 0 canceled |
 | revenue | no | 0/5 (0%) · 0 canceled |
 | future | no | 0/5 (0%) · 0 canceled |
@@ -32,7 +32,7 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 | E00 | Planning and evidence-driven execution | 1/1 (100%) · 0 canceled | 3/3 |
 | E01 | Repository, toolchain, and governance | 1/4 (25%) · 0 canceled | 3/12 |
 | E02 | Source approval and versioned contracts | 3/4 (75%) · 0 canceled | 9/12 |
-| E03 | Bounded feed collection and normalization | 2/4 (50%) · 0 canceled | 6/12 |
+| E03 | Bounded feed collection and normalization | 3/4 (75%) · 0 canceled | 9/12 |
 | E04 | Durable state and pipeline recovery | 1/4 (25%) · 0 canceled | 3/12 |
 | E05 | Identity, story grouping, and editorial trust | 2/4 (50%) · 0 canceled | 6/12 |
 | E06 | Minimalist static reader experience | 2/4 (50%) · 0 canceled | 6/12 |
@@ -53,7 +53,7 @@ Choose at most two disjoint lanes; readiness is not permission to overlap shared
 
 - **T01.01** — Establish public repository rules and reporting (Platform maintainer)
 - **T01.04** — Clear brand, code license, and policy copy (Platform maintainer)
-- **T03.01** — Implement bounded safe feed HTTP client (Data maintainer)
+- **T03.04** — Add incremental polling, health and gap detection (Data maintainer)
 - **T05.03** — Benchmark grouping and add reviewed split/merge overrides (Editorial maintainer)
 - **T05.04** — Add provenance, corrections and takedown controls (Editorial maintainer)
 

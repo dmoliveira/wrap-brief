@@ -19,6 +19,7 @@ At least one primary channel is desirable but cannot be invented if no suitable 
 
 - HTTPS only, finite source allowlist, honest bot/user-agent identity and contact once configured.
 - Initial defaults: at most 3 concurrent requests, 15-second request timeout, 2 MiB decompressed response limit, 100 entries/feed, three redirects, and one transient retry with jitter/backoff. Tune only with measured need and publisher rules.
+- The implemented [HTTP boundary](feed-http.md) is serial per source/call, with no batch/concurrent poll API. It adds an independent encoded-entity cap, five total hops and a 60-second combined budget; callers must enforce per-source serialization, pipeline-wide concurrency and persisted scheduling/backoff before live operation.
 - Validate every redirect and resolved destination: prohibit loopback/private/link-local/metadata targets and unexpected hosts/schemes. Do not trust a safe initial URL alone.
 - Support `ETag` and `Last-Modified`; `304` is a successful poll, not an empty feed. Change checkpoints only after validated success.
 - Safe XML parsing: external entities/DTD/entity expansion disabled; byte, nesting, text, and item limits enforced before expensive work.

@@ -922,7 +922,13 @@
       "owner": "Data maintainer",
       "paths": [
         "src/wrap_brief/ingest/http.py",
-        "tests/ingest/"
+        "tests/ingest/",
+        "src/wrap_brief/ingest/_http_worker.py",
+        "docs/specs/feed-http.md",
+        "docs/specs/data-pipeline.md",
+        "docs/evidence/T03.01-feed-http.md",
+        "README.md",
+        "tools/check_wheel.py"
       ],
       "depends_on": [
         "T02.01",
@@ -939,35 +945,57 @@
         "http-adversarial",
         "timeout-retry-budget"
       ],
-      "status": "not_started",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T03.01.1",
           "title": "Implement safe destination and redirect validation",
           "done_when": "Only approved hosts/public HTTPS targets can be requested.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.01-feed-http.md"
+          ]
         },
         {
           "id": "T03.01.2",
           "title": "Implement bounded transport and conditional GET",
           "done_when": "Timeouts, decompressed byte limit, redirects, retries and 304 are handled.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.01-feed-http.md"
+          ]
         },
         {
           "id": "T03.01.3",
           "title": "Test abuse and partial-source failures",
           "done_when": "One malicious/slow feed cannot monopolize the run or erase other data.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.01-feed-http.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T03.01-feed-http.md"
+        ],
+        "checks": [
+          {
+            "name": "http-adversarial",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.01-feed-http.md"
+          },
+          {
+            "name": "timeout-retry-budget",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.01-feed-http.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T03.01-feed-http.md"
+        }
       },
       "gate_required": true
     },
