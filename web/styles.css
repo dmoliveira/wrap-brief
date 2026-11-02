@@ -71,3 +71,31 @@ dd { font-size: 0.9375rem; font-weight: 650; }
   a:focus-visible, [tabindex="-1"]:focus-visible { outline-color: Highlight; }
   .preview-label { border: 1px solid CanvasText; }
 }
+
+/* Digest content shares the shell palette and typography; no copied assets. */
+.digest-intro { padding-block: var(--space-5) var(--space-4); }
+.digest-intro h1 { max-width: 22ch; font-size: clamp(2rem, 1.4rem + 2vw, 3rem); }
+.fixture-observation, .reading-note, .story-time, .source-attribution, .withheld { color: var(--muted); font-size: 0.8125rem; }
+.fixture-observation { margin-top: var(--space-1); }
+.reading-note { padding-bottom: var(--space-2); }
+.story-list { list-style: none; padding: 0; margin: 0; }
+.story-card { padding-block: var(--space-4); border-top: 1px solid var(--rule); }
+.story-card h2 { max-width: 38ch; margin-block: var(--space-1); }
+.story-card .eyebrow { margin-bottom: var(--space-1); }
+.story-status { color: var(--accent); font-size: 0.8125rem; font-weight: 650; }
+.source-credit { font-size: 0.9375rem; margin-top: var(--space-2); }
+.story-time { margin-top: var(--space-1); }
+.source-attribution { max-width: var(--measure); }
+.coverage { margin-top: var(--space-2); }
+summary { min-height: 44px; min-width: 44px; padding-block: var(--space-1); cursor: pointer; color: var(--accent); overflow-wrap: anywhere; }
+summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.coverage ul { list-style: none; padding: 0 0 0 var(--space-2); margin: 0; border-left: 2px solid var(--rule); }
+.coverage li { padding-block: var(--space-2); }
+.alternate-title { font-weight: 650; }
+.withheld { margin-top: var(--space-2); }
+.fixture-notice { padding-block: var(--space-3); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; border: 0; clip-path: inset(50%); overflow: clip; white-space: nowrap; }
+
+@media (forced-colors: active) {
+  summary:focus-visible { outline-color: Highlight; }
+}
