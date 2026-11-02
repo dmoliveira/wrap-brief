@@ -1792,7 +1792,7 @@
         "design-token-contrast",
         "shell-mobile-keyboard"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1824,9 +1824,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T06.01-reader-shell.md"
+        ],
+        "checks": [
+          {
+            "name": "design-token-contrast",
+            "result": "pass",
+            "evidence": "docs/evidence/T06.01-reader-shell.md"
+          },
+          {
+            "name": "shell-mobile-keyboard",
+            "result": "pass",
+            "evidence": "docs/evidence/T06.01-reader-shell.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T06.01-reader-shell.md"
+        }
       },
       "gate_required": true
     },

@@ -460,7 +460,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T06.01 — Create responsive visual tokens and semantic shell
 
-**Status:** review · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Web maintainer
 **Dependencies:** T02.03
 **Reserved paths:** `web/`, `src/wrap_brief/render/`, `tests/render/`, `docs/specs/reader-experience.md`, `docs/evidence/T06.01-reader-shell.md`, `README.md`, `docs/index.md`
@@ -476,6 +476,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T06.01.1** Translate UX spec into a small token set — `done`. Done when: Typography, spacing and accent colors pass contrast targets.
 - [x] **T06.01.2** Build semantic responsive shell — `done`. Done when: Header/content/footer reflow cleanly from mobile to desktop.
 - [x] **T06.01.3** Validate long text and focus states — `done`. Done when: No clipped links/labels or invisible keyboard focus.
+
+**Completion evidence:** [docs/evidence/T06.01-reader-shell.md](../../docs/evidence/T06.01-reader-shell.md)
 
 ### T06.02 — Render grouped digest with accessible alternate sources
 
