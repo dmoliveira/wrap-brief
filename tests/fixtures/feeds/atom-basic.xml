@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Synthetic Atom fixtures only</title><id>urn:synthetic:feed</id><updated>2026-01-02T12:15:00Z</updated>
+<entry><title>Fictional console update announced 🎮</title><id>urn:synthetic:atom-001</id><link rel="self" href="https://example.org/api/entry-001"/><link rel="alternate" type="text/html" href="https://example.org/news/update"/><published>2026-01-02T13:00:00+01:00</published><updated>2026-01-02T12:10:00Z</updated></entry>
+<entry><title type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Fictional console <strong>preview</strong></div></title><id>urn:synthetic:atom-002</id><link href="https://example.org/news/preview"/><updated>2026-01-01T18:00:00Z</updated></entry>
+</feed>

@@ -749,7 +749,10 @@
       "owner": "Data maintainer",
       "paths": [
         "tests/fixtures/",
-        "tests/contracts/"
+        "tests/contracts/",
+        "docs/evidence/T02.03-fixtures.md",
+        "docs/index.md",
+        "README.md"
       ],
       "depends_on": [
         "T02.01"
@@ -765,35 +768,57 @@
         "fixture-contracts",
         "fixture-public-safety"
       ],
-      "status": "not_started",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T02.03.1",
           "title": "Create representative RSS/Atom fixtures",
           "done_when": "Namespaces, Unicode, missing dates/GUIDs and updates are represented.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T02.03-fixtures.md"
+          ]
         },
         {
           "id": "T02.03.2",
           "title": "Create adversarial/edge fixtures",
           "done_when": "Redirect, encoding, XML expansion, limits and duplicate cases are synthetic.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T02.03-fixtures.md"
+          ]
         },
         {
           "id": "T02.03.3",
           "title": "Publish shared fixture contract",
           "done_when": "Data and UI lanes can work independently on identical expected models.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T02.03-fixtures.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T02.03-fixtures.md"
+        ],
+        "checks": [
+          {
+            "name": "fixture-contracts",
+            "result": "pass",
+            "evidence": "docs/evidence/T02.03-fixtures.md"
+          },
+          {
+            "name": "fixture-public-safety",
+            "result": "pass",
+            "evidence": "docs/evidence/T02.03-fixtures.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T02.03-fixtures.md"
+        }
       },
       "gate_required": true
     },

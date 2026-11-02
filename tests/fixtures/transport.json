@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic",
+  "cases": [
+    {
+      "id": "not-modified",
+      "status": 304,
+      "headers": {
+        "ETag": "synthetic-etag"
+      },
+      "body": null,
+      "expected": "unchanged"
+    },
+    {
+      "id": "rate-limit",
+      "status": 429,
+      "headers": {
+        "Retry-After": "30"
+      },
+      "body": null,
+      "expected": "backoff"
+    },
+    {
+      "id": "server-error",
+      "status": 503,
+      "headers": {},
+      "body": null,
+      "expected": "last_good"
+    },
+    {
+      "id": "approved-redirect",
+      "status": 302,
+      "headers": {
+        "Location": "https://example.com/synthetic-feed.xml"
+      },
+      "body": null,
+      "expected": "revalidate_destination"
+    },
+    {
+      "id": "local-redirect",
+      "status": 302,
+      "headers": {
+        "Location": "https://127.0.0.1/never-fetch"
+      },
+      "body": null,
+      "expected": "reject_destination"
+    },
+    {
+      "id": "timeout",
+      "status": null,
+      "headers": {},
+      "body": null,
+      "expected": "last_good"
+    }
+  ]
+}

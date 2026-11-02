@@ -161,10 +161,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T02.03 — Build synthetic feed and view-model fixtures
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T02.01
-**Reserved paths:** `tests/fixtures/`, `tests/contracts/`
+**Reserved paths:** `tests/fixtures/`, `tests/contracts/`, `docs/evidence/T02.03-fixtures.md`, `docs/index.md`, `README.md`
 
 **Deliverable:** Rights-safe RSS/Atom, hostile input, and renderer fixtures with injected clocks.
 
@@ -174,9 +174,11 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** fixture-contracts, fixture-public-safety.
 
 **Subtasks:**
-- [ ] **T02.03.1** Create representative RSS/Atom fixtures — `not_started`. Done when: Namespaces, Unicode, missing dates/GUIDs and updates are represented.
-- [ ] **T02.03.2** Create adversarial/edge fixtures — `not_started`. Done when: Redirect, encoding, XML expansion, limits and duplicate cases are synthetic.
-- [ ] **T02.03.3** Publish shared fixture contract — `not_started`. Done when: Data and UI lanes can work independently on identical expected models.
+- [x] **T02.03.1** Create representative RSS/Atom fixtures — `done`. Done when: Namespaces, Unicode, missing dates/GUIDs and updates are represented.
+- [x] **T02.03.2** Create adversarial/edge fixtures — `done`. Done when: Redirect, encoding, XML expansion, limits and duplicate cases are synthetic.
+- [x] **T02.03.3** Publish shared fixture contract — `done`. Done when: Data and UI lanes can work independently on identical expected models.
+
+**Completion evidence:** [docs/evidence/T02.03-fixtures.md](../../docs/evidence/T02.03-fixtures.md)
 
 ### T02.04 — Review source feasibility and define the safe prototype boundary
 

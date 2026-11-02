@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic",
+  "observed_at": "2026-01-02T12:30:00Z",
+  "sources": [
+    {
+      "schema_version": 1,
+      "id": "demo-a",
+      "name": "Synthetic Source A",
+      "site_url": "https://example.com/",
+      "feed_url": "https://example.com/synthetic-feed.xml",
+      "allowed_hosts": [
+        "example.com"
+      ],
+      "attribution": "Hand-authored synthetic development data only",
+      "region": "global",
+      "enabled": false,
+      "approval_status": "unreviewed",
+      "approval_ref": null,
+      "reviewed_at": null
+    },
+    {
+      "schema_version": 1,
+      "id": "demo-b",
+      "name": "Synthetic Source B",
+      "site_url": "https://example.org/",
+      "feed_url": "https://example.org/synthetic-feed.xml",
+      "allowed_hosts": [
+        "example.org"
+      ],
+      "attribution": "Hand-authored synthetic development data only",
+      "region": "global",
+      "enabled": false,
+      "approval_status": "unreviewed",
+      "approval_ref": null,
+      "reviewed_at": null
+    },
+    {
+      "schema_version": 1,
+      "id": "demo-c",
+      "name": "Synthetic Source C",
+      "site_url": "https://example.net/",
+      "feed_url": "https://example.net/synthetic-feed.xml",
+      "allowed_hosts": [
+        "example.net"
+      ],
+      "attribution": "Hand-authored synthetic development data only",
+      "region": "global",
+      "enabled": false,
+      "approval_status": "unreviewed",
+      "approval_ref": null,
+      "reviewed_at": null
+    }
+  ],
+  "items": [
+    {
+      "schema_version": 1,
+      "id": "demo-update-a",
+      "source_id": "demo-a",
+      "title": "Fictional console update announced",
+      "url": "https://example.com/news/update",
+      "first_seen_at": "2026-01-02T12:30:00Z",
+      "last_seen_at": "2026-01-02T12:30:00Z",
+      "published_at": "2026-01-02T12:00:00Z",
+      "updated_at": null,
+      "guid": "synthetic-update-a",
+      "status": "retracted",
+      "claim_status": "reported"
+    },
+    {
+      "schema_version": 1,
+      "id": "demo-update-b",
+      "source_id": "demo-b",
+      "title": "Fictional console update announced",
+      "url": "https://example.org/news/update",
+      "first_seen_at": "2026-01-02T12:30:00Z",
+      "last_seen_at": "2026-01-02T12:30:00Z",
+      "published_at": "2026-01-02T12:00:00Z",
+      "updated_at": "2026-01-02T12:30:00Z",
+      "guid": "synthetic-update-b",
+      "status": "corrected",
+      "claim_status": "reported"
+    }
+  ],
+  "clusters": [
+    {
+      "schema_version": 1,
+      "id": "demo-corrected-group",
+      "member_ids": [
+        "demo-update-a",
+        "demo-update-b"
+      ],
+      "lead_id": "demo-update-b",
+      "topic": "hardware",
+      "confidence": "related",
+      "claim_status": "reported",
+      "correction_status": "corrected",
+      "override_ref": null
+    }
+  ]
+}

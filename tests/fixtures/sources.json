@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "schema_version": 1,
+      "id": "demo-a",
+      "name": "Synthetic Source A",
+      "site_url": "https://example.com/",
+      "feed_url": "https://example.com/synthetic-feed.xml",
+      "allowed_hosts": [
+        "example.com"
+      ],
+      "attribution": "Hand-authored synthetic development data only",
+      "region": "global",
+      "enabled": false,
+      "approval_status": "unreviewed",
+      "approval_ref": null,
+      "reviewed_at": null
+    },
+    {
+      "schema_version": 1,
+      "id": "demo-b",
+      "name": "Synthetic Source B",
+      "site_url": "https://example.org/",
+      "feed_url": "https://example.org/synthetic-feed.xml",
+      "allowed_hosts": [
+        "example.org"
+      ],
+      "attribution": "Hand-authored synthetic development data only",
+      "region": "global",
+      "enabled": false,
+      "approval_status": "unreviewed",
+      "approval_ref": null,
+      "reviewed_at": null
+    },
+    {
+      "schema_version": 1,
+      "id": "demo-c",
+      "name": "Synthetic Source C",
+      "site_url": "https://example.net/",
+      "feed_url": "https://example.net/synthetic-feed.xml",
+      "allowed_hosts": [
+        "example.net"
+      ],
+      "attribution": "Hand-authored synthetic development data only",
+      "region": "global",
+      "enabled": false,
+      "approval_status": "unreviewed",
+      "approval_ref": null,
+      "reviewed_at": null
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+<rss><channel><item><title>Synthetic markup probe</title><link>https://example.com/news/markup</link><description><![CDATA[<script>syntheticProbe()</script><img src="https://example.invalid/never-download.png" onerror="syntheticProbe()">]]></description><enclosure url="https://example.invalid/never-download.bin" type="application/octet-stream"/></item></channel></rss>
