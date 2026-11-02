@@ -35,10 +35,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T01.01 — Establish public repository rules and reporting
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Platform maintainer
 **Dependencies:** T00.01
-**Reserved paths:** `.github/`, `SECURITY.md`, `CONTRIBUTING.md`
+**Reserved paths:** `.github/`, `SECURITY.md`, `CONTRIBUTING.md`, `docs/specs/repository-governance.md`, `docs/evidence/T01.01-repository-rules.md`, `tests/test_governance.py`
 
 **Deliverable:** Protected main, PR templates, private vulnerability reporting, public-safe issue guidance and ownership.
 
@@ -48,9 +48,11 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** repository-rule-sandbox, reporting-review.
 
 **Subtasks:**
-- [ ] **T01.01.1** Configure rules and required-check strategy — `not_started`. Done when: Actual account-tier rules are documented and enforced on main.
-- [ ] **T01.01.2** Set contributor and sensitive-reporting paths — `not_started`. Done when: Templates and private reporting route are usable without publishing secrets.
-- [ ] **T01.01.3** Exercise branch/fork behavior — `not_started`. Done when: Test PR and blocked direct-write evidence is recorded.
+- [x] **T01.01.1** Configure rules and required-check strategy — `done`. Done when: Actual account-tier rules are documented and enforced on main.
+- [x] **T01.01.2** Set contributor and sensitive-reporting paths — `done`. Done when: Templates and private reporting route are usable without publishing secrets.
+- [x] **T01.01.3** Exercise branch/fork behavior — `done`. Done when: Test PR and blocked direct-write evidence is recorded.
+
+**Completion evidence:** [docs/evidence/T01.01-repository-rules.md](../../docs/evidence/T01.01-repository-rules.md)
 
 ### T01.02 — Create reproducible Python and local check setup
 

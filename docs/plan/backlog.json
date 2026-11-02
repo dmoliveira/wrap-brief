@@ -335,7 +335,10 @@
       "paths": [
         ".github/",
         "SECURITY.md",
-        "CONTRIBUTING.md"
+        "CONTRIBUTING.md",
+        "docs/specs/repository-governance.md",
+        "docs/evidence/T01.01-repository-rules.md",
+        "tests/test_governance.py"
       ],
       "depends_on": [
         "T00.01"
@@ -351,35 +354,57 @@
         "repository-rule-sandbox",
         "reporting-review"
       ],
-      "status": "not_started",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T01.01.1",
           "title": "Configure rules and required-check strategy",
           "done_when": "Actual account-tier rules are documented and enforced on main.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.01-repository-rules.md"
+          ]
         },
         {
           "id": "T01.01.2",
           "title": "Set contributor and sensitive-reporting paths",
           "done_when": "Templates and private reporting route are usable without publishing secrets.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.01-repository-rules.md"
+          ]
         },
         {
           "id": "T01.01.3",
           "title": "Exercise branch/fork behavior",
           "done_when": "Test PR and blocked direct-write evidence is recorded.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.01-repository-rules.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T01.01-repository-rules.md"
+        ],
+        "checks": [
+          {
+            "name": "repository-rule-sandbox",
+            "result": "pass",
+            "evidence": "docs/evidence/T01.01-repository-rules.md"
+          },
+          {
+            "name": "reporting-review",
+            "result": "pass",
+            "evidence": "docs/evidence/T01.01-repository-rules.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T01.01-repository-rules.md"
+        }
       },
       "gate_required": true
     },
