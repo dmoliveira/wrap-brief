@@ -15,6 +15,8 @@
 ## Decisions
 
 - [ADR 0001: synthetic prototype and private/deletable state](decisions/0001-fixtures-and-private-state.md)
+- [ADR 0002: policy copy and unresolved brand/license/contact gates](decisions/0002-brand-license-policy-gates.md)
+- [Repository-readable prototype policy copy](../content/policies/README.md)
 
 ## Component specifications
 

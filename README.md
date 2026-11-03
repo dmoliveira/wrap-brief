@@ -36,6 +36,7 @@ Output parents must already exist and destinations must be fresh; existing previ
 - [Implemented local snapshot boundary](docs/specs/local-state.md)
 - [Implemented story grouping and lead rules](docs/specs/story-grouping.md)
 - [Offline-prototype and private-state decision](docs/decisions/0001-fixtures-and-private-state.md)
+- [Prototype policy copy and remaining brand/license/contact gates](content/policies/README.md)
 - [All documentation](docs/index.md)
 
 ## Start small
