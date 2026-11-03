@@ -360,7 +360,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T04.04 — Compose explicit collect/build/check CLI stages
 
-**Status:** review · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Platform maintainer
 **Dependencies:** T04.01, T03.04, T05.02
 **Reserved paths:** `src/wrap_brief/pipeline.py`, `src/wrap_brief/cli.py`, `tests/integration/`, `tools/check_wheel.py`, `tools/check_security.py`, `tests/security/test_diagnostics.py`, `.github/workflows/plan.yml`, `Makefile`, `README.md`, `docs/specs/pipeline-cli.md`, `docs/evidence/T04.04-pipeline-cli.md`, `docs/specs/ci-safety.md`, `docs/validation-policy.md`
@@ -376,6 +376,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T04.04.1** Implement orchestration over pure modules — `done`. Done when: Stages do not mix network, grouping, persistence and rendering concerns.
 - [x] **T04.04.2** Add dry-run and safe manifest output — `done`. Done when: Outputs identify code/config/state and health without private fields.
 - [x] **T04.04.3** Test whole-pipeline replay and failure exits — `done`. Done when: Fixture pipeline is deterministic and returns actionable bounded failures.
+
+**Completion evidence:** [docs/evidence/T04.04-pipeline-cli.md](../../docs/evidence/T04.04-pipeline-cli.md)
 
 ## E05 — Identity, story grouping, and editorial trust
 

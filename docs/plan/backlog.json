@@ -1536,7 +1536,7 @@
         "pipeline-fixture-e2e",
         "dry-run-no-write"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1568,9 +1568,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T04.04-pipeline-cli.md"
+        ],
+        "checks": [
+          {
+            "name": "pipeline-fixture-e2e",
+            "result": "pass",
+            "evidence": "docs/evidence/T04.04-pipeline-cli.md"
+          },
+          {
+            "name": "dry-run-no-write",
+            "result": "pass",
+            "evidence": "docs/evidence/T04.04-pipeline-cli.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T04.04-pipeline-cli.md"
+        }
       },
       "gate_required": true
     },
