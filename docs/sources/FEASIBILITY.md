@@ -31,3 +31,5 @@ Research confirmed feed availability separately from these HEAD checks; neither 
 4. Re-review source evidence and clear T02.02 before any live collection/publication. Synthetic-only contracts/fixtures may proceed independently; no candidate from this table is enabled by completing the research task.
 
 This review did not exhaust all gaming publishers or licensed press channels. Additional bounded source research is a valid next action; absence of permission in this candidate set is not proof that the whole product is infeasible. Do not send automated approval requests or publish a manual-link workaround without reviewing its actual rights and scope.
+
+A [2026-11-03 policy-only follow-up](CANDIDATE-RIGHTS-2026-11.md) records conditional IGN linking/feed guidance and several Creative Commons candidates with important unresolved endpoint, attribution, retention and commercial limitations. This additional research approves or enables **zero** sources and does not change the prototype-only decision above.
