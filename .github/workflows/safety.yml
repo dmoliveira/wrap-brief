@@ -1,0 +1,51 @@
+name: Read-only supply-chain diagnostics
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: safety-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  safety:
+    name: Supply-chain diagnostics
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Check out candidate data with complete fetched history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Verify and install fixed scanner binaries
+        run: python3 tools/check_security.py bootstrap --directory "$RUNNER_TEMP/security-bin"
+      - name: Scan exact committed blobs, fetched history and workflow policy
+        run: python3 tools/check_security.py publication --gitleaks "$RUNNER_TEMP/security-bin/gitleaks" --actionlint "$RUNNER_TEMP/security-bin/actionlint"
+      - name: Test adversarial diagnostic fixtures without installing the project
+        env:
+          WRAP_BRIEF_GITLEAKS: ${{ runner.temp }}/security-bin/gitleaks
+        run: python3 -W error::ResourceWarning -m unittest discover -s tests/security -v
+      - name: Validate inventory and emit strict tool-only requirements
+        run: python3 tools/check_security.py inventory --directory "$RUNNER_TEMP/security-input"
+      - name: Set up pinned UV without a shared cache
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+        with:
+          version: "0.13.6"
+          enable-cache: false
+      - name: Verify the project lock without builds
+        run: uv lock --check --no-build --no-config
+      - name: Install only the hash-locked audit tool wheels
+        shell: bash
+        run: |
+          uv venv --python 3.13 "$RUNNER_TEMP/audit-env"
+          uv pip sync --no-config --default-index https://pypi.org/simple --python "$RUNNER_TEMP/audit-env/bin/python" --require-hashes --only-binary :all: --strict "$RUNNER_TEMP/security-input/tool.txt"
+      - name: Audit all locked packages and build, UV and auditor pins without resolution
+        run: python3 tools/check_security.py audit --auditor "$RUNNER_TEMP/audit-env/bin/pip-audit"

@@ -508,7 +508,13 @@
         ".github/",
         "pyproject.toml",
         "uv.lock",
-        "tests/security/"
+        "tests/security/",
+        "tools/check_security.py",
+        "Makefile",
+        "README.md",
+        "docs/specs/ci-safety.md",
+        "docs/evidence/T01.03-ci-safety.md",
+        "docs/validation-policy.md"
       ],
       "depends_on": [
         "T01.01",
@@ -526,28 +532,32 @@
         "credential-history-scan",
         "dependency-review"
       ],
-      "status": "not_started",
-      "block_reason": "",
+      "status": "blocked",
+      "block_reason": "Read-only CI diagnostics and pinned scans delivered in PR #33, but an authorized cross-account malicious-fork drill is unavailable. Only the owner principal is available; verify real fork secret withholding, write/OIDC rejection and unchanged sacrificial state before completing T01.03.3. Candidate-controlled checks are not immutable admission proof; see issue #32 and docs/evidence/T01.03-ci-safety.md.",
       "subtasks": [
         {
           "id": "T01.03.1",
           "title": "Define trust-separated CI permissions",
           "done_when": "No elevated fork checkout or untrusted privileged execution exists.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.03-ci-safety.md"
+          ]
         },
         {
           "id": "T01.03.2",
           "title": "Pin and scan supply chain/public data",
           "done_when": "Action SHAs, dependency locks and credential scanning run in CI.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.03-ci-safety.md"
+          ]
         },
         {
           "id": "T01.03.3",
           "title": "Test malicious contribution scenarios",
           "done_when": "A fork PR cannot deploy, write state, or access credentials.",
-          "status": "not_started",
+          "status": "blocked",
           "evidence": []
         }
       ],
