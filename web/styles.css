@@ -35,6 +35,7 @@ a { color: var(--accent); text-underline-offset: 0.2em; text-decoration-thicknes
 a:hover { text-decoration-thickness: 0.15em; }
 a:focus-visible, [tabindex="-1"]:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 a { display: inline-flex; align-items: center; gap: var(--space-1); min-height: 44px; min-width: 44px; padding-block: var(--space-1); }
+a, summary { scroll-margin: 12px; }
 
 .page { max-width: 66rem; margin-inline: auto; padding-inline: var(--gutter); }
 .site-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); padding-block: var(--space-3); border-bottom: 1px solid var(--rule); }
@@ -59,7 +60,7 @@ dd { font-size: 0.9375rem; font-weight: 650; }
 .site-footer { display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: var(--space-3); border-top: 1px solid var(--rule); padding-block: var(--space-3) var(--space-4); color: var(--muted); font-size: 0.8125rem; }
 .site-footer > div { flex: 1 1 32rem; }
 .working-name { margin-top: var(--space-1); }
-.skip-link { position: absolute; top: var(--space-2); left: var(--gutter); z-index: 1; transform: translateY(-200%); background: var(--surface); padding-inline: var(--space-2); border: 2px solid var(--accent); }
+.skip-link { position: absolute; top: var(--space-2); left: var(--gutter); z-index: 1; transform: translateY(-200%); background: var(--surface); padding-inline: var(--space-2); border: 2px solid var(--accent); max-width: calc(100% - var(--gutter) - var(--gutter)); }
 .skip-link:focus { transform: none; }
 
 @media (min-width: 48rem) {
