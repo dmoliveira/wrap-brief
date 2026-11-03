@@ -53,11 +53,13 @@ def commit(root):
 
 
 def artifacts(root):
-    for case in security.ARTIFACT_CASES:
+    for case in (*security.ARTIFACT_CASES, security.CLI_ARTIFACT_CASE):
         folder = root / case
         folder.mkdir(parents=True)
         (folder / "index.html").write_bytes(b"<p>Synthetic</p>")
         (folder / "styles.css").write_bytes(b"p { color: black; }")
+        if case == security.CLI_ARTIFACT_CASE:
+            (folder / "manifest.json").write_bytes(b'{"schema_version":1}')
 
 
 class DiagnosticTests(unittest.TestCase):
@@ -307,7 +309,7 @@ class DiagnosticTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary).resolve()
             artifacts(root)
-            self.assertEqual(len(security.artifact_tree(root)), 6)
+            self.assertEqual(len(security.artifact_tree(root)), 9)
             file = root / "digest/index.html"
             file.write_bytes(b"x" * 1_048_577)
             with self.assertRaises(security.SecurityError):
@@ -323,6 +325,22 @@ class DiagnosticTests(unittest.TestCase):
                 security.artifact_tree(root)
             file.chmod(0o600)
             (root / "digest/script.js").write_bytes(b"unreviewed")
+            with self.assertRaises(security.SecurityError):
+                security.artifact_tree(root)
+
+    def test_cli_manifest_required_bounded_and_private_envelope_excluded(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            artifacts(root)
+            manifest = root / "cli/manifest.json"
+            manifest.unlink()
+            with self.assertRaises(security.SecurityError):
+                security.artifact_tree(root)
+            manifest.write_bytes(b"x" * 16_385)
+            with self.assertRaises(security.SecurityError):
+                security.artifact_tree(root)
+            manifest.write_bytes(b"{}")
+            (root / "cli/collection.json").write_bytes(b"private synthetic execution input")
             with self.assertRaises(security.SecurityError):
                 security.artifact_tree(root)
 
@@ -451,6 +469,20 @@ class ActualScannerTests(unittest.TestCase):
             self.assertNotIn("merge-only.txt", security.commit_tree(repo))
             with self.assertRaises(security.SecurityError):
                 security.scan(self.scanner, "git", repo, policy)
+
+    def test_cli_json_manifest_credential_is_detected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            public, policy = root / "artifacts", root / "policy"
+            public.mkdir()
+            policy.mkdir()
+            artifacts(public)
+            (public / "cli/manifest.json").write_bytes(b'{"unexpected":"' + self.canary + b'"}')
+            staged = root / "staged"
+            staged.mkdir()
+            security.stage(security.artifact_tree(public), staged)
+            with self.assertRaises(security.SecurityError):
+                security.scan(self.scanner, "dir", staged, policy)
 
 
 if __name__ == "__main__":

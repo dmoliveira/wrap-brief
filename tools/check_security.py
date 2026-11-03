@@ -26,7 +26,7 @@ CI_UV = "0.13.6"
 AUDITOR = "2.10.1"
 # Deliberate policy baseline, not a YAML parser. Changes require reviewing the entire workflow.
 WORKFLOWS = {
-    "plan.yml": "d0f19e06a674b79fe27c6927844774c81696ef1303be988e8b35e669a9294686",
+    "plan.yml": "2926d2492ca45735d316e9ed108e886bfa6e793f9c683978fb87e5df8f80769c",
     "safety.yml": "9f56ed028add6490b393e9283643237f10abfe5be8fbd98d4c86d5776ffbb7f9",
 }
 BINARIES = {
@@ -66,6 +66,7 @@ EXTRA_PACKAGES = {
 PIN = r"([a-z0-9]+(?:[-_][a-z0-9]+)*)==([0-9]+(?:\.[0-9]+)*)"
 HASH = r"[a-f0-9]{64}"
 ARTIFACT_CASES = ("digest", "corrected", "empty")
+CLI_ARTIFACT_CASE = "cli"
 
 
 class SecurityError(ValueError):
@@ -429,23 +430,30 @@ def audit(root: Path, auditor: Path) -> None:
         validate_audit(result, expected)
 
 
+def _artifact_names(directory: Path, limit: int) -> set[str]:
+    names = set()
+    for path in directory.iterdir():
+        names.add(path.name)
+        require(len(names) <= limit, "artifact_inventory")
+    return names
+
+
 def artifact_tree(directory: Path) -> dict[str, bytes]:
     require(
         not any(parent.is_symlink() for parent in (directory, *directory.parents)),
         "artifact_symlink",
     )
-    require(
-        {path.name for path in directory.iterdir()} == set(ARTIFACT_CASES), "artifact_inventory"
-    )
+    cases = (*ARTIFACT_CASES, CLI_ARTIFACT_CASE)
+    require(_artifact_names(directory, len(cases)) == set(cases), "artifact_inventory")
     result = {}
-    for case in ARTIFACT_CASES:
+    for case in cases:
         folder = directory / case
         require(not folder.is_symlink() and folder.is_dir(), "artifact_mode")
-        require(
-            {path.name for path in folder.iterdir()} == {"index.html", "styles.css"},
-            "artifact_inventory",
-        )
-        for name, limit in (("index.html", 1_048_576), ("styles.css", 65_536)):
+        files = {"index.html": 1_048_576, "styles.css": 65_536}
+        if case == CLI_ARTIFACT_CASE:
+            files["manifest.json"] = 16_384
+        require(_artifact_names(folder, len(files)) == set(files), "artifact_inventory")
+        for name, limit in files.items():
             path = folder / name
             with os.fdopen(
                 os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK), "rb"

@@ -12,6 +12,17 @@ A [responsive offline shell preview](web/README.md) is also available: open `web
 
 The [fixture-backed grouped digest](docs/specs/digest-renderer.md) now renders synthetic headline/source cards and native alternate-coverage disclosures. Build a local preview with `uv run --locked python tools/build_fixture_site.py digest`, then open `.local/fixture-sites/digest/index.html`. This is hand-authored demonstration content, not real news or a live site. Full-reader accessibility/performance validation remains a separate task.
 
+The [independent offline pipeline CLI](docs/specs/pipeline-cli.md) composes supplied fixture results, current health, fresh grouping and rendering without HTTP, a system clock, database commits or deployment:
+
+```sh
+mkdir -p .local/fixture-sites
+uv run --locked python -B -m wrap_brief.cli collect --previous tests/fixtures/views/empty.json --plan tests/integration/fixtures/poll-plan.json --code-ref 0000000000000000000000000000000000000000 --output .local/cli-collection.json
+uv run --locked python -B -m wrap_brief.cli build --collection .local/cli-collection.json --stylesheet web/styles.css --output .local/fixture-sites/cli
+uv run --locked python -B -m wrap_brief.cli check --collection .local/cli-collection.json --stylesheet web/styles.css --candidate .local/fixture-sites/cli
+```
+
+Output parents must already exist and destinations must be fresh; existing previews/envelopes are never intentionally overwritten. The zero code reference above is a synthetic caller claim, not an attestation. Add `--dry-run` to validate without output creation; `-B` avoids interpreter bytecode writes. Private collection envelopes stay outside candidate/public inventories. Build/check reject all-source failure even when last-good stories exist; no live source/storage/security/accessibility gate is cleared by this fixture workflow.
+
 - [Progress and next ready work](docs/plan/STATUS.md)
 - [Complete epic/task/subtask backlog](docs/plan/BACKLOG.md)
 - [Milestones, parallel lanes, and release gates](docs/plan/new/roadmap.md)

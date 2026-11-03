@@ -1508,7 +1508,17 @@
       "paths": [
         "src/wrap_brief/pipeline.py",
         "src/wrap_brief/cli.py",
-        "tests/integration/"
+        "tests/integration/",
+        "tools/check_wheel.py",
+        "tools/check_security.py",
+        "tests/security/test_diagnostics.py",
+        ".github/workflows/plan.yml",
+        "Makefile",
+        "README.md",
+        "docs/specs/pipeline-cli.md",
+        "docs/evidence/T04.04-pipeline-cli.md",
+        "docs/specs/ci-safety.md",
+        "docs/validation-policy.md"
       ],
       "depends_on": [
         "T04.01",
@@ -1526,35 +1536,57 @@
         "pipeline-fixture-e2e",
         "dry-run-no-write"
       ],
-      "status": "not_started",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T04.04.1",
           "title": "Implement orchestration over pure modules",
           "done_when": "Stages do not mix network, grouping, persistence and rendering concerns.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T04.04-pipeline-cli.md"
+          ]
         },
         {
           "id": "T04.04.2",
           "title": "Add dry-run and safe manifest output",
           "done_when": "Outputs identify code/config/state and health without private fields.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T04.04-pipeline-cli.md"
+          ]
         },
         {
           "id": "T04.04.3",
           "title": "Test whole-pipeline replay and failure exits",
           "done_when": "Fixture pipeline is deterministic and returns actionable bounded failures.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T04.04-pipeline-cli.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T04.04-pipeline-cli.md"
+        ],
+        "checks": [
+          {
+            "name": "pipeline-fixture-e2e",
+            "result": "pass",
+            "evidence": "docs/evidence/T04.04-pipeline-cli.md"
+          },
+          {
+            "name": "dry-run-no-write",
+            "result": "pass",
+            "evidence": "docs/evidence/T04.04-pipeline-cli.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T04.04-pipeline-cli.md"
+        }
       },
       "gate_required": true
     },

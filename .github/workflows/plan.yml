@@ -42,12 +42,15 @@ jobs:
         run: make test-wheel
       - name: Verify fixed scanner binaries for synthetic public outputs
         run: python3 tools/check_security.py bootstrap --directory "$RUNNER_TEMP/artifact-security-bin"
-      - name: Build and scan the exact synthetic HTML and CSS output inventory
+      - name: Build, check and scan the exact synthetic candidate inventory
         shell: bash
         run: |
           for case in digest corrected empty; do
             uv run --locked python tools/build_fixture_site.py "$case"
           done
+          uv run --locked python -B -m wrap_brief.cli collect --previous tests/fixtures/views/empty.json --plan tests/integration/fixtures/poll-plan.json --code-ref "$GITHUB_SHA" --output .local/cli-collection.json
+          uv run --locked python -B -m wrap_brief.cli build --collection .local/cli-collection.json --stylesheet web/styles.css --output .local/fixture-sites/cli
+          uv run --locked python -B -m wrap_brief.cli check --collection .local/cli-collection.json --stylesheet web/styles.css --candidate .local/fixture-sites/cli
           make check-artifacts GITLEAKS="$RUNNER_TEMP/artifact-security-bin/gitleaks"
       - name: Check change whitespace against first parent
         run: git diff --check HEAD^1 HEAD

@@ -40,9 +40,9 @@ The driver emits validated plain requirements, then invokes the isolated auditor
 
 ## Current public-output inventory
 
-The separate project job builds only the committed synthetic `digest`, `corrected` and `empty` views. `artifacts` requires exactly these three directories and exactly `index.html`/`styles.css` in each: **six files**, no uploads. It rejects symlinks, extra/missing paths, nonregular/executable/hard-linked files, changed reads and oversized HTML (1 MiB) or CSS (64 KiB), then scans a fresh data-only copy. Producers must finish before scanning. The rest of private `.local/` is never scanned or uploaded.
+The separate project job builds the committed synthetic `digest`, `corrected` and `empty` views plus the independently collected/built/checked [CLI candidate](pipeline-cli.md). `artifacts` requires exactly these four directories: legacy `index.html`/`styles.css` pairs and CLI `index.html`/`styles.css`/`manifest.json`, **nine files total**, no uploads. It rejects symlinks, extra/missing paths, nonregular/executable/hard-linked files, changed reads and oversized HTML (1 MiB), CSS (64 KiB) or CLI manifest (16 KiB), then scans a fresh data-only copy. Enumeration fails as soon as an inventory exceeds its fixed count. Producers must finish before scanning. The private execution envelope remains outside this inventory; the rest of `.local/` is never scanned or uploaded.
 
-This covers only today's hand-authored HTML/CSS previews, **not future Pages/RSS/JSON/analytics artifacts**, publisher retention, cache erasure or production artifact approval. Extend the explicit inventory and tests before adding a new public format.
+This covers only today's hand-authored HTML/CSS previews and bounded CLI safe manifest, **not arbitrary/future Pages/RSS/JSON/analytics artifacts**, publisher retention, cache erasure or production artifact approval. Extend the explicit inventory and tests before adding a new public format.
 
 ## Contributor commands and rollback
 
@@ -53,8 +53,8 @@ python3 tools/check_security.py bootstrap --directory .local/security-bin
 make check-publication GITLEAKS=.local/security-bin/gitleaks ACTIONLINT=.local/security-bin/actionlint
 ```
 
-The scan targets committed `HEAD`. Build all three synthetic views before `make check-artifacts GITLEAKS=.local/security-bin/gitleaks`; existing preview directories must not be overwritten. Use `inventory --directory <fresh-private-directory>` to emit strict `tool.txt`/`all.txt`, install the tool-only hash lock as CI does, then `make audit-dependencies AUDITOR=<isolated-pip-audit-path>`.
+The scan targets committed `HEAD`. Build all three legacy views and the CLI candidate as CI does before `make check-artifacts GITLEAKS=.local/security-bin/gitleaks`; existing preview directories must not be overwritten. Use `inventory --directory <fresh-private-directory>` to emit strict `tool.txt`/`all.txt`, install the tool-only hash lock as CI does, then `make audit-dependencies AUDITOR=<isolated-pip-audit-path>`.
 
-Actual scanner regressions require `WRAP_BRIEF_GITLEAKS` pointing to the checksum-verified executable; ordinary offline unit runs explicitly skip those four integration tests when it is absent. CI always supplies it in the separate diagnostics job. Synthetic canaries are constructed only in temporary local repositories/output and never pushed or printed.
+Actual scanner regressions require `WRAP_BRIEF_GITLEAKS` pointing to the checksum-verified executable; ordinary offline unit runs explicitly skip those five integration tests when it is absent. CI always supplies it in the separate diagnostics job. Synthetic canaries are constructed only in temporary local repositories/output and never pushed or printed; the new JSON probe covers the CLI manifest too.
 
 Rollback is a reviewed PR revert. No schema, credential, external state, production service or deployment is changed. Preserve existing branch protection; never bypass a required check to repair tooling. Evidence and remaining fork prerequisite: [T01.03](../evidence/T01.03-ci-safety.md).
