@@ -82,6 +82,8 @@ uv run --locked python -c 'from pathlib import Path; from wrap_brief.config impo
 
 `wrap_brief.grouping.stories.group_items` keeps all validated Items as separate source records, forms conservative event clusters and selects a lead using explicit trusted editorial evidence. It preserves automatic group IDs when prior clusters are supplied and never ranks by commercial value. No real-world grouping-accuracy claim is made before the separate benchmark gate.
 
+The standalone [editorial boundary](docs/specs/editorial-controls.md) requires a separately reviewed current ledger for every visible claim and correction, supports sticky retraction/minimal erasure/source-wide exclusion, and requires explicit regrouping before `render_editorial`. It never infers review authority from feed flags or hashes. The legacy fixture CLI does not automatically select/apply that ledger; production integration and current-ledger retention remain separate responsibilities. The [owned synthetic removal exercise](docs/evidence/T05.04-editorial-controls.md) covers local records, exports/backups, HTML/JSON/RSS and artifact/cache copies without claiming hosted or external-copy erasure.
+
 ## Inspect and maintain the plan
 
 Planning tools still use only Python's standard library. The normal Make commands use the locked project environment; an explicit `PYTHON=python3` keeps plan inspection available without installing the package:

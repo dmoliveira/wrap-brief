@@ -9,7 +9,7 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 | Scope | Enabled | Completed tasks |
 | --- | --- | --- |
 | planning | yes | 1/1 (100%) · 0 canceled |
-| mvp | yes | 15/33 (45%) · 0 canceled |
+| mvp | yes | 16/33 (48%) · 0 canceled |
 | growth | no | 0/4 (0%) · 0 canceled |
 | revenue | no | 0/5 (0%) · 0 canceled |
 | future | no | 0/5 (0%) · 0 canceled |
@@ -34,7 +34,7 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 | E02 | Source approval and versioned contracts | 3/4 (75%) · 0 canceled | 9/12 |
 | E03 | Bounded feed collection and normalization | 4/4 (100%) · 0 canceled | 12/12 |
 | E04 | Durable state and pipeline recovery | 2/4 (50%) · 0 canceled | 6/12 |
-| E05 | Identity, story grouping, and editorial trust | 2/4 (50%) · 0 canceled | 6/12 |
+| E05 | Identity, story grouping, and editorial trust | 3/4 (75%) · 0 canceled | 9/12 |
 | E06 | Minimalist static reader experience | 2/4 (50%) · 0 canceled | 6/12 |
 | E07 | CI, scheduled automation, publishing, and monitoring | 0/5 (0%) · 0 canceled | 0/15 |
 | E08 | Security, UX, and live pilot release | 0/4 (0%) · 0 canceled | 0/12 |
@@ -54,7 +54,6 @@ Choose at most two disjoint lanes; readiness is not permission to overlap shared
 
 - **T01.04** — Clear brand, code license, and policy copy (Platform maintainer)
 - **T05.03** — Benchmark grouping and add reviewed split/merge overrides (Editorial maintainer)
-- **T05.04** — Add provenance, corrections and takedown controls (Editorial maintainer)
 
 ## Disabled-scope rules
 

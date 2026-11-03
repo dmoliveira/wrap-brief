@@ -1834,7 +1834,14 @@
       "paths": [
         "content/corrections/",
         "src/wrap_brief/editorial/",
-        "tests/editorial/"
+        "tests/editorial/",
+        "src/wrap_brief/render/digest.py",
+        "tools/check_wheel.py",
+        "docs/specs/editorial-controls.md",
+        "docs/evidence/T05.04-editorial-controls.md",
+        "docs/operations.md",
+        "docs/index.md",
+        "README.md"
       ],
       "depends_on": [
         "T02.01",
@@ -1851,35 +1858,57 @@
         "editorial-provenance",
         "correction-takedown-drill"
       ],
-      "status": "not_started",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T05.04.1",
           "title": "Preserve publisher and claim provenance",
           "done_when": "Attribution and confirmed/reported/rumor labels have explicit source evidence; absent editorial text stays absent.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.04-editorial-controls.md"
+          ]
         },
         {
           "id": "T05.04.2",
           "title": "Implement correction/retraction and exclusion controls",
           "done_when": "Withdrawn or changed claims cannot remain silently promoted and overrides retain traceable provenance.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.04-editorial-controls.md"
+          ]
         },
         {
           "id": "T05.04.3",
           "title": "Exercise source-requested removal",
           "done_when": "The reviewed remedy covers private retention/deletion, public HTML/JSON/RSS, deployment artifacts and owned caches; accidental Git publication is handled as an incident, not a storage mechanism.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.04-editorial-controls.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T05.04-editorial-controls.md"
+        ],
+        "checks": [
+          {
+            "name": "editorial-provenance",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.04-editorial-controls.md"
+          },
+          {
+            "name": "correction-takedown-drill",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.04-editorial-controls.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T05.04-editorial-controls.md"
+        }
       },
       "gate_required": true
     },
