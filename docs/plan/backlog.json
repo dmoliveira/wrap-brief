@@ -579,7 +579,9 @@
         "LICENSE",
         "README.md",
         "content/policies/",
-        "docs/decisions/"
+        "docs/decisions/",
+        "docs/evidence/T01.04-policy-copy.md",
+        "docs/index.md"
       ],
       "depends_on": [
         "T00.01"
@@ -595,29 +597,31 @@
         "brand-license-review",
         "policy-copy-review"
       ],
-      "status": "not_started",
-      "block_reason": "",
+      "status": "blocked",
+      "block_reason": "Policy copy is delivered, but no authorized rights-holder project-license/inbound-terms decision or scoped name/domain clearance exists. A confidential non-security editorial route and actual live-host privacy facts also remain unestablished. Record those owner/rights-holder decisions and evidence before completing the parent; see issue #40 and docs/decisions/0002-brand-license-policy-gates.md. No license, contact or clearance is invented.",
       "subtasks": [
         {
           "id": "T01.04.1",
           "title": "Check Wrap Brief name and independent identity",
           "done_when": "Evidence supports selected name or a documented rename before launch.",
-          "status": "not_started",
+          "status": "blocked",
           "evidence": []
         },
         {
           "id": "T01.04.2",
           "title": "Select project license and contribution terms",
           "done_when": "License scope is clear and excludes third-party content.",
-          "status": "not_started",
+          "status": "blocked",
           "evidence": []
         },
         {
           "id": "T01.04.3",
           "title": "Write privacy, source, correction and disclaimer copy",
           "done_when": "Reader-facing policy text accurately reflects the no-tracking pilot.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T01.04-policy-copy.md"
+          ]
         }
       ],
       "completion": {
