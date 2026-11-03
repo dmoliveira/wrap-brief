@@ -1227,7 +1227,7 @@
         "incremental-polling",
         "truncation-and-outage"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1259,9 +1259,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T03.04-incremental-polling.md"
+        ],
+        "checks": [
+          {
+            "name": "incremental-polling",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.04-incremental-polling.md"
+          },
+          {
+            "name": "truncation-and-outage",
+            "result": "pass",
+            "evidence": "docs/evidence/T03.04-incremental-polling.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T03.04-incremental-polling.md"
+        }
       },
       "gate_required": true
     },

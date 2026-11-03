@@ -273,7 +273,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T03.04 — Add incremental polling, health and gap detection
 
-**Status:** review · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T03.01, T03.03
 **Reserved paths:** `src/wrap_brief/ingest/`, `tests/ingest/`, `docs/specs/incremental-polling.md`, `docs/evidence/T03.04-incremental-polling.md`, `README.md`, `tools/check_wheel.py`
@@ -289,6 +289,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T03.04.1** Persist conditional-request checkpoints — `done`. Done when: ETag/Last-Modified and poll boundaries survive independent runs.
 - [x] **T03.04.2** Implement healthy/degraded/no-new outcomes — `done`. Done when: Source errors preserve prior records; all-source failure stops publication.
 - [x] **T03.04.3** Detect possible feed-window gaps — `done`. Done when: Truncation fixtures produce warnings without false completeness claims.
+
+**Completion evidence:** [docs/evidence/T03.04-incremental-polling.md](../../docs/evidence/T03.04-incremental-polling.md)
 
 ## E04 — Durable state and pipeline recovery
 
