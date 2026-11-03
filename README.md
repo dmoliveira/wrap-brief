@@ -86,6 +86,8 @@ Edit `docs/plan/backlog.json`, then run `make render-plan`. Do not hand-edit gen
 
 `make validate` runs lock consistency, plan checks, all tests, lint, and format checks with the locked Ruff 0.16.2. `make test-plan` selects the planning subset; `make test` includes installed-package checks. `make test-wheel` separately builds and installs the wheel in a temporary environment outside the checkout; CI requires this packaging check too.
 
+[Read-only CI diagnostics](docs/specs/ci-safety.md) add pinned credential/history, workflow-policy, Python-coordinate advisory and synthetic HTML/CSS scans. They are candidate-controlled checks, not a tamper-proof security admission gate or completed malicious-fork proof; T01.03 remains incomplete until that external drill is evidenced.
+
 ## Public repository safety
 
 Public source does **not** mean public credentials, raw logs, subscriber lists, payment records, or agent databases. Only explicitly public configuration belongs here. Read [SECURITY.md](SECURITY.md) and [the security/privacy spec](docs/specs/security-privacy.md) before adding integrations. Never paste production credentials into issues or pull requests.

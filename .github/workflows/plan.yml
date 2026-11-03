@@ -40,5 +40,14 @@ jobs:
         run: uv run --no-project --python 3.11 python -m unittest discover -s tests -p test_plan.py -v
       - name: Build and install an isolated wheel
         run: make test-wheel
+      - name: Verify fixed scanner binaries for synthetic public outputs
+        run: python3 tools/check_security.py bootstrap --directory "$RUNNER_TEMP/artifact-security-bin"
+      - name: Build and scan the exact synthetic HTML and CSS output inventory
+        shell: bash
+        run: |
+          for case in digest corrected empty; do
+            uv run --locked python tools/build_fixture_site.py "$case"
+          done
+          make check-artifacts GITLEAKS="$RUNNER_TEMP/artifact-security-bin/gitleaks"
       - name: Check change whitespace against first parent
         run: git diff --check HEAD^1 HEAD

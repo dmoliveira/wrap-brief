@@ -77,10 +77,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T01.03 — Add dependency, action, and credential safety checks
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
+**Status:** review · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Platform maintainer
 **Dependencies:** T01.01, T01.02
-**Reserved paths:** `.github/`, `pyproject.toml`, `uv.lock`, `tests/security/`
+**Reserved paths:** `.github/`, `pyproject.toml`, `uv.lock`, `tests/security/`, `tools/check_security.py`, `Makefile`, `README.md`, `docs/specs/ci-safety.md`, `docs/evidence/T01.03-ci-safety.md`, `docs/validation-policy.md`
 
 **Deliverable:** Pinned actions, locked dependencies, dedicated secret/history scanning and least-privilege CI policy.
 
@@ -90,8 +90,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** workflow-policy, credential-history-scan, dependency-review.
 
 **Subtasks:**
-- [ ] **T01.03.1** Define trust-separated CI permissions — `not_started`. Done when: No elevated fork checkout or untrusted privileged execution exists.
-- [ ] **T01.03.2** Pin and scan supply chain/public data — `not_started`. Done when: Action SHAs, dependency locks and credential scanning run in CI.
+- [ ] **T01.03.1** Define trust-separated CI permissions — `review`. Done when: No elevated fork checkout or untrusted privileged execution exists.
+- [ ] **T01.03.2** Pin and scan supply chain/public data — `review`. Done when: Action SHAs, dependency locks and credential scanning run in CI.
 - [ ] **T01.03.3** Test malicious contribution scenarios — `not_started`. Done when: A fork PR cannot deploy, write state, or access credentials.
 
 ### T01.04 — Clear brand, code license, and policy copy

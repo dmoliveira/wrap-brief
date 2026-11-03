@@ -14,9 +14,11 @@ The full local unit target and both supported-version CI unit commands treat `Re
 
 `check-plan` includes task/milestone DAG and exact gate-membership checks, typed state/evidence consistency, local Markdown links, generated views, and limited publication-safety patterns. `make check-plan PYTHON=python3` and `make test-plan PYTHON=python3` remain standard-library-only. None proves future feed/site behavior. Scan the candidate tree/history with a dedicated credential scanner before public delivery; record task-specific evidence under `docs/evidence/` without private paths or logs.
 
+The partial [CI diagnostic slice](specs/ci-safety.md) now implements `check-publication` (exact committed tree, fetched reachable history and frozen workflow/actionlint policy), `check-artifacts` (the six explicitly built synthetic HTML/CSS files) and `audit-dependencies` (complete committed Python coordinates via isolated no-resolution audit tooling). These require the documented pinned tools; they are not implicit network steps in `make validate`. CI supplies verified scanners and runs the four optional real-scanner regressions, which ordinary offline tests skip without an explicit executable path. Candidate-controlled green checks are not immutable admission or cross-account fork-isolation proof.
+
 ## Future product bundles
 
-The targets below describe requirements to implement in E01/E08; they do not exist yet.
+The bundles below remain requirements for the corresponding product/release slices; the diagnostic targets above do not establish those future behaviors or complete the live security gate.
 
 | Risk/slice | Required checks | Review budget |
 | --- | --- | --- |

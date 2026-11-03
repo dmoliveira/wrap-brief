@@ -44,6 +44,7 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 
 ## Active and blocked
 
+- **T01.03** — Add dependency, action, and credential safety checks · review
 - **T02.02** — Approve the first 3–5 sources · blocked · Zero approved live sources. Resolve permitted public fields, attribution, polling, retention/deletion, public rendering/artifacts and commercial restrictions before enabling any source; see docs/sources/FEASIBILITY.md and issue #4.
 - **T06.04** — Prove core accessibility and performance budgets · blocked · Real screen-reader session outstanding: VoiceOver is installed but not running; no-prompt readiness probe returned application-not-running. Authorized real-AT testing is required; automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.
 
@@ -51,7 +52,6 @@ Plan updated: 2026-11-03. **Product is not implemented merely because planning i
 
 Choose at most two disjoint lanes; readiness is not permission to overlap shared files.
 
-- **T01.03** — Add dependency, action, and credential safety checks (Platform maintainer)
 - **T01.04** — Clear brand, code license, and policy copy (Platform maintainer)
 - **T04.04** — Compose explicit collect/build/check CLI stages (Platform maintainer)
 - **T05.03** — Benchmark grouping and add reviewed split/merge overrides (Editorial maintainer)
