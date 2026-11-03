@@ -2,6 +2,8 @@
 
 Status: runbook requirements for future implementation, not an operating service.
 
+An implemented [standalone editorial boundary](specs/editorial-controls.md) and [owned synthetic removal exercise](evidence/T05.04-editorial-controls.md) now support local evidence/controls. They are not configured live operations or hosted deletion. In particular, neither a report receipt nor a current SQLite revision proves erasure or trustworthy current-ledger selection.
+
 ## Schedule and budget
 
 - Default cron: `23 6 * * *` (06:23 UTC). Optional later: `23 6,18 * * *` (06:23/18:23 UTC). Use only one of these schedules.
@@ -36,6 +38,10 @@ Record separately: run start, last source attempt/success, latest story time, va
 | Secret exposure | Revoke first, stop integration, private incident workflow | Tabletop; never publish real secret |
 
 ## Rollback and restore
+
+For editorial remedies, obtain the current **separately reviewed** ledger, retain every effective correction/retraction/erasure/exclusion obligation, and reapply it after polling and **before persistence, rendering or old-snapshot restoration**. Enforce current source health separately. Explicitly regroup and use result-bound `render_editorial`; a validated candidate/Snapshot, hash or CAS version is not authority. The raw LocalState restore API can resurrect content with a current revision and must not bypass this boundary. Do not revert the current ledger merely because application code is rolled back.
+
+Item erasure retains only permitted minimal item/source/time suppression. If source-specific retention terms prohibit even that, use source-wide exclusion (including future IDs), drop per-item state/checkpoints/tombstones and keep the source disabled rather than invent a retention interval. Review the exact private export/backup, public HTML/JSON/RSS, retained artifact and owned-cache inventories. Record `removed`, `not_configured`, `pending` and `failed` separately; pending/failed remedies stay unresolved. No generic filesystem deletion tool is supplied. Real hosted/provider surfaces require their own actual removal evidence when configured. Accidental publisher publication into Git is a private incident under SECURITY.md, not a reason to treat history as normal state or promise deletion of external clones.
 
 1. Stop further state/deploy mutation using the shared workflow lock/disable route.
 2. Select a recorded known-good reviewed code/config SHA and validated private snapshot version. Never fetch arbitrary URLs or execute unreviewed refs from manual inputs.

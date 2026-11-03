@@ -23,6 +23,8 @@
 - [Shared synthetic fixture contract](../tests/fixtures/README.md)
 - [Offline RSS/Atom parser and security budgets](specs/feed-parser.md)
 - [Metadata normalization and quarantine boundary](specs/normalization.md)
+- [Reviewed editorial evidence, corrections and removal boundary](specs/editorial-controls.md)
+- [Owned synthetic editorial/removal exercise evidence](evidence/T05.04-editorial-controls.md)
 - [Exact identity and conservative canonicalization](specs/identity.md)
 - [Logical snapshots and private local prototype state](specs/local-state.md)
 - [Conservative story grouping and lead evidence](specs/story-grouping.md)

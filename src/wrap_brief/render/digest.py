@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from html import escape
 
+from wrap_brief.editorial.controls import EditorialResult
 from wrap_brief.models import Item, Source, _check, validate_references
 from wrap_brief.state.snapshot import MAX_RECORDS, Snapshot
 
@@ -184,8 +185,7 @@ def _story(story: StoryView) -> str:
     return "\n".join(parts)
 
 
-def render_digest(snapshot: Snapshot) -> str:
-    """Return deterministic fixture-only HTML; stylesheet pairing belongs to the caller."""
+def _render(snapshot: Snapshot, editorial_html: str = "") -> str:
     view = digest_view(snapshot)
     cards = "\n".join(_story(story) for story in view.stories)
     content = (
@@ -195,6 +195,7 @@ def render_digest(snapshot: Snapshot) -> str:
     )
     if view.omitted_groups:
         content += f'<p class="fixture-notice">Groups with unavailable or withdrawn coverage not displayed: {view.omitted_groups}.</p>'
+    content += editorial_html
     html = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -239,3 +240,39 @@ def render_digest(snapshot: Snapshot) -> str:
 """
     _check(len(html.encode("utf-8")) <= MAX_HTML_BYTES, "render", "HTML byte limit")
     return html
+
+
+def render_digest(snapshot: Snapshot) -> str:
+    """Return deterministic fixture-only HTML; stylesheet pairing belongs to the caller."""
+    return _render(snapshot)
+
+
+def render_editorial(result: EditorialResult) -> str:
+    """Render result-bound reviewed records; the caller supplies trusted current authority."""
+    _check(type(result) is EditorialResult, "editorial", "bound editorial result required")
+    result.validate()
+    labels = {
+        "reported": "Reported claim evidence",
+        "confirmed": "Confirmed by source — claim evidence",
+        "rumor": "Rumor — unconfirmed claim evidence",
+        "correct": "Correction acknowledged",
+        "retract": "Coverage withdrawn following review",
+    }
+    records = []
+    for notice in result.notices:
+        target = f" · Item <code>{_e(notice.item_id)}</code>" if notice.item_id is not None else ""
+        records.append(
+            f"<li><p>{_e(labels[notice.kind])}{target} · Reviewed {_time(notice.reviewed_at)}"
+            f" · Record <code>{_e(notice.public_ref)}</code></p></li>"
+        )
+    section = (
+        (
+            '\n<section id="editorial-records" aria-labelledby="editorial-records-title">'
+            '<h2 id="editorial-records-title">Editorial records</h2>'
+            "<p>Reviewed source labels and correction references, not original reporting. References are shown as text, not fetched or implied working links.</p>"
+            "<ul>" + "\n".join(records) + "</ul></section>"
+        )
+        if records
+        else ""
+    )
+    return _render(result.snapshot, section)

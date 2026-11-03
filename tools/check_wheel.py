@@ -27,6 +27,11 @@ from wrap_brief.grouping.stories import group_items
 from wrap_brief.render.digest import render_digest
 from wrap_brief.ingest.http import fetch_feed
 from wrap_brief.ingest.polling import reduce_polls
+from wrap_brief.editorial.controls import ClaimEvidence, ControlLedger, CorrectionControl, apply_controls, metadata_reference
+from wrap_brief.editorial.removal import SURFACES, RemovalReport, SurfaceRemoval
+from wrap_brief.grouping.stories import LeadEvidence
+from wrap_brief.pipeline import Collection, build
+from wrap_brief.render.digest import render_editorial
 
 package = distribution('wrap-brief')
 assert package.requires == ['defusedxml==0.7.1'], 'Unexpected runtime dependencies'
@@ -69,6 +74,26 @@ dry = Path.cwd() / 'dry-collection.json'
 assert cli('collect', '--previous', inputs / 'previous.json', '--plan', inputs / 'plan.json',
            '--code-ref', '0' * 40, '--output', dry, '--dry-run')['dry_run']
 assert not dry.exists()
+state = build(Collection.from_json(collection.read_bytes()), (inputs / 'styles.css').read_bytes()).snapshot
+ref = 'content/corrections/synthetic-review.md'
+claims = tuple(ClaimEvidence('claim-' + item.id, item.source_id, item.id, 'reported', metadata_reference(item),
+                            state.observed_at, ref + '#claim') for item in state.items)
+target = state.items[0]
+correction = CorrectionControl('correct', target.source_id, 'correct', state.observed_at, item_id=target.id,
+                               metadata_ref=metadata_reference(target), public_notice_ref=ref + '#correction')
+ledger = ControlLedger('wheel', 1, state.observed_at, claims, (correction,))
+batch = apply_controls(state, ledger=ControlLedger.from_json(ledger.to_json()), observed_at=state.observed_at)
+result = batch.finish(clusters=group_items(batch.items, batch.state.sources,
+    lead_evidence=tuple(LeadEvidence(item.id) for item in batch.items), previous_clusters=batch.previous_clusters))
+assert 'Correction acknowledged' in render_editorial(result)
+erase = CorrectionControl('erase', target.source_id, 'erase_item', state.observed_at, item_id=target.id)
+ledger = ControlLedger('wheel', 2, state.observed_at, tuple(value for value in claims if value.item_id != target.id), (erase,))
+batch = apply_controls(state, ledger=ledger, observed_at=state.observed_at)
+assert target.id not in {item.id for item in batch.items}
+assert target.id in {value.item_id for value in batch.state.tombstones}
+report = RemovalReport('wheel', 'operator_reported', state.observed_at,
+    tuple(SurfaceRemoval(surface, 'not_configured', 0, 0, state.observed_at, ref + '#removal') for surface in sorted(SURFACES)))
+assert RemovalReport.from_json(report.to_json()).resolved
 print('Wheel installation and import outside checkout: passed')
 """
 
