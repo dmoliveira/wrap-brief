@@ -35,7 +35,7 @@ This is **configured-policy/static evidence**, not an executed cross-account for
 - Public bug/improvement templates warn before reproduction details; blanks are disabled to keep the private security route prominent. Issue templates do not sanitize what someone eventually submits: reporters/maintainers must still review attachments and redact sensitive material.
 - `SECURITY.md` and issue contact links point to GitHub's private report route, `security/advisories/new`. API inspection confirms private vulnerability reporting is enabled. No fabricated advisory is submitted just to exercise the form.
 - If that private route is unavailable, do not put secrets, exploit payloads or private logs into a public issue/PR as a fallback. No private email address, response SLA, bounty, safe-harbor or unestablished encryption promise is invented.
-- No new license or inbound contribution agreement is inferred from public visibility. Those decisions remain T01.04; publisher content and source reuse require separate approval.
+- The authorized project-code and contribution license is recorded in [LICENSE](../../LICENSE) and [CONTRIBUTING](../../CONTRIBUTING.md), not inferred from public visibility. Publisher content and source reuse require separate approval; the remaining T01.04 brand and contact gates still apply.
 
 ## Non-destructive protection sandbox
 

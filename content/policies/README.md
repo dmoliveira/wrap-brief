@@ -7,4 +7,4 @@ Reviewed scope: **offline synthetic prototype**, not an operating news service. 
 - [Sources, attribution and rights](sources.md)
 - [Corrections and removal requests](corrections.md)
 
-The working name, code/contribution licensing and confidential editorial contact are still unresolved. See [the recorded decisions and blockers](../../docs/decisions/0002-brand-license-policy-gates.md). Website navigation/rendering belongs to T06.03; writing this copy does not complete that integration or approve a source.
+The working name and confidential editorial contact remain unresolved. The project has adopted an [MIT code license](../../LICENSE) and [contribution terms](../../CONTRIBUTING.md); source and trademark rights remain separate. See [the recorded decisions and blockers](../../docs/decisions/0002-brand-license-policy-gates.md). Website navigation/rendering belongs to T06.03; writing this copy does not complete that integration or approve a source.

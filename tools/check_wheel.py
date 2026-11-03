@@ -3,8 +3,14 @@
 from __future__ import annotations
 
 import os
+import re
+import stat
 import subprocess
+import tarfile
 import tempfile
+import tomllib
+import zipfile
+from email.parser import BytesParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,6 +43,11 @@ from wrap_brief.grouping.overrides import GroupingDecision, GroupingPlan, Overri
 from wrap_brief.grouping.benchmark import GoldScenario, evaluate
 
 package = distribution('wrap-brief')
+assert package.metadata.get_all('License-Expression') == ['MIT']
+assert package.metadata.get_all('License-File') == ['LICENSE']
+license_files = [file for file in package.files if file.as_posix().endswith('.dist-info/licenses/LICENSE')]
+assert len(license_files) == 1
+assert package.locate_file(license_files[0]).read_bytes() == (Path(sys.argv[2]) / 'LICENSE').read_bytes()
 assert package.requires == ['defusedxml==0.7.1'], 'Unexpected runtime dependencies'
 assert SourceRegistry().enabled_sources == ()
 assert SCHEMA_VERSION == 1
@@ -116,6 +127,120 @@ print('Wheel installation and import outside checkout: passed')
 """
 
 
+def verify_metadata(data: bytes, readme: bytes) -> None:
+    metadata = BytesParser().parsebytes(data)
+    if metadata.defects or metadata.get_all("Metadata-Version") != ["2.4"]:
+        raise SystemExit("Archive metadata is malformed or not PEP 639 compatible")
+    if metadata.get_all("License") is not None:
+        raise SystemExit("Archive metadata has a conflicting legacy license field")
+    if metadata.get_all("License-Expression") != ["MIT"]:
+        raise SystemExit("Archive license expression is not MIT")
+    if metadata.get_all("License-File") != ["LICENSE"]:
+        raise SystemExit("Archive does not declare the expected license file")
+    if data.split(b"\n\n", 1)[-1].rstrip(b"\n") != readme.rstrip(b"\n"):
+        raise SystemExit("Archive metadata does not include the expected README")
+
+
+def verify_archives(output: Path) -> None:
+    """Inspect both distribution scopes without extracting archive paths."""
+    sdists = list(output.glob("*.tar.gz"))
+    wheels = list(output.glob("*.whl"))
+    if len(sdists) != 1 or len(wheels) != 1:
+        raise SystemExit("Expected exactly one source distribution and one wheel")
+    readme = (ROOT / "README.md").read_bytes()
+    license_text = (ROOT / "LICENSE").read_bytes()
+    project_bytes = (ROOT / "pyproject.toml").read_bytes()
+    project = tomllib.loads(project_bytes.decode("utf-8"))["project"]
+    distribution_name = re.sub(r"[-_.]+", "_", project["name"]).lower()
+    if not re.fullmatch(r"[0-9]+(?:\.[0-9]+)*", project["version"]):
+        raise SystemExit("Package version requires a reviewed archive naming rule")
+    distribution_info = f"{distribution_name}-{project['version']}.dist-info/"
+    source_root = ROOT / "src"
+    sources = {
+        path.relative_to(source_root).as_posix(): path.read_bytes()
+        for path in (source_root / "wrap_brief").rglob("*.py")
+    }
+    prefix = sdists[0].name.removesuffix(".tar.gz") + "/"
+    with tarfile.open(sdists[0], "r:gz") as archive:
+        members = archive.getmembers()
+        names = [member.name for member in members]
+        if len(names) != len(set(names)):
+            raise SystemExit("Source distribution contains duplicate members")
+        if any(not (member.isfile() or member.isdir()) for member in members):
+            raise SystemExit("Source distribution contains a non-regular member")
+        for member in members:
+            parts = member.name.rstrip("/").split("/")
+            if "\\" in member.name or any(part in {"", ".", ".."} for part in parts):
+                raise SystemExit("Source distribution contains an unsafe path")
+            if member.mode != (0o755 if member.isdir() else 0o644):
+                raise SystemExit("Source distribution contains an unsafe mode")
+        files = {member.name: member for member in members if member.isfile()}
+        expected = {
+            prefix + name
+            for name in (
+                "LICENSE",
+                "README.md",
+                "PKG-INFO",
+                "pyproject.toml",
+                "pyproject.toml.orig",
+            )
+        } | {prefix + "src/" + name for name in sources}
+        expected_dirs = {
+            "/".join(name.split("/")[:index])
+            for name in expected
+            for index in range(1, len(name.split("/")))
+        }
+        if set(files) != expected or set(names) != expected | expected_dirs:
+            raise SystemExit("Unexpected source-distribution contents")
+
+        def read(name: str) -> bytes:
+            stream = archive.extractfile(files[prefix + name])
+            if stream is None:
+                raise SystemExit("Missing source-distribution member")
+            with stream:
+                return stream.read()
+
+        if read("LICENSE") != license_text or read("README.md") != readme:
+            raise SystemExit("Source distribution has different license or README")
+        if any(read(name) != project_bytes for name in ("pyproject.toml", "pyproject.toml.orig")):
+            raise SystemExit("Source distribution has different build configuration")
+        if any(read("src/" + name) != content for name, content in sources.items()):
+            raise SystemExit("Source distribution has different project code")
+        verify_metadata(read("PKG-INFO"), readme)
+
+    with zipfile.ZipFile(wheels[0]) as archive:
+        entries = archive.infolist()
+        all_names = [entry.filename for entry in entries]
+        if len(all_names) != len(set(all_names)):
+            raise SystemExit("Wheel contains duplicate members")
+        for entry in entries:
+            parts = entry.filename.rstrip("/").split("/")
+            if "\\" in entry.filename or any(part in {"", ".", ".."} for part in parts):
+                raise SystemExit("Wheel contains an unsafe path")
+            expected_mode = (stat.S_IFDIR | 0o755) if entry.is_dir() else (stat.S_IFREG | 0o644)
+            if entry.create_system != 3 or entry.external_attr >> 16 != expected_mode:
+                raise SystemExit("Wheel contains an unsafe member type or mode")
+        expected = set(sources) | {
+            distribution_info + "METADATA",
+            distribution_info + "WHEEL",
+            distribution_info + "RECORD",
+            distribution_info + "licenses/LICENSE",
+        }
+        expected_dirs = {
+            "/".join(name.split("/")[:index]) + "/"
+            for name in expected
+            for index in range(1, len(name.split("/")))
+        }
+        if set(all_names) != expected | expected_dirs:
+            raise SystemExit("Unexpected wheel contents")
+        if archive.read(distribution_info + "licenses/LICENSE") != license_text:
+            raise SystemExit("Wheel contains a different license")
+        if any(archive.read(name) != content for name, content in sources.items()):
+            raise SystemExit("Wheel contains different project code")
+        verify_metadata(archive.read(distribution_info + "METADATA"), readme)
+    print("Source and wheel license scope, metadata and contents: passed")
+
+
 def main() -> None:
     environment = {
         key: value
@@ -148,12 +273,14 @@ def main() -> None:
         wheels = list(output.glob("*.whl"))
         if len(wheels) != 1:
             raise SystemExit("Expected exactly one built wheel")
+        verify_archives(output)
         inputs = directory / "inputs"
         inputs.mkdir()
         for source, name in (
             ("tests/fixtures/views/empty.json", "previous.json"),
             ("tests/integration/fixtures/poll-plan.json", "plan.json"),
             ("web/styles.css", "styles.css"),
+            ("LICENSE", "LICENSE"),
         ):
             (inputs / name).write_bytes((ROOT / source).read_bytes())
         subprocess.run(
