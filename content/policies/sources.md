@@ -12,6 +12,6 @@ No full article text, excerpts, publisher images, Nintendo artwork or automatic 
 
 ## Separate rights and remedies
 
-Any eventual project code license would cover only its expressly authorized scope, **not publisher content, trademarks or third-party assets**. No project-specific code license has yet been adopted.
+The project's [MIT code license](../../LICENSE) covers project-owned code and project-owned documentation distributed with it, **not publisher content, trademarks, third-party assets or separately licensed dependencies**. Source rights remain a separate review; the code license does not approve a feed.
 
 If reuse rights change or a reviewed correction/removal obligation applies, affected collection/output must be paused or restricted until resolved. Remedies must cover applicable private records/exports/backups, public output, retained artifacts and owned caches. A local synthetic drill does not prove hosted erasure, and we cannot promise deletion of external mirrors or clones. See [corrections and reporting limits](corrections.md) and the [current source investigation](../../docs/sources/FEASIBILITY.md).

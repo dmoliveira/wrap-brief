@@ -578,9 +578,16 @@
       "paths": [
         "LICENSE",
         "README.md",
+        "CONTRIBUTING.md",
+        "pyproject.toml",
+        "tools/check_wheel.py",
+        "tests/test_foundation.py",
+        "tests/test_license.py",
+        "tests/test_license_archives.py",
         "content/policies/",
         "docs/decisions/",
         "docs/evidence/T01.04-policy-copy.md",
+        "docs/specs/repository-governance.md",
         "docs/index.md"
       ],
       "depends_on": [
@@ -598,7 +605,7 @@
         "policy-copy-review"
       ],
       "status": "blocked",
-      "block_reason": "Policy copy is delivered, but no authorized rights-holder project-license/inbound-terms decision or scoped name/domain clearance exists. A confidential non-security editorial route and actual live-host privacy facts also remain unestablished. Record those owner/rights-holder decisions and evidence before completing the parent; see issue #40 and docs/decisions/0002-brand-license-policy-gates.md. No license, contact or clearance is invented.",
+      "block_reason": "Policy copy and authorized MIT code/contribution licensing are delivered, but U.S. name/domain clearance, a confidential non-security editorial route and actual live-host privacy facts remain unestablished. Complete those remaining checks and decisions before the parent; see issue #40 and docs/decisions/0002-brand-license-policy-gates.md.",
       "subtasks": [
         {
           "id": "T01.04.1",
@@ -611,8 +618,11 @@
           "id": "T01.04.2",
           "title": "Select project license and contribution terms",
           "done_when": "License scope is clear and excludes third-party content.",
-          "status": "blocked",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "LICENSE",
+            "docs/evidence/T01.04-policy-copy.md"
+          ]
         },
         {
           "id": "T01.04.3",

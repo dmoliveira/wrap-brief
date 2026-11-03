@@ -101,7 +101,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Status:** blocked · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** low · **Size:** S
 **Owner:** Platform maintainer
 **Dependencies:** T00.01
-**Reserved paths:** `LICENSE`, `README.md`, `content/policies/`, `docs/decisions/`, `docs/evidence/T01.04-policy-copy.md`, `docs/index.md`
+**Reserved paths:** `LICENSE`, `README.md`, `CONTRIBUTING.md`, `pyproject.toml`, `tools/check_wheel.py`, `tests/test_foundation.py`, `tests/test_license.py`, `tests/test_license_archives.py`, `content/policies/`, `docs/decisions/`, `docs/evidence/T01.04-policy-copy.md`, `docs/specs/repository-governance.md`, `docs/index.md`
 
 **Deliverable:** Working-name checks, explicit code license, attribution/disclaimer/privacy/corrections copy.
 
@@ -112,10 +112,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 **Subtasks:**
 - [ ] **T01.04.1** Check Wrap Brief name and independent identity — `blocked`. Done when: Evidence supports selected name or a documented rename before launch.
-- [ ] **T01.04.2** Select project license and contribution terms — `blocked`. Done when: License scope is clear and excludes third-party content.
+- [x] **T01.04.2** Select project license and contribution terms — `done`. Done when: License scope is clear and excludes third-party content.
 - [x] **T01.04.3** Write privacy, source, correction and disclaimer copy — `done`. Done when: Reader-facing policy text accurately reflects the no-tracking pilot.
 
-**Block/cancel reason:** Policy copy is delivered, but no authorized rights-holder project-license/inbound-terms decision or scoped name/domain clearance exists. A confidential non-security editorial route and actual live-host privacy facts also remain unestablished. Record those owner/rights-holder decisions and evidence before completing the parent; see issue #40 and docs/decisions/0002-brand-license-policy-gates.md. No license, contact or clearance is invented.
+**Block/cancel reason:** Policy copy and authorized MIT code/contribution licensing are delivered, but U.S. name/domain clearance, a confidential non-security editorial route and actual live-host privacy facts remain unestablished. Complete those remaining checks and decisions before the parent; see issue #40 and docs/decisions/0002-brand-license-policy-gates.md.
 
 ## E02 — Source approval and versioned contracts
 

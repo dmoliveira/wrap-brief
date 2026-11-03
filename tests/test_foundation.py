@@ -13,6 +13,8 @@ class InstalledPackageTests(unittest.TestCase):
     def test_distribution_has_only_approved_runtime_dependencies(self):
         distribution = metadata.distribution("wrap-brief")
         self.assertEqual(distribution.metadata["Name"], "wrap-brief")
+        self.assertEqual(distribution.metadata["License-Expression"], "MIT")
+        self.assertEqual(distribution.metadata.get_all("License-File"), ["LICENSE"])
         self.assertEqual(distribution.requires, ["defusedxml==0.7.1"])
 
     def test_isolated_import_outside_checkout(self):

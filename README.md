@@ -36,7 +36,7 @@ Output parents must already exist and destinations must be fresh; existing previ
 - [Implemented local snapshot boundary](docs/specs/local-state.md)
 - [Implemented story grouping and lead rules](docs/specs/story-grouping.md)
 - [Offline-prototype and private-state decision](docs/decisions/0001-fixtures-and-private-state.md)
-- [Prototype policy copy and remaining brand/license/contact gates](content/policies/README.md)
+- [Prototype policy copy and remaining brand/contact gates](content/policies/README.md)
 - [All documentation](docs/index.md)
 
 ## Start small
@@ -108,4 +108,4 @@ Edit `docs/plan/backlog.json`, then run `make render-plan`. Do not hand-edit gen
 
 Public source does **not** mean public credentials, raw logs, subscriber lists, payment records, or agent databases. Only explicitly public configuration belongs here. Read [SECURITY.md](SECURITY.md) and [the security/privacy spec](docs/specs/security-privacy.md) before adding integrations. Never paste production credentials into issues or pull requests.
 
-Code and third-party feed content need separate licensing decisions. Until an explicit project license is selected in the foundation milestone, public visibility is not a grant of an open-source license. Publisher content is never covered by our eventual code license.
+Project-owned code and project-owned documentation distributed with it, including this README, are licensed under the [MIT License](LICENSE). The notice identifies contributors collectively; it does not transfer copyright. See [contribution terms](CONTRIBUTING.md) for future submissions. This grant does not itself cover other existing non-distributed documentation or non-code fixtures. Publisher content, trademarks, third-party assets and separately licensed dependencies are not relicensed by the project's MIT grant. Source reuse remains separately gated.
