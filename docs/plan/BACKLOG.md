@@ -273,10 +273,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T03.04 — Add incremental polling, health and gap detection
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Data maintainer
 **Dependencies:** T03.01, T03.03
-**Reserved paths:** `src/wrap_brief/ingest/`, `tests/ingest/`
+**Reserved paths:** `src/wrap_brief/ingest/`, `tests/ingest/`, `docs/specs/incremental-polling.md`, `docs/evidence/T03.04-incremental-polling.md`, `README.md`, `tools/check_wheel.py`
 
 **Deliverable:** Per-source checkpoints, 304 handling, last-good fallback and possible truncation warnings.
 
@@ -286,9 +286,11 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** incremental-polling, truncation-and-outage.
 
 **Subtasks:**
-- [ ] **T03.04.1** Persist conditional-request checkpoints — `not_started`. Done when: ETag/Last-Modified and poll boundaries survive independent runs.
-- [ ] **T03.04.2** Implement healthy/degraded/no-new outcomes — `not_started`. Done when: Source errors preserve prior records; all-source failure stops publication.
-- [ ] **T03.04.3** Detect possible feed-window gaps — `not_started`. Done when: Truncation fixtures produce warnings without false completeness claims.
+- [x] **T03.04.1** Persist conditional-request checkpoints — `done`. Done when: ETag/Last-Modified and poll boundaries survive independent runs.
+- [x] **T03.04.2** Implement healthy/degraded/no-new outcomes — `done`. Done when: Source errors preserve prior records; all-source failure stops publication.
+- [x] **T03.04.3** Detect possible feed-window gaps — `done`. Done when: Truncation fixtures produce warnings without false completeness claims.
+
+**Completion evidence:** [docs/evidence/T03.04-incremental-polling.md](../../docs/evidence/T03.04-incremental-polling.md)
 
 ## E04 — Durable state and pipeline recovery
 
