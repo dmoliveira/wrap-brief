@@ -77,7 +77,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T01.03 — Add dependency, action, and credential safety checks
 
-**Status:** review · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
+**Status:** blocked · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** high · **Size:** S
 **Owner:** Platform maintainer
 **Dependencies:** T01.01, T01.02
 **Reserved paths:** `.github/`, `pyproject.toml`, `uv.lock`, `tests/security/`, `tools/check_security.py`, `Makefile`, `README.md`, `docs/specs/ci-safety.md`, `docs/evidence/T01.03-ci-safety.md`, `docs/validation-policy.md`
@@ -90,9 +90,11 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** workflow-policy, credential-history-scan, dependency-review.
 
 **Subtasks:**
-- [ ] **T01.03.1** Define trust-separated CI permissions — `review`. Done when: No elevated fork checkout or untrusted privileged execution exists.
-- [ ] **T01.03.2** Pin and scan supply chain/public data — `review`. Done when: Action SHAs, dependency locks and credential scanning run in CI.
-- [ ] **T01.03.3** Test malicious contribution scenarios — `not_started`. Done when: A fork PR cannot deploy, write state, or access credentials.
+- [x] **T01.03.1** Define trust-separated CI permissions — `done`. Done when: No elevated fork checkout or untrusted privileged execution exists.
+- [x] **T01.03.2** Pin and scan supply chain/public data — `done`. Done when: Action SHAs, dependency locks and credential scanning run in CI.
+- [ ] **T01.03.3** Test malicious contribution scenarios — `blocked`. Done when: A fork PR cannot deploy, write state, or access credentials.
+
+**Block/cancel reason:** Read-only CI diagnostics and pinned scans delivered in PR #33, but an authorized cross-account malicious-fork drill is unavailable. Only the owner principal is available; verify real fork secret withholding, write/OIDC rejection and unchanged sacrificial state before completing T01.03.3. Candidate-controlled checks are not immutable admission proof; see issue #32 and docs/evidence/T01.03-ci-safety.md.
 
 ### T01.04 — Clear brand, code license, and policy copy
 
