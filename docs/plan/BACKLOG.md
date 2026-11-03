@@ -447,7 +447,7 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T05.04 — Add provenance, corrections and takedown controls
 
-**Status:** review · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** medium · **Size:** S
 **Owner:** Editorial maintainer
 **Dependencies:** T02.01, T05.02
 **Reserved paths:** `content/corrections/`, `src/wrap_brief/editorial/`, `tests/editorial/`, `src/wrap_brief/render/digest.py`, `tools/check_wheel.py`, `docs/specs/editorial-controls.md`, `docs/evidence/T05.04-editorial-controls.md`, `docs/operations.md`, `docs/index.md`, `README.md`
@@ -463,6 +463,8 @@ Every task also inherits the global definition of done in [delivery workflow](..
 - [x] **T05.04.1** Preserve publisher and claim provenance — `done`. Done when: Attribution and confirmed/reported/rumor labels have explicit source evidence; absent editorial text stays absent.
 - [x] **T05.04.2** Implement correction/retraction and exclusion controls — `done`. Done when: Withdrawn or changed claims cannot remain silently promoted and overrides retain traceable provenance.
 - [x] **T05.04.3** Exercise source-requested removal — `done`. Done when: The reviewed remedy covers private retention/deletion, public HTML/JSON/RSS, deployment artifacts and owned caches; accidental Git publication is handled as an incident, not a storage mechanism.
+
+**Completion evidence:** [docs/evidence/T05.04-editorial-controls.md](../../docs/evidence/T05.04-editorial-controls.md)
 
 ## E06 — Minimalist static reader experience
 

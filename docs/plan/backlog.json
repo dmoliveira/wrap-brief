@@ -1858,7 +1858,7 @@
         "editorial-provenance",
         "correction-takedown-drill"
       ],
-      "status": "review",
+      "status": "done",
       "block_reason": "",
       "subtasks": [
         {
@@ -1890,9 +1890,25 @@
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T05.04-editorial-controls.md"
+        ],
+        "checks": [
+          {
+            "name": "editorial-provenance",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.04-editorial-controls.md"
+          },
+          {
+            "name": "correction-takedown-drill",
+            "result": "pass",
+            "evidence": "docs/evidence/T05.04-editorial-controls.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T05.04-editorial-controls.md"
+        }
       },
       "gate_required": true
     },
