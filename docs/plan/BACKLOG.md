@@ -552,9 +552,9 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Subtasks:**
 - [x] **T06.04.1** Add repeatable browser/static checks — `done`. Done when: Core read/expand/outbound tasks are tested without JS and by keyboard.
 - [x] **T06.04.2** Measure size and mobile rendering — `done`. Done when: Compressed payload, LCP/CLS and test environment are recorded.
-- [ ] **T06.04.3** Fix UX/a11y regressions — `not_started`. Done when: No release-blocking overflow, contrast, focus or source-navigation failure remains.
+- [ ] **T06.04.3** Fix UX/a11y regressions — `blocked`. Done when: No release-blocking overflow, contrast, focus or source-navigation failure remains.
 
-**Block/cancel reason:** Real screen-reader session remains outstanding, and the absence of all release-blocking reader accessibility failures is not established. VoiceOver was installed but not running; a no-prompt readiness probe returned application-not-running. Automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.
+**Block/cancel reason:** A bounded focus-ring repair and synthetic visual checks address observed partial clipping, but the real screen-reader session and a complete reader accessibility assessment remain outstanding. VoiceOver was installed but not running; a no-prompt readiness probe returned application-not-running. Automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.
 
 ## E07 — CI, scheduled automation, publishing, and monitoring
 

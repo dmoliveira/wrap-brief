@@ -108,6 +108,8 @@ class ShellTests(unittest.TestCase):
         self.assertIn("min-width: 44px", self.css)
         self.assertIn("a:focus-visible", self.css)
         self.assertIn("outline: 3px solid var(--accent)", self.css)
+        self.assertIn("a, summary { scroll-margin: 12px; }", self.css)
+        self.assertIn("max-width: calc(100% - var(--gutter) - var(--gutter))", self.css)
         self.assertIn(".skip-link:focus { transform: none; }", self.css)
         self.assertIn("@media (forced-colors: active)", self.css)
         self.assertNotRegex(self.css, r"(?i)(?:min-)?width:\s*[3-9][0-9]{2}px")
