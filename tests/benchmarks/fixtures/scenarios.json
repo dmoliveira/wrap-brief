@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic",
+  "observed_at": "2026-01-04T12:00:00Z",
+  "scenarios": [
+    {
+      "id": "direct_showcase", "category": "direct",
+      "rationale": "Fictional Threadlight Showcase contains two separately announced products: a-c concern the Glass Orchard expansion for Kestrel Quilt; d-e concern Glass Orchard Tactics, a standalone tactics spin-off. Shared franchise, setting and presentation do not make the product announcements one event.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Kestrel Quilt reveals Glass Orchard expansion at Threadlight Showcase"},
+        {"id": "b", "title": "Glass Orchard announced as Kestrel Quilt's next expansion"},
+        {"id": "c", "title": "Threadlight presentation unveils Kestrel Quilt: Glass Orchard add-on"},
+        {"id": "d", "title": "Glass Orchard Tactics, a standalone Kestrel Quilt spin-off, announced at Threadlight"},
+        {"id": "e", "title": "Standalone Glass Orchard Tactics revealed alongside Kestrel Quilt expansion"}
+      ]
+    },
+    {
+      "id": "same_game_release_update", "category": "same_game_events",
+      "rationale": "Fictional Rivet Meadow has two events on January 4: a-c report its full PC launch out of early access at 08:00 UTC; d-e report the later 1.0.1 save-repair hotfix. The launch and subsequent software update are distinct even though they concern the same game on the same day.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Rivet Meadow launches today on PC", "published_at": "2026-01-04T08:00:00Z"},
+        {"id": "b", "title": "Rivet Meadow's full PC release is now available", "published_at": "2026-01-04T08:15:00Z"},
+        {"id": "c", "title": "Rivet Meadow leaves early access with its full PC launch", "published_at": "2026-01-04T08:30:00Z"},
+        {"id": "d", "title": "Rivet Meadow update 1.0.1 repairs the launch-day save bug", "published_at": "2026-01-04T10:00:00Z"},
+        {"id": "e", "title": "First Rivet Meadow hotfix, version 1.0.1, fixes missing saves", "published_at": "2026-01-04T10:15:00Z"}
+      ]
+    },
+    {
+      "id": "review_preview_builds", "category": "review_preview",
+      "rationale": "Fictional critic Mira Quill published two distinct editorial artifacts about Mossrail Atlas: a-c recount the final-build review; d-e recount the earlier unfinished-demo preview. These are reports or excerpts of those respective artifacts, not five independent critiques. The preview is neither an earlier headline nor an update of the review.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Mira Quill's Mossrail Atlas review examines the finished campaign"},
+        {"id": "b", "title": "Mira Quill publishes a final-build verdict on Mossrail Atlas"},
+        {"id": "c", "title": "Review excerpt: Mira Quill assesses Mossrail Atlas's complete release"},
+        {"id": "d", "title": "Mira Quill previews Mossrail Atlas's unfinished demo", "published_at": "2026-01-03T10:00:00Z"},
+        {"id": "e", "title": "Hands-on preview: Mira Quill tries the Mossrail Atlas demo build", "published_at": "2026-01-03T10:15:00Z"}
+      ]
+    },
+    {
+      "id": "localization_launch_demo", "category": "localization",
+      "rationale": "Fictional Lilt Harbor and リルト・ハーバー name the same game. The hand-authored English/Japanese paraphrases a-c report one full-PC-release date announcement; d-e report a separate free-demo date announcement. Both dates are January 22, but full release and demo are distinct products/events, not regional translations of one announcement.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Lilt Harbor full PC launch set for January 22"},
+        {"id": "b", "title": "『リルト・ハーバー』PC版、1月22日発売決定"},
+        {"id": "c", "title": "Lilt Harbor's full PC game arrives January 22"},
+        {"id": "d", "title": "『リルト・ハーバー』PC体験版は1月22日配信"},
+        {"id": "e", "title": "Free PC demo for Lilt Harbor dated January 22"}
+      ]
+    },
+    {
+      "id": "rumor_confirmation_claims", "category": "rumor_confirmation",
+      "rationale": "Entirely fictional: all five items concern Sedge Kite developing Wicker Current 2. a-c are unconfirmed reports based on an alleged memo, published before the announcement; d-e cover the fictional official confirmation of that same development claim. Editorial policy requires separate rumor and confirmed cohorts even for one underlying event. Grouping must not confer confirmation on earlier rumors.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Rumor: Sedge Kite is developing Wicker Current 2", "published_at": "2026-01-04T08:20:00Z", "claim_status": "rumor"},
+        {"id": "b", "title": "Unverified memo suggests Wicker Current 2 is underway at Sedge Kite", "published_at": "2026-01-04T09:30:00Z", "claim_status": "rumor"},
+        {"id": "c", "title": "Wicker Current 2 reportedly in development; alleged memo remains unconfirmed", "published_at": "2026-01-04T09:40:00Z", "claim_status": "rumor"},
+        {"id": "d", "title": "Sedge Kite officially announces Wicker Current 2 is in development", "published_at": "2026-01-04T10:00:00Z", "claim_status": "confirmed"},
+        {"id": "e", "title": "Wicker Current 2 development confirmed in Sedge Kite's official announcement", "published_at": "2026-01-04T10:15:00Z", "claim_status": "confirmed"}
+      ]
+    },
+    {
+      "id": "syndication_two_bulletins", "category": "syndication",
+      "rationale": "In this fictional wire history, a-c are independently hosted reprints, abridgments or translations of one bulletin announcing Moth Compass's console publishing deal for Hollow Loom. d-e derive from a separate bulletin announcing the console release date. Rewording and syndication preserve each bulletin's event; shared publisher and game do not merge the deal with the date announcement.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Moth Compass signs deal to publish Hollow Loom on consoles"},
+        {"id": "b", "title": "Console publishing rights for Hollow Loom go to Moth Compass"},
+        {"id": "c", "title": "Moth Compass publiera Hollow Loom sur consoles"},
+        {"id": "d", "title": "Hollow Loom console release dated February 12"},
+        {"id": "e", "title": "Moth Compass sets February 12 console launch for Hollow Loom"}
+      ]
+    },
+    {
+      "id": "resurfacing_two_outages", "category": "resurfacing",
+      "rationale": "Fictional a-c describe the January 1 Cloudspool queue outage, resolved that day. c is that old report with an archive-metadata update on January 4, not a new incident. d-e describe a distinct January 4 outage more than 48 hours later. Repeated symptoms and an identical headline do not merge the two outages; the archive update does not move the first event forward.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Cloudspool matchmaking goes offline after queue failure", "published_at": "2026-01-01T09:00:00Z"},
+        {"id": "b", "title": "Queue fault knocks Cloudspool multiplayer offline", "published_at": "2026-01-01T09:15:00Z"},
+        {"id": "c", "title": "Cloudspool matchmaking offline: January 1 outage report", "published_at": "2026-01-01T09:30:00Z", "updated_at": "2026-01-04T09:50:00Z"},
+        {"id": "d", "title": "Cloudspool matchmaking goes offline after queue failure", "published_at": "2026-01-04T10:00:00Z"},
+        {"id": "e", "title": "Queue fault knocks Cloudspool multiplayer offline again", "published_at": "2026-01-04T10:15:00Z"}
+      ]
+    },
+    {
+      "id": "tracking_notice_variants", "category": "tracking",
+      "rationale": "Fictional a-c report the opening of Lumen Ferry's public demo; d-e report a later notice extending its deadline from January 7 to January 11. URLs within each cohort differ only in tracking parameters. All rows have separate helper-generated source identities; query variants do not create extra events, and the extension is not the opening notice.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Lumen Ferry's playable demo opens today", "published_at": "2026-01-04T09:00:00Z", "url": "https://example.com/tracking_notice_variants/demo-launch?utm_source=amber&utm_campaign=demo"},
+        {"id": "b", "title": "Try Lumen Ferry now: public demo goes live", "published_at": "2026-01-04T09:05:00Z", "url": "https://example.com/tracking_notice_variants/demo-launch?utm_campaign=demo&utm_source=blue"},
+        {"id": "c", "title": "Lumen Ferry demo is available to download", "published_at": "2026-01-04T09:10:00Z", "url": "https://example.com/tracking_notice_variants/demo-launch?utm_source=coral&utm_campaign=demo&ref=frontpage"},
+        {"id": "d", "title": "Lumen Ferry demo window extended through January 11", "published_at": "2026-01-04T10:00:00Z", "url": "https://example.com/tracking_notice_variants/demo-extension?utm_source=amber&utm_campaign=demo"},
+        {"id": "e", "title": "Extra time to play: Lumen Ferry demo stays open until January 11", "published_at": "2026-01-04T10:10:00Z", "url": "https://example.com/tracking_notice_variants/demo-extension?utm_campaign=demo&utm_source=blue"}
+      ]
+    },
+    {
+      "id": "corrections_release_hotfix", "category": "corrections",
+      "rationale": "Fictional a-c cover the single Ochre Circuit 1.4 release. a preserves an early, subsequently corrected PC-only headline; b supplies the platform-timing correction and c the corrected facts. d-e cover the separately issued 1.4.1 hotfix, not an edit to the 1.4 report. Correcting the release report is not itself a new software release.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Ochre Circuit 1.4 rolls out on PC only", "published_at": "2026-01-04T08:00:00Z", "updated_at": "2026-01-04T09:00:00Z", "status": "corrected"},
+        {"id": "b", "title": "Correction: Ochre Circuit 1.4 console build shipped with PC, not later", "published_at": "2026-01-04T09:00:00Z", "updated_at": "2026-01-04T09:05:00Z", "status": "corrected"},
+        {"id": "c", "title": "Ochre Circuit 1.4 lands simultaneously on PC and consoles", "published_at": "2026-01-04T09:15:00Z"},
+        {"id": "d", "title": "Ochre Circuit 1.4.1 hotfix ships to fix the new map", "published_at": "2026-01-04T10:00:00Z"},
+        {"id": "e", "title": "Version 1.4.1 arrives for Ochre Circuit after 1.4", "published_at": "2026-01-04T10:10:00Z"}
+      ]
+    },
+    {
+      "id": "editions_preorders", "category": "editions",
+      "rationale": "Fictional Quiet Meridian has two independently announced storefront offers: a-c announce Collector's Edition preorders, including a map and tin; d-e announce Standard Edition preorders for the base game. Both open January 9. These are separate edition offers, not alternate names for one SKU or a single offer with optional extras.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Quiet Meridian Collector's Edition preorders open January 9"},
+        {"id": "b", "title": "Reserve the Quiet Meridian collector box from January 9"},
+        {"id": "c", "title": "Map-and-tin Quiet Meridian Collector's Edition gets January 9 preorder start"},
+        {"id": "d", "title": "Quiet Meridian Standard Edition preorders open January 9"},
+        {"id": "e", "title": "Base-game edition of Quiet Meridian can be reserved January 9"}
+      ]
+    },
+    {
+      "id": "versions_numbered_releases", "category": "versions",
+      "rationale": "Fictional a-c cover Thimble Orbit version 2.10's release on the current branch; d-e cover the separately shipped version 2.1 on a maintained legacy branch. Both repair save synchronization. 2.10 and 2.1 are distinct version labels, not decimal equivalents or truncated spellings; a similar fix does not turn these two branch releases into one event.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Thimble Orbit update 2.10 fixes save synchronization"},
+        {"id": "b", "title": "Thimble Orbit v2.10 arrives with a save-sync repair"},
+        {"id": "c", "title": "Save-sync patch released as Thimble Orbit 2.10"},
+        {"id": "d", "title": "Thimble Orbit update 2.1 fixes save synchronization"},
+        {"id": "e", "title": "Save-sync repair lands in Thimble Orbit v2.1"}
+      ]
+    },
+    {
+      "id": "ambiguity_hidden_context", "category": "ambiguity",
+      "rationale": "Fictional context fixes the labels: a-c concern restoration of Northglass's PC realm after a storage migration; d-e concern restoration of its console realm after an unrelated certificate rotation. These are independent January 4 maintenance events. Generic headlines intentionally omit realm and cause, so title-only evidence cannot resolve the split; the supplied context, not a guessed similarity rule, establishes it.",
+      "gold_groups": [["a", "b", "c"], ["d", "e"]],
+      "items": [
+        {"id": "a", "title": "Northglass servers return after maintenance"},
+        {"id": "b", "title": "Maintenance ends as Northglass servers come back"},
+        {"id": "c", "title": "Northglass servers are back online after maintenance"},
+        {"id": "d", "title": "Northglass servers return after maintenance"},
+        {"id": "e", "title": "Northglass service restored following maintenance"}
+      ]
+    }
+  ]
+}

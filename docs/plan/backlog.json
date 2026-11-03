@@ -1776,7 +1776,16 @@
       "paths": [
         "tests/benchmarks/",
         "config/overrides/",
-        "src/wrap_brief/grouping/"
+        "src/wrap_brief/grouping/",
+        "tests/grouping/test_overrides.py",
+        "tests/grouping/test_stories.py",
+        "tools/measure_grouping_fixture.py",
+        "tools/check_wheel.py",
+        "Makefile",
+        "README.md",
+        "docs/specs/story-grouping.md",
+        "docs/specs/grouping-evaluation.md",
+        "docs/evidence/T05.03-grouping-evaluation.md"
       ],
       "depends_on": [
         "T05.02"
@@ -1792,29 +1801,31 @@
         "grouping-gold-benchmark",
         "override-replay"
       ],
-      "status": "not_started",
-      "block_reason": "",
+      "status": "blocked",
+      "block_reason": "Reviewed override/replay and measurement APIs are delivered as a partial slice, but no qualifying rights-safe independently adjudicated real-event corpus or actual >=100-pair >=98%-precision result exists. Frozen synthetic measurement predicts zero merges (undefined precision, zero recall), not a passing gold benchmark. Supply the authorized real corpus and qualifying measurements before completing T05.03.1/.2 or the parent; see issue #38 and docs/evidence/T05.03-grouping-evaluation.md.",
       "subtasks": [
         {
           "id": "T05.03.1",
           "title": "Label representative real-event metadata pairs",
           "done_when": "Rights-safe benchmark covers event/edition/rumor/correction edge cases.",
-          "status": "not_started",
+          "status": "blocked",
           "evidence": []
         },
         {
           "id": "T05.03.2",
           "title": "Measure and tune conservative thresholds",
           "done_when": "Precision, recall, sample size and false merges are reported.",
-          "status": "not_started",
+          "status": "blocked",
           "evidence": []
         },
         {
           "id": "T05.03.3",
           "title": "Implement split/merge and disable controls",
           "done_when": "Reviewed overrides survive reruns without deleting source provenance.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T05.03-grouping-evaluation.md"
+          ]
         }
       ],
       "completion": {

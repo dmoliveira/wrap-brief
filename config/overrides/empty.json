@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "grouping-overrides",
+  "id": "synthetic-empty-example",
+  "revision": 1,
+  "reviewed_at": "2026-01-04T12:00:00Z",
+  "decisions": []
+}
