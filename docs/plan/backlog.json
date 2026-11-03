@@ -2196,21 +2196,25 @@
         "performance-budget"
       ],
       "status": "blocked",
-      "block_reason": "Real screen-reader session outstanding: VoiceOver is installed but not running; no-prompt readiness probe returned application-not-running. Authorized real-AT testing is required; automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.",
+      "block_reason": "Real screen-reader session remains outstanding, and the absence of all release-blocking reader accessibility failures is not established. VoiceOver was installed but not running; a no-prompt readiness probe returned application-not-running. Automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.",
       "subtasks": [
         {
           "id": "T06.04.1",
           "title": "Add repeatable browser/static checks",
           "done_when": "Core read/expand/outbound tasks are tested without JS and by keyboard.",
-          "status": "in_progress",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T06.04-reader-validation.md"
+          ]
         },
         {
           "id": "T06.04.2",
           "title": "Measure size and mobile rendering",
           "done_when": "Compressed payload, LCP/CLS and test environment are recorded.",
-          "status": "in_progress",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T06.04-reader-validation.md"
+          ]
         },
         {
           "id": "T06.04.3",
