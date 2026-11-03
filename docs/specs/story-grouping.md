@@ -1,12 +1,12 @@
 # Conservative offline story grouping, version 1
 
-This heuristic stage groups validated Items, not raw metadata or article bodies. It has no I/O, state writes, new dependency, AI, source activation or quality certification. Real-pair accuracy measurement and manual split/merge overrides remain T05.03 before live release.
+This heuristic stage groups validated Items, not raw metadata or article bodies. It has no I/O, state writes, new dependency, AI, source activation or quality certification. The partial [T05.03 evaluation/override component](grouping-evaluation.md) supplies measurement and a reviewed manual adapter; real-pair accuracy qualification remains blocked before live release.
 
 ## Matching and bounds
 
 Feature extraction uses NFC/casefolded alphanumeric words, unique salient tokens after a fixed stopword list, exact number/version strings, quoted entity phrases, event type and a conservative rumor signal. Event precedence is review → preview → delay → release-date → update → Direct presentation → announcement → business → other. Explicit confirmed input suppresses keyword-only rumor inference; words alone never create confirmation.
 
-All pairs must agree on event type, rumor state, number/version and edition markers, and fall within 48 hours using publication or explicitly labeled first-seen fallback for matching only. Quoted entity phrases must be compatible. Non-identical canonical URLs require at least two salient tokens, a non-generic entity token and Jaccard similarity ≥0.85; unknown-event matches require identical salient sets. Canonical URI equality preserves every query field (no tracking cleanup shortcut) and never bypasses event/claim/time checks. This cannot override a source-specific stricter identity policy.
+All pairs must agree on event type, rumor state, number/version and edition markers, and fall within 48 hours using publication or explicitly labeled first-seen fallback for matching only. Quoted entity phrases must be compatible. Known-event matches across different canonical URLs require at least two salient tokens, a non-generic entity token and Jaccard similarity ≥0.85. After a measured synthetic ambiguity finding, unknown/`other` events require canonical-URI equality rather than merely identical headline tokens. Canonical URI equality preserves every query field (no tracking cleanup shortcut) and never bypasses event/claim/time/number/edition/quote checks. This cannot override a source-specific stricter identity policy; it is a conservative uncertainty guard, not a real-world accuracy certification.
 
 Deterministic time/ID processing uses complete-link placement: every member must match every other member. No transitive chaining. Inputs are bounded at 10,000 Items/previous clusters/evidence records; a bucket over 100 members fails rather than truncates. A day/event/rumor/numeric/edition index searches adjacent UTC days across the 48-hour boundary.
 
@@ -14,7 +14,9 @@ Deterministic time/ID processing uses complete-link placement: every member must
 
 Previous automatic clusters may contain expired members; absent members are ignored. Prior IDs must be unique and a current item cannot belong to multiple prior groups. Different prior groups never merge automatically. A new item compatible with multiple buckets remains a locked singleton instead of arbitrarily bridging groups.
 
-Prior members that become incompatible split. Preserve the old ID for the partition containing its old lead; otherwise select greatest retained overlap, then the lexicographically smallest member tuple. Other/new groups receive deterministic versioned IDs with collision disambiguation; expired prior IDs are not silently recycled in that call. Manual-confidence prior groups are rejected until the separate override adapter is implemented.
+Prior members that become incompatible split. Preserve the old ID for the partition containing its old lead; otherwise select greatest retained overlap, then the lexicographically smallest member tuple. Other/new groups receive deterministic versioned IDs with collision disambiguation; expired prior IDs are not silently recycled in that call. This raw API continues to reject manual-confidence prior groups: use the separately reviewed override adapter, which validates current coverage before handling manual context. Its output is not automatically admitted by the separate editorial boundary.
+
+`fuzzy_enabled=False` also applies to prior membership placement, so an old fuzzy group cannot bypass the policy switch. Exact canonical-URI grouping still observes all hard semantic/time guards; exact Item identity/replay is unchanged. No alternate Item is deleted by disabling fuzzy grouping.
 
 ## Lead evidence and derived fields
 

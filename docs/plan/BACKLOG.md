@@ -428,10 +428,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T05.03 — Benchmark grouping and add reviewed split/merge overrides
 
-**Status:** not_started · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** medium · **Size:** S
+**Status:** blocked · **Scope:** mvp · **Milestone:** M2 (required) · **Risk:** medium · **Size:** S
 **Owner:** Editorial maintainer
 **Dependencies:** T05.02
-**Reserved paths:** `tests/benchmarks/`, `config/overrides/`, `src/wrap_brief/grouping/`
+**Reserved paths:** `tests/benchmarks/`, `config/overrides/`, `src/wrap_brief/grouping/`, `tests/grouping/test_overrides.py`, `tests/grouping/test_stories.py`, `tools/measure_grouping_fixture.py`, `tools/check_wheel.py`, `Makefile`, `README.md`, `docs/specs/story-grouping.md`, `docs/specs/grouping-evaluation.md`, `docs/evidence/T05.03-grouping-evaluation.md`
 
 **Deliverable:** Labeled benchmark, measured precision/recall, reversible manual corrections.
 
@@ -441,9 +441,11 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Required checks:** grouping-gold-benchmark, override-replay.
 
 **Subtasks:**
-- [ ] **T05.03.1** Label representative real-event metadata pairs — `not_started`. Done when: Rights-safe benchmark covers event/edition/rumor/correction edge cases.
-- [ ] **T05.03.2** Measure and tune conservative thresholds — `not_started`. Done when: Precision, recall, sample size and false merges are reported.
-- [ ] **T05.03.3** Implement split/merge and disable controls — `not_started`. Done when: Reviewed overrides survive reruns without deleting source provenance.
+- [ ] **T05.03.1** Label representative real-event metadata pairs — `blocked`. Done when: Rights-safe benchmark covers event/edition/rumor/correction edge cases.
+- [ ] **T05.03.2** Measure and tune conservative thresholds — `blocked`. Done when: Precision, recall, sample size and false merges are reported.
+- [x] **T05.03.3** Implement split/merge and disable controls — `done`. Done when: Reviewed overrides survive reruns without deleting source provenance.
+
+**Block/cancel reason:** Reviewed override/replay and measurement APIs are delivered as a partial slice, but no qualifying rights-safe independently adjudicated real-event corpus or actual >=100-pair >=98%-precision result exists. Frozen synthetic measurement predicts zero merges (undefined precision, zero recall), not a passing gold benchmark. Supply the authorized real corpus and qualifying measurements before completing T05.03.1/.2 or the parent; see issue #38 and docs/evidence/T05.03-grouping-evaluation.md.
 
 ### T05.04 — Add provenance, corrections and takedown controls
 

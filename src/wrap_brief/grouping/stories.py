@@ -138,7 +138,7 @@ def _feature(item: Item) -> _Feature:
     )
 
 
-def _compatible(a: _Feature, b: _Feature) -> bool:
+def _compatible(a: _Feature, b: _Feature, *, fuzzy_enabled: bool = True) -> bool:
     if (
         a.event != b.event
         or a.rumor != b.rumor
@@ -154,16 +154,19 @@ def _compatible(a: _Feature, b: _Feature) -> bool:
             return False
     if a.url == b.url:
         return True
+    if not fuzzy_enabled or a.event == "other":
+        return False
     if len(a.tokens) < 2 or len(b.tokens) < 2 or not ((a.tokens & b.tokens) - _GENERIC):
         return False
-    if a.event == "other":
-        return a.tokens == b.tokens
     return len(a.tokens & b.tokens) / len(a.tokens | b.tokens) >= 0.85
 
 
-def _fits(item: Item, bucket: _Bucket, features: dict[str, _Feature]) -> bool:
+def _fits(
+    item: Item, bucket: _Bucket, features: dict[str, _Feature], *, fuzzy_enabled: bool = True
+) -> bool:
     return not bucket.locked and all(
-        _compatible(features[item.id], features[member.id]) for member in bucket.members
+        _compatible(features[item.id], features[member.id], fuzzy_enabled=fuzzy_enabled)
+        for member in bucket.members
     )
 
 
@@ -218,14 +221,60 @@ def _lead(members: Sequence[Item], event: str, evidence: dict[str, LeadEvidence]
     return min(available, key=key)
 
 
+def _cluster(
+    identifier: str,
+    members: tuple[Item, ...],
+    event: str,
+    policies: dict[str, LeadEvidence],
+    features: dict[str, _Feature],
+    *,
+    confidence: str | None = None,
+    override_ref: str | None = None,
+) -> Cluster:
+    lead = _lead(members, event, policies)
+    claim = (
+        "reported"
+        if lead is None
+        else "rumor"
+        if features[lead.id].rumor
+        else "confirmed"
+        if lead.claim_status == "confirmed"
+        else "reported"
+    )
+    correction = (
+        "retracted"
+        if lead is None
+        else "corrected"
+        if any(item.status in {"corrected", "retracted", "removed"} for item in members)
+        else "none"
+    )
+    automatic_confidence = (
+        "exact"
+        if len(members) == 1 or len({features[item.id].url for item in members}) == 1
+        else "related"
+    )
+    return Cluster(
+        identifier,
+        tuple(item.id for item in members),
+        lead.id if lead else None,
+        topic=event,
+        confidence=confidence or automatic_confidence,
+        claim_status=claim,
+        correction_status=correction,
+        override_ref=override_ref,
+    )
+
+
 def group_items(
     items: Sequence[Item],
     sources: Sequence[Source],
     *,
     lead_evidence: Sequence[LeadEvidence],
     previous_clusters: Sequence[Cluster] = (),
+    fuzzy_enabled: bool = True,
 ) -> tuple[Cluster, ...]:
     """Group offline validated metadata conservatively, preserving every current item exactly once."""
+    _check(type(fuzzy_enabled) is bool, "fuzzy_enabled", "boolean required")
     for value, expected, field in (
         (items, Item, "items"),
         (sources, Source, "sources"),
@@ -265,7 +314,9 @@ def group_items(
         )
         parts: list[_Bucket] = []
         for item in sorted(retained, key=lambda i: _sort_key(i, features)):
-            matches = [part for part in parts if _fits(item, part, features)]
+            matches = [
+                part for part in parts if _fits(item, part, features, fuzzy_enabled=fuzzy_enabled)
+            ]
             if len(matches) == 1:
                 _check(len(matches[0].members) < MAX_MEMBERS, "grouping", "member limit")
                 matches[0].members.append(item)
@@ -296,7 +347,7 @@ def group_items(
             b
             for offset in range(-2, 3)
             for b in index.get(_bucket_key(feature, day + offset), ())
-            if _fits(item, b, features)
+            if _fits(item, b, features, fuzzy_enabled=fuzzy_enabled)
         ]
         if len(candidates) == 1:
             _check(len(candidates[0].members) < MAX_MEMBERS, "grouping", "member limit")
@@ -311,36 +362,7 @@ def group_items(
         identifier = bucket.identifier or _new_id(bucket.members, reserved)
         members = tuple(sorted(bucket.members, key=lambda i: i.id))
         event = features[members[0].id].event
-        lead = _lead(members, event, policies)
-        claim = (
-            "reported"
-            if lead is None
-            else "rumor"
-            if features[lead.id].rumor
-            else "confirmed"
-            if lead.claim_status == "confirmed"
-            else "reported"
-        )
-        correction = (
-            "retracted"
-            if lead is None
-            else "corrected"
-            if any(i.status in {"corrected", "retracted", "removed"} for i in members)
-            else "none"
-        )
-        output.append(
-            Cluster(
-                identifier,
-                tuple(i.id for i in members),
-                lead.id if lead else None,
-                topic=event,
-                confidence="exact"
-                if len(members) == 1 or len({features[i.id].url for i in members}) == 1
-                else "related",
-                claim_status=claim,
-                correction_status=correction,
-            )
-        )
+        output.append(_cluster(identifier, members, event, policies, features))
     result = tuple(sorted(output, key=lambda group: group.id))
     validate_references(sources, items, result)
     _check(

@@ -13,6 +13,7 @@ import sys
 import json
 import subprocess
 from datetime import UTC, datetime
+from dataclasses import replace
 from importlib.metadata import distribution
 from pathlib import Path
 import wrap_brief
@@ -32,6 +33,8 @@ from wrap_brief.editorial.removal import SURFACES, RemovalReport, SurfaceRemoval
 from wrap_brief.grouping.stories import LeadEvidence
 from wrap_brief.pipeline import Collection, build
 from wrap_brief.render.digest import render_editorial
+from wrap_brief.grouping.overrides import GroupingDecision, GroupingPlan, OverrideTarget, group_with_overrides, grouping_reference
+from wrap_brief.grouping.benchmark import GoldScenario, evaluate
 
 package = distribution('wrap-brief')
 assert package.requires == ['defusedxml==0.7.1'], 'Unexpected runtime dependencies'
@@ -94,6 +97,21 @@ assert target.id in {value.item_id for value in batch.state.tombstones}
 report = RemovalReport('wheel', 'operator_reported', state.observed_at,
     tuple(SurfaceRemoval(surface, 'not_configured', 0, 0, state.observed_at, ref + '#removal') for surface in sorted(SURFACES)))
 assert RemovalReport.from_json(report.to_json()).resolved
+targets = tuple(OverrideTarget(item.source_id, item.id, grouping_reference(item)) for item in state.items[:2])
+decision = GroupingDecision('wheel-merge', 'merge', targets, state.observed_at, 'config/overrides/README.md#synthetic')
+plan = GroupingPlan('wheel-grouping', 1, state.observed_at, (decision,))
+groups = group_with_overrides(state.items, state.sources,
+    lead_evidence=tuple(LeadEvidence(item.id) for item in state.items),
+    plan=GroupingPlan.from_json(plan.to_json()), observed_at=state.observed_at)
+assert sum(len(group.member_ids) for group in groups) == len(state.items)
+assert any(group.confidence == 'manual' for group in groups)
+gold = GoldScenario('wheel-fixture', 'ambiguity', replace(state, clusters=()),
+    tuple(LeadEvidence(item.id) for item in state.items), tuple((item.id,) for item in state.items),
+    'Artificial wheel smoke, not a real-event benchmark.', 'tests/benchmarks/README.md#labels', state.observed_at)
+measurement = evaluate((gold,), dataset_kind='synthetic', observed_at=state.observed_at)
+assert measurement.counts.pairs == len(state.items) * (len(state.items) - 1) // 2
+assert not measurement.counts.numeric_target_met
+assert measurement.summary()['real_corpus_qualification'] == 'not_assessed'
 print('Wheel installation and import outside checkout: passed')
 """
 
