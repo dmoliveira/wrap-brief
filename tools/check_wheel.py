@@ -52,6 +52,23 @@ assert not Path(wrap_brief.__file__).resolve().is_relative_to(Path(sys.argv[1]).
 assert Path(wrap_brief.__file__).resolve() == Path(
     package.locate_file('wrap_brief/__init__.py')
 ).resolve()
+inputs = Path(sys.argv[2]).resolve()
+assert not inputs.is_relative_to(Path(sys.argv[1]).resolve())
+def cli(*arguments):
+    result = subprocess.run([sys.executable, '-I', '-B', '-m', 'wrap_brief.cli', *map(str, arguments)],
+                            capture_output=True, timeout=15, check=True)
+    assert result.stderr == b''
+    return json.loads(result.stdout)
+collection = Path.cwd() / 'collection.json'
+site = Path.cwd() / 'site'
+assert cli('collect', '--previous', inputs / 'previous.json', '--plan', inputs / 'plan.json',
+           '--code-ref', '0' * 40, '--output', collection)['successful_sources'] == 2
+cli('build', '--collection', collection, '--stylesheet', inputs / 'styles.css', '--output', site)
+assert cli('check', '--collection', collection, '--stylesheet', inputs / 'styles.css', '--candidate', site)['not_deployed']
+dry = Path.cwd() / 'dry-collection.json'
+assert cli('collect', '--previous', inputs / 'previous.json', '--plan', inputs / 'plan.json',
+           '--code-ref', '0' * 40, '--output', dry, '--dry-run')['dry_run']
+assert not dry.exists()
 print('Wheel installation and import outside checkout: passed')
 """
 
@@ -88,6 +105,14 @@ def main() -> None:
         wheels = list(output.glob("*.whl"))
         if len(wheels) != 1:
             raise SystemExit("Expected exactly one built wheel")
+        inputs = directory / "inputs"
+        inputs.mkdir()
+        for source, name in (
+            ("tests/fixtures/views/empty.json", "previous.json"),
+            ("tests/integration/fixtures/poll-plan.json", "plan.json"),
+            ("web/styles.css", "styles.css"),
+        ):
+            (inputs / name).write_bytes((ROOT / source).read_bytes())
         subprocess.run(
             [
                 "uv",
@@ -105,6 +130,7 @@ def main() -> None:
                 "-c",
                 IMPORT_CHECK,
                 str(ROOT),
+                str(inputs),
             ],
             cwd=directory,
             env=environment,
