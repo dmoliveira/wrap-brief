@@ -26,6 +26,7 @@ from wrap_brief.state.local import LocalState
 from wrap_brief.grouping.stories import group_items
 from wrap_brief.render.digest import render_digest
 from wrap_brief.ingest.http import fetch_feed
+from wrap_brief.ingest.polling import reduce_polls
 
 package = distribution('wrap-brief')
 assert package.requires == ['defusedxml==0.7.1'], 'Unexpected runtime dependencies'
@@ -37,6 +38,10 @@ assert stable_item_id('demo-a', 'https://example.com/a').startswith('item-v1-')
 assert callable(Snapshot.from_json) and callable(LocalState)
 assert callable(group_items)
 assert callable(fetch_feed)
+poll_batch = reduce_polls(Snapshot(datetime(2026, 1, 2, tzinfo=UTC)), (),
+                         expected_source_ids=(), observed_at=datetime(2026, 1, 2, tzinfo=UTC))
+assert poll_batch.health == 'no_sources'
+assert poll_batch.to_snapshot(clusters=()).items == ()
 worker = subprocess.run(
     [sys.executable, '-I', '-m', 'wrap_brief.ingest._http_worker'],
     input=b'{}', capture_output=True, timeout=5, check=True,

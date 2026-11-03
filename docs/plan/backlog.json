@@ -1206,7 +1206,11 @@
       "owner": "Data maintainer",
       "paths": [
         "src/wrap_brief/ingest/",
-        "tests/ingest/"
+        "tests/ingest/",
+        "docs/specs/incremental-polling.md",
+        "docs/evidence/T03.04-incremental-polling.md",
+        "README.md",
+        "tools/check_wheel.py"
       ],
       "depends_on": [
         "T03.01",
@@ -1223,29 +1227,35 @@
         "incremental-polling",
         "truncation-and-outage"
       ],
-      "status": "not_started",
+      "status": "review",
       "block_reason": "",
       "subtasks": [
         {
           "id": "T03.04.1",
           "title": "Persist conditional-request checkpoints",
           "done_when": "ETag/Last-Modified and poll boundaries survive independent runs.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.04-incremental-polling.md"
+          ]
         },
         {
           "id": "T03.04.2",
           "title": "Implement healthy/degraded/no-new outcomes",
           "done_when": "Source errors preserve prior records; all-source failure stops publication.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.04-incremental-polling.md"
+          ]
         },
         {
           "id": "T03.04.3",
           "title": "Detect possible feed-window gaps",
           "done_when": "Truncation fixtures produce warnings without false completeness claims.",
-          "status": "not_started",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T03.04-incremental-polling.md"
+          ]
         }
       ],
       "completion": {
