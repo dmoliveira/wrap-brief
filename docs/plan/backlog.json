@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": {
     "name": "Wrap Brief",
-    "updated": "2026-11-03",
+    "updated": "2026-11-15",
     "enabled_scopes": [
       "planning",
       "mvp"
@@ -2179,6 +2179,7 @@
         "tests/browser/",
         "tests/render/",
         "web/",
+        "README.md",
         "docs/evidence/"
       ],
       "depends_on": [
@@ -2195,8 +2196,8 @@
         "browser-a11y-no-js",
         "performance-budget"
       ],
-      "status": "blocked",
-      "block_reason": "A bounded focus-ring repair and synthetic visual checks address observed partial clipping, but the real screen-reader session and a complete reader accessibility assessment remain outstanding. VoiceOver was installed but not running; a no-prompt readiness probe returned application-not-running. Automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.",
+      "status": "done",
+      "block_reason": "",
       "subtasks": [
         {
           "id": "T06.04.1",
@@ -2220,14 +2221,32 @@
           "id": "T06.04.3",
           "title": "Fix UX/a11y regressions",
           "done_when": "No release-blocking overflow, contrast, focus or source-navigation failure remains.",
-          "status": "blocked",
-          "evidence": []
+          "status": "done",
+          "evidence": [
+            "docs/evidence/T06.04-reader-validation.md"
+          ]
         }
       ],
       "completion": {
-        "evidence": [],
-        "checks": [],
-        "review": null
+        "evidence": [
+          "docs/evidence/T06.04-reader-validation.md"
+        ],
+        "checks": [
+          {
+            "name": "browser-a11y-no-js",
+            "result": "pass",
+            "evidence": "docs/evidence/T06.04-reader-validation.md"
+          },
+          {
+            "name": "performance-budget",
+            "result": "pass",
+            "evidence": "docs/evidence/T06.04-reader-validation.md"
+          }
+        ],
+        "review": {
+          "result": "pass",
+          "evidence": "docs/evidence/T06.04-reader-validation.md"
+        }
       },
       "gate_required": true
     },
