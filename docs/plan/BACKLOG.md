@@ -537,10 +537,10 @@ Every task also inherits the global definition of done in [delivery workflow](..
 
 ### T06.04 — Prove core accessibility and performance budgets
 
-**Status:** blocked · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
+**Status:** done · **Scope:** mvp · **Milestone:** M1 (required) · **Risk:** medium · **Size:** S
 **Owner:** Web maintainer
 **Dependencies:** T06.02
-**Reserved paths:** `tests/browser/`, `tests/render/`, `web/`, `docs/evidence/`
+**Reserved paths:** `tests/browser/`, `tests/render/`, `web/`, `README.md`, `docs/evidence/`
 
 **Deliverable:** Repeatable browser/a11y/no-JS and compressed-size checks against fixture site.
 
@@ -552,9 +552,9 @@ Every task also inherits the global definition of done in [delivery workflow](..
 **Subtasks:**
 - [x] **T06.04.1** Add repeatable browser/static checks — `done`. Done when: Core read/expand/outbound tasks are tested without JS and by keyboard.
 - [x] **T06.04.2** Measure size and mobile rendering — `done`. Done when: Compressed payload, LCP/CLS and test environment are recorded.
-- [ ] **T06.04.3** Fix UX/a11y regressions — `blocked`. Done when: No release-blocking overflow, contrast, focus or source-navigation failure remains.
+- [x] **T06.04.3** Fix UX/a11y regressions — `done`. Done when: No release-blocking overflow, contrast, focus or source-navigation failure remains.
 
-**Block/cancel reason:** A bounded focus-ring repair and synthetic visual checks address observed partial clipping, but the real screen-reader session and a complete reader accessibility assessment remain outstanding. VoiceOver was installed but not running; a no-prompt readiness probe returned application-not-running. Automated checks cannot establish spoken behavior. See docs/evidence/T06.04-reader-validation.md.
+**Completion evidence:** [docs/evidence/T06.04-reader-validation.md](../../docs/evidence/T06.04-reader-validation.md)
 
 ## E07 — CI, scheduled automation, publishing, and monitoring
 
